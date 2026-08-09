@@ -1,0 +1,4139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+  <title>Randy &amp; Laurice — The Wedding Times</title>
+  <meta name="description" content="Randy &amp; Laurice are getting married. Read all about it — the story, the programme, the entourage, and how to RSVP.">
+  <meta property="og:title" content="Randy &amp; Laurice — The Wedding Times">
+  <meta property="og:description" content="A special edition. You are invited.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/img/np-cover.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- One stylesheet, one href. The sample had two href attributes on a single
+       <link>, so the second silently won and the real font set never loaded.
+       Cormorant Garamond added because body: declares it. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600;1,700&family=UnifrakturMaguntia&family=IM+Fell+English:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@200;300;400;500&display=swap">
+  <style>
+    :root {
+      /* ── the moodboard palette, sampled from wedding_theme.jpg ── */
+      --emerald:      #005548;
+      --emerald-deep: #00382F;
+      --emerald-mid:  #0A6857;
+      --emerald-pale: #D8E8E3;
+      --burgundy:     #801624;
+      --burgundy-light:#A83349;
+      --rust:         #A73705;
+      --caramel:      #F37D0F;
+      --caramel-light:#F9A94A;
+      --cream:        #D0AC92;
+      --wine-black:   #1F0206;
+      --wine-mid:     #4E1825;
+
+      /* ── newspaper roles, all derived from the palette above ──
+         The paper is printed in wine-black ink on warm cream stock and rests
+         on emerald cloth. No neutral greys anywhere: every "grey" is a
+         desaturated warm tone so nothing reads as cold next to the photos. */
+      --ink:        #1F0206;
+      --ink-mid:    #3D1218;
+      --ink-light:  #6B4038;
+      --ink-faint:  #82624E;   /* darkened from #9A7A66: 3.44:1 -> 4.84:1 on --paper */
+      --paper:      #F7EFE3;
+      --paper-mid:  #F0E3D2;
+      --paper-dark: #E5D3BE;
+      --grey:       #A6866E;
+      --grey-mid:   #CBB49E;
+      --rule:       #1F0206;
+      --rule-thin:  rgba(31, 2, 6, 0.22);
+      --mat:        #00382F;
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+  #newspaper-intro-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 10000;
+    background-color: rgba(31, 2, 6, 0.95);
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    pointer-events: auto;
+    transition: background-color 1.2s ease;
+    cursor: pointer;
+  }
+
+  #physical-paper-container {
+    position: relative;
+    top: 5vh;
+    width: 90%;
+    max-width: 420px;
+    height: 85vh; 
+    transition: transform 1.5s cubic-bezier(0.5, 0, 0.2, 1);
+  }
+
+  #unroll-window {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0%; 
+    overflow: hidden;
+    transition: height 2s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+    border-radius: 2px;
+  }
+
+  #paper-sheet {
+    width: 100%;
+    height: 85vh; 
+    background-color: #F7EFE3;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+    padding: 30px 20px;
+    box-sizing: border-box;
+    border: 1px solid #E0CDB6;
+    box-shadow: 0 15px 35px rgba(31, 2, 6,0.6);
+  }
+
+  #paper-cylinder {
+    position: absolute;
+    top: -30px; 
+    left: -2%;
+    width: 104%;
+    height: 60px;
+    border-radius: 30px;
+    background: linear-gradient(180deg, #E0CDB6 0%, #F7EFE3 20%, #E5D3BE 50%, #E5D3BE 80%, #B79A7E 100%);
+    box-shadow: 0 -10px 20px rgba(31, 2, 6,0.5), 0 10px 15px rgba(31, 2, 6,0.5);
+    z-index: 3;
+    overflow: hidden;
+    transition: top 2s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cylinder-rings {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 12px;
+    background: repeating-linear-gradient(180deg, transparent, transparent 1px, rgba(31, 2, 6,0.08) 2px, transparent 3px);
+  }
+
+  .np-inner-border { border: 1px solid #1F0206; padding: 4px; height: 100%; box-sizing: border-box; }
+  .np-inner-border-2 { border: 1px solid #1F0206; height: 100%; padding: 10px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; }
+  
+  /* clamped, not fixed: the sheet is 90% of the viewport up to 420px, so on a
+     320px phone fixed type wraps the masthead and headline into extra lines and
+     the page stops fitting inside its 85vh */
+  .np-masthead { font-family: 'UnifrakturMaguntia', cursive; font-size: clamp(1.5rem, 8.2vw, 2.2rem); color: #1F0206; margin: 0; text-align: center; line-height: 1; border-bottom: 2px solid #1F0206; padding-bottom: 5px; width: 100%; }
+  .np-date-row { font-family: 'Jost', sans-serif; font-size: 0.55rem; text-transform: uppercase; display: flex; justify-content: space-between; width: 100%; border-bottom: 1px solid #1F0206; padding: 3px 0; margin-bottom: 10px; }
+  .np-headline { font-family: 'Playfair Display', serif; font-size: clamp(1.1rem, 5.7vw, 1.5rem); line-height: 1.1; color: #1F0206; text-align: center; text-transform: uppercase; font-weight: 900; margin: 0 0 10px 0; }
+
+  .np-photo-section {
+    width: 100%;
+    border-top: 1px solid #1F0206;
+    border-bottom: 1px solid #1F0206;
+    padding: 8px 0;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* the sheet is a fixed 85vh, so the plate — not the type — gives up the
+       slack: it grows into spare room and shrinks before anything overflows.
+       min-height:0 defeats the automatic minimum, which is the image's natural
+       height and would push the footer through the inner border on a short
+       screen. Safe only because .np-photo can shrink the whole way down. */
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  .np-photo {
+    width: 100%;
+    height: auto;
+    /* in vh, not px: a fixed cap leaves a hole inside the bordered plate on a
+       tall screen, because the section grows and the image doesn't */
+    max-height: 40vh;
+    object-fit: cover;
+    border: 1px solid #3D1218;
+    flex: 1 1 auto;
+    /* low on purpose: if the plate stops shrinking before its box does, the
+       caption is what spills, and it lands on the lede */
+    min-height: 60px;
+  }
+
+  .np-caption {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(0.68rem, 3.3vw, 0.85rem);
+    font-style: italic;
+    color: #2A0E14;
+    text-align: center;
+    margin: 8px 0 0 0;
+    line-height: 1.3;
+  }
+
+  /* ── INTRO SHEET: the front-page body ──
+     The space under the plate is where a real broadsheet puts its lede, its
+     contents rule and its standing notices. Each of these is a DIRECT child of
+     .np-inner-border-2, so the unroll timeline's stagger picks them up free. */
+
+  .np-lede { width: 100%; margin-bottom: 9px; }
+
+  .np-lede-dateline {
+    display: block;
+    font-family: 'Jost', sans-serif;
+    font-size: .46rem;
+    letter-spacing: .17em;
+    text-transform: uppercase;
+    color: #6B4A42;
+    text-align: center;
+    margin-bottom: 6px;
+  }
+
+  .np-lede-body {
+    font-family: 'Libre Baskerville', serif;
+    font-size: .5rem;
+    line-height: 1.65;
+    color: #3D1218;
+    text-align: justify;
+    hyphens: auto;
+    margin: 0;
+    columns: 2;
+    column-gap: 9px;
+    column-rule: 1px solid rgba(31, 2, 6, .22);
+  }
+
+  /* the same drop cap the articles inside use, scaled to the cover */
+  .np-lede-body::first-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.1rem;
+    font-weight: 900;
+    float: left;
+    line-height: .78;
+    margin: .06em .09em 0 0;
+    color: #1F0206;
+  }
+
+  .np-lede-more {
+    font-family: 'Jost', sans-serif;
+    font-size: .44rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: #6B4A42;
+    text-align: right;
+    margin-top: 5px;
+  }
+
+  /* pays off the "2 Pages" promise in the date row */
+  .np-contents {
+    width: 100%;
+    border-top: 1px solid #1F0206;
+    border-bottom: 1px solid #1F0206;
+    padding: 5px 0 3px;
+    margin-bottom: 8px;
+  }
+
+  .np-contents-label {
+    font-family: 'Jost', sans-serif;
+    font-size: .44rem;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: #1F0206;
+    text-align: center;
+    margin-bottom: 4px;
+  }
+
+  .np-contents-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 12px;
+  }
+
+  .np-contents-list > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 4px;
+    font-family: 'Libre Baskerville', serif;
+    font-size: .48rem;
+    line-height: 1.9;
+    color: #3D1218;
+    border-bottom: 1px dotted rgba(31, 2, 6, .3);
+  }
+
+  .np-contents-list > div:last-child {
+    grid-column: 1 / -1;
+    justify-content: center;
+    gap: 6px;
+    border-bottom: none;
+  }
+
+  .np-contents-list span:last-child {
+    font-family: 'Jost', sans-serif;
+    font-size: .42rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: #6B4A42;
+    white-space: nowrap;
+  }
+
+  /* was an inline style; it needs to answer a media query now */
+  .np-colophon {
+    margin-top: auto;
+    width: 100%;
+    border-top: 1px solid #111;
+    padding-top: 6px;
+    font-family: 'Jost', sans-serif;
+    font-size: .5rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: #555;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .np-notice {
+    width: 100%;
+    font-family: 'Jost', sans-serif;
+    font-size: .44rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: #6B4A42;
+    text-align: center;
+    margin-bottom: 6px;
+  }
+
+  /* Once the plate has shrunk as far as it usefully can, type has to go. The
+     lede is the first to drop; the contents rule and the notice survive longest
+     because they carry information the headline doesn't. */
+  @media (max-height: 700px) {
+    .np-lede { display: none; }
+  }
+
+  @media (max-height: 560px) {
+    .np-contents { display: none; }
+  }
+
+  /* Two columns of ~15 characters stop being a newspaper and start being a mess */
+  @media (max-width: 360px) {
+    .np-lede-body { columns: 1; }
+  }
+
+  /* space-between has nothing left to distribute once the tracking eats the row */
+  @media (max-width: 380px) {
+    .np-colophon { font-size: .44rem; letter-spacing: .08em; }
+    .np-notice { letter-spacing: .1em; }
+  }
+
+  .tap-to-unroll {
+    position: relative; z-index: 4; font-family: 'Jost', sans-serif; font-size: 0.75rem; color: #1F0206; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; animation: pulseBtn 1.5s infinite; transition: opacity 0.3s;
+  }
+
+  @keyframes pulseBtn {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.02); }
+  }
+
+    body {
+      background: #00382F;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      color: var(--ink);
+      font-size: 14px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    .ne-masthead {
+      font-family: 'UnifrakturMaguntia', cursive;
+      font-size: 1.8rem;
+      color: var(--paper);
+      letter-spacing: .04em;
+      margin-bottom: .3rem;
+      text-shadow: 0 0 30px rgba(247, 239, 227, 0.15);
+    }
+
+    .ne-dateline {
+      font-family: 'Libre Baskerville', serif;
+      font-size: .62rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(247, 239, 227, 0.4);
+      margin-bottom: 1.2rem;
+      border-top: 1px solid rgba(247, 239, 227, 0.15);
+      border-bottom: 1px solid rgba(247, 239, 227, 0.15);
+      padding: .3rem 0;
+    }
+
+    .ne-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: var(--paper);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      line-height: 1.2;
+      margin-bottom: .5rem;
+    }
+
+    .ne-subhead {
+      font-family: 'IM Fell English', serif;
+      font-size: .85rem;
+      font-style: italic;
+      color: rgba(247, 239, 227, 0.6);
+      margin-bottom: 1.4rem;
+    }
+
+    .ne-seal {
+      display: inline-flex;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      border: 2px solid rgba(247, 239, 227, 0.3);
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.2rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--paper);
+      letter-spacing: .04em;
+      background: rgba(247, 239, 227, 0.05);
+      transition: all .3s;
+    }
+
+    .ne-cta {
+      font-family: 'Jost', sans-serif;
+      font-size: .68rem;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: rgba(247, 239, 227, 0.35);
+      margin-top: .4rem;
+      animation: pulse 2.2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: .35 }
+      50% { opacity: .9 }
+    }
+
+    /* ── NEWSPAPER WRAPPER ── */
+    .newspaper {
+      max-width: 960px;
+      margin: 0 auto;
+      background: var(--paper);
+      box-shadow: 0 0 80px rgba(31, 2, 6, 0.5), 0 0 0 1px rgba(31, 2, 6, 0.2);
+      position: relative;
+    }
+
+    .newspaper::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse at 0% 0%, rgba(31, 2, 6, 0.06) 0%, transparent 40%),
+        radial-gradient(ellipse at 100% 0%, rgba(31, 2, 6, 0.04) 0%, transparent 35%),
+        radial-gradient(ellipse at 100% 100%, rgba(31, 2, 6, 0.06) 0%, transparent 40%),
+        radial-gradient(ellipse at 0% 100%, rgba(31, 2, 6, 0.04) 0%, transparent 35%);
+    }
+
+    /* ── MASTHEAD ── */
+    .masthead {
+      padding: 1.2rem 2rem .8rem;
+      border-bottom: 3px double var(--ink);
+      position: relative;
+    }
+
+    .mast-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: .62rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: .6rem;
+      padding-bottom: .4rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .mast-tagline {
+      font-style: italic;
+      font-family: 'IM Fell English', serif;
+      font-size: .68rem;
+      color: var(--ink-light);
+    }
+
+    .mast-name-block {
+      text-align: center;
+      padding: .6rem 0 .4rem;
+    }
+
+    .mast-edition {
+      font-family: 'Libre Baskerville', serif;
+      font-size: .6rem;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: .2rem;
+    }
+
+    .mast-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      font-size: clamp(2.8rem, 7vw, 4.5rem);
+      color: var(--ink);
+      line-height: .9;
+    }
+
+    .mast-subtitle {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: .9rem;
+      color: var(--ink-light);
+      margin-top: .3rem;
+      letter-spacing: .06em;
+    }
+
+    .mast-bottom-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: .7rem;
+      padding-top: .5rem;
+      border-top: 1px solid var(--rule);
+      font-size: .6rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+    }
+
+    /* ── RULES ── */
+    .rule-thick { border: none; border-top: 3px solid var(--ink); margin: 0; }
+    .rule-double { border: none; border-top: 3px double var(--ink); }
+    .rule-thin { border: none; border-top: 1px solid var(--ink); }
+    .rule-dashed { border: none; border-top: 1px dashed var(--grey-mid); }
+
+    .rule-ornate {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      margin: .6rem 0;
+    }
+
+    .rule-ornate::before,
+    .rule-ornate::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--ink);
+    }
+
+    .rule-ornate span {
+      font-family: 'Playfair Display', serif;
+      font-size: .7rem;
+      color: var(--ink-light);
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .hs-label {
+      font-size: .55rem;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: .3rem;
+      display: block;
+    }
+
+    .hs-value {
+      font-family: 'Playfair Display', serif;
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.3;
+      display: block;
+    }
+
+    .hs-note {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: .78rem;
+      color: var(--ink-light);
+      margin-top: .2rem;
+      display: block;
+    }
+
+    .hcb-names {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      line-height: 1;
+    }
+
+    .hcb-tagline {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: .85rem;
+      color: rgba(247, 239, 227, 0.65);
+      margin-top: .2rem;
+      letter-spacing: .06em;
+    }
+
+    /* ── MAIN HEADLINE SECTION ── */
+    .headline-section {
+      padding: 1.4rem 2rem 1rem;
+      border-bottom: 2px solid var(--ink);
+      text-align: center;
+    }
+
+    .hl-kicker {
+      font-size: .6rem;
+      letter-spacing: .5em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: .5rem;
+    }
+
+    .hl-main {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      line-height: 1.05;
+      color: var(--ink);
+    }
+
+    .hl-sub {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--ink-light);
+      margin: .4rem 0 .8rem;
+      letter-spacing: .04em;
+    }
+
+    .hl-byline {
+      font-size: .62rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+
+    /* ── COLUMNS GRID ── */
+    /* FIX 2: PC body grid — equal bottom padding so all columns end at same height before hashtag banner */
+    .body-grid {
+      display: grid;
+      grid-template-columns: 1fr 2px 1.5fr 2px 1fr;
+      gap: 0;
+      padding: 0 2rem;
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .col-divider { background: var(--ink); }
+
+    .col {
+      padding: 1.4rem 1.5rem 1.4rem;
+    }
+
+    .col:first-child { padding-left: 0; }
+    .col:last-child { padding-right: 0; }
+
+    /* ── ARTICLE TYPOGRAPHY ── */
+    .art-label {
+      font-size: .56rem;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      display: block;
+      margin-bottom: .4rem;
+    }
+
+    .art-head {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--ink);
+      margin-bottom: .4rem;
+    }
+
+    .art-head.large { font-size: 1.6rem; }
+    .art-head em { font-style: italic; font-weight: 400; }
+
+    .art-subhead {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: .82rem;
+      color: var(--ink-light);
+      margin-bottom: .6rem;
+      line-height: 1.4;
+    }
+
+    .art-byline {
+      font-size: .6rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      padding-bottom: .5rem;
+      margin-bottom: .7rem;
+      border-bottom: 1px solid var(--ink);
+    }
+
+    .art-body {
+      font-family: 'Libre Baskerville', serif;
+      font-size: .82rem;
+      line-height: 1.8;
+      color: var(--ink-mid);
+      text-align: justify;
+      hyphens: auto;
+    }
+
+    .art-body p { margin-bottom: .7rem; }
+
+    .art-body p:first-child::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 900;
+      float: left;
+      line-height: .78;
+      margin: .08em .1em 0 0;
+      color: var(--ink);
+    }
+
+    /* ── PULL QUOTE ── */
+    .pull-quote {
+      border-top: 3px solid var(--ink);
+      border-bottom: 3px solid var(--ink);
+      padding: .8rem .5rem;
+      margin: 1rem 0;
+      text-align: center;
+    }
+
+    .pq-text {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1rem;
+      font-weight: 600;
+      line-height: 1.4;
+      color: var(--ink);
+    }
+
+    .pq-attr {
+      font-size: .6rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-top: .4rem;
+    }
+
+    /* ── PHOTO BLOCK ── */
+    .photo-block {
+      margin: .8rem 0;
+      border: 1px solid var(--ink);
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .photo-block img {
+      width: 100%;
+      display: block;
+      transition: filter .4s;
+    }
+
+
+    .photo-block-placeholder {
+      width: 100%;
+      background: linear-gradient(135deg, #3D1218, #4E1825);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: .4rem;
+      padding: 1.5rem;
+      min-height: 120px;
+    }
+
+    /* FIX 2 (PC): Make bottom-left photo portrait to help equalise column heights */
+    .photo-block-portrait .photo-block-placeholder {
+      min-height: 200px;
+    }
+
+    .photo-block-placeholder svg { opacity: .25; }
+
+    .photo-block-placeholder span {
+      font-family: 'Jost', sans-serif;
+      font-size: .58rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(247, 239, 227, 0.4);
+    }
+
+    .photo-block-placeholder::after {
+      content: '+ add photo';
+      font-family: 'Jost', sans-serif;
+      font-size: .58rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(247, 239, 227, 0.35);
+      border: 1px solid rgba(247, 239, 227, 0.2);
+      padding: .25rem .6rem;
+      transition: all .25s;
+    }
+
+    .photo-block:hover .photo-block-placeholder::after {
+      color: rgba(247, 239, 227, 0.7);
+      border-color: rgba(247, 239, 227, 0.5);
+    }
+
+    .photo-caption {
+      font-size: .62rem;
+      color: var(--ink-faint);
+      font-style: italic;
+      padding: .3rem .5rem;
+      border-top: 1px solid var(--rule-thin);
+      background: var(--paper-mid);
+    }
+
+    /* ── PHOTO CAROUSEL ── */
+    .carousel-wrap {
+      margin-bottom: 1rem;
+      border: 1px solid var(--ink);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .carousel-label {
+      font-size: .52rem;
+      letter-spacing: .38em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      text-align: center;
+      padding: .3rem .5rem;
+      background: var(--paper-mid);
+      border-bottom: 1px solid var(--rule-thin);
+    }
+
+    .carousel-viewport {
+      position: relative;
+      background: #2A0E14;
+      overflow: hidden;
+      aspect-ratio: 16/9;
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform .5s cubic-bezier(.4, 0, .2, 1);
+      height: 100%;
+    }
+
+    .carousel-slide {
+      min-width: 100%;
+      height: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .4s;
+      display: block;
+    }
+
+    .carousel-slide:hover img {
+      transform: scale(1.03);
+    }
+
+    .carousel-slide-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(160deg, #3D1218, #4E1825);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: .4rem;
+    }
+
+    .carousel-slide-placeholder svg { opacity: .18; }
+
+    .carousel-slide-placeholder span {
+      font-family: 'Jost', sans-serif;
+      font-size: .56rem;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: rgba(247, 239, 227, 0.25);
+    }
+
+    .carousel-slide:not(.has-photo) .carousel-slide-placeholder::after {
+      content: '+ add photo';
+      font-family: 'Jost', sans-serif;
+      font-size: .58rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(247, 239, 227, 0.35);
+      margin-top: .3rem;
+      border: 1px solid rgba(247, 239, 227, 0.2);
+      padding: .25rem .6rem;
+      transition: all .25s;
+    }
+
+    .carousel-slide:not(.has-photo):hover .carousel-slide-placeholder::after {
+      color: rgba(247, 239, 227, 0.7);
+      border-color: rgba(247, 239, 227, 0.5);
+    }
+
+    .carousel-num {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      z-index: 3;
+      font-family: 'Libre Baskerville', serif;
+      font-size: .52rem;
+      color: rgba(247, 239, 227, 0.5);
+      background: rgba(31, 2, 6, 0.45);
+      padding: 1px 5px;
+      letter-spacing: .1em;
+      pointer-events: none;
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 5;
+      width: 30px;
+      height: 30px;
+      background: rgba(31, 2, 6, 0.65);
+      border: 1px solid rgba(247, 239, 227, 0.3);
+      color: rgba(247, 239, 227, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all .2s;
+      font-size: .9rem;
+      line-height: 1;
+      user-select: none;
+    }
+
+    .carousel-btn:hover { background: rgba(31, 2, 6, 0.9); color: var(--paper); }
+    .carousel-btn.prev { left: 8px; }
+    .carousel-btn.next { right: 8px; }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+      padding: .45rem .5rem;
+      background: var(--paper-mid);
+      border-top: 1px solid var(--rule-thin);
+    }
+
+    .carousel-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--grey-mid);
+      cursor: pointer;
+      transition: background .25s, transform .25s;
+      border: 1px solid var(--grey);
+    }
+
+    .carousel-dot.active { background: var(--ink); transform: scale(1.3); }
+
+    .carousel-caption {
+      font-size: .6rem;
+      color: var(--ink-faint);
+      font-style: italic;
+      text-align: center;
+      padding: .2rem .5rem .35rem;
+      background: var(--paper-mid);
+    }
+
+    .carousel-input { display: none; }
+
+    /* ── ENTOURAGE LISTING ── */
+    .roster {
+      font-size: .78rem;
+      color: var(--ink-mid);
+      line-height: 2;
+    }
+
+    .roster-head {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: .75rem;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--ink);
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: .2rem;
+      margin-bottom: .4rem;
+      display: block;
+    }
+
+    .roster-name {
+      display: block;
+      padding: .1rem 0;
+    }
+
+    .roster-name::before { content: '— '; color: var(--ink-faint); }
+
+    /* ── SPONSOR PAIRS TABLE ── */
+    .sponsor-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .75rem;
+    }
+
+    .sponsor-table th {
+      font-size: .58rem;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      font-weight: 400;
+      padding: .2rem .3rem;
+      border-bottom: 1px solid var(--ink);
+      text-align: left;
+    }
+
+    .sponsor-table td {
+      padding: .32rem .3rem;
+      border-bottom: 1px solid var(--rule-thin);
+      font-family: 'Libre Baskerville', serif;
+      color: var(--ink-mid);
+      line-height: 1.4;
+    }
+
+    .sponsor-table tr:hover td { background: var(--paper-dark); }
+
+    /* ── ITINERARY ── */
+    .it-row {
+      display: grid;
+      grid-template-columns: 70px 1fr;
+      gap: .5rem;
+      align-items: baseline;
+      padding: .55rem 0;
+      border-bottom: 1px solid var(--rule-thin);
+    }
+
+    .it-row:last-child { border-bottom: none; }
+
+    .it-time {
+      font-size: .62rem;
+      letter-spacing: .08em;
+      color: var(--ink-faint);
+      text-align: right;
+      padding-right: .7rem;
+      border-right: 1px solid var(--ink);
+      font-family: 'Libre Baskerville', serif;
+    }
+
+    .it-event { font-size: .8rem; color: var(--ink-mid); }
+
+    .it-event strong {
+      font-family: 'Playfair Display', serif;
+      display: block;
+      font-size: .88rem;
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    /* ── DRESS CODE BOX ── */
+    .dress-box {
+      border: 2px solid var(--ink);
+      padding: 1rem;
+      text-align: center;
+      margin: .8rem 0;
+      position: relative;
+    }
+
+    .dress-box::before {
+      content: '✦';
+      position: absolute;
+      top: -.55rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--paper);
+      padding: 0 .4rem;
+      font-size: .7rem;
+      color: var(--ink-light);
+    }
+
+    .db-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-size: .85rem;
+      margin-bottom: .5rem;
+    }
+
+    .db-swatches {
+      display: flex;
+      justify-content: center;
+      gap: .6rem;
+      margin: .6rem 0;
+    }
+
+    .db-swatch {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--grey-mid);
+    }
+
+    .db-text { font-size: .75rem; color: var(--ink-mid); line-height: 1.7; }
+
+    .attire-grid {
+      margin-top: .75rem;
+      border-top: 1px solid var(--rule-thin);
+      padding-top: .65rem;
+    }
+
+    .attire-row {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: .4rem;
+      align-items: start;
+      padding: .38rem 0;
+      border-bottom: 1px solid rgba(31, 2, 6, 0.08);
+      text-align: left;
+    }
+
+    .attire-row:last-child { border-bottom: none; }
+
+    .attire-role {
+      font-size: .56rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      font-family: 'Jost', sans-serif;
+      padding-top: .08rem;
+      line-height: 1.5;
+    }
+
+    .attire-desc {
+      font-family: 'Libre Baskerville', serif;
+      font-size: .73rem;
+      color: var(--ink-mid);
+      line-height: 1.55;
+    }
+
+    .attire-swatch-inline {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 1px solid rgba(31, 2, 6, 0.15);
+      vertical-align: middle;
+      margin-right: 2px;
+      position: relative;
+      top: -1px;
+    }
+
+    /* ── HASHTAG BANNER ── */
+    .hashtag-banner {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 1.2rem 2rem;
+      text-align: center;
+      border-bottom: 3px double var(--ink);
+    }
+
+    .hb-label {
+      font-size: .6rem;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: rgba(247, 239, 227, 0.45);
+      margin-bottom: .3rem;
+      display: block;
+    }
+
+    .hb-tag {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.2rem, 3vw, 1.9rem);
+      font-weight: 400;
+      letter-spacing: .04em;
+    }
+
+    .hb-note {
+      font-size: .7rem;
+      color: rgba(247, 239, 227, 0.5);
+      margin-top: .3rem;
+      letter-spacing: .1em;
+    }
+
+    /* ── COUNTDOWN ── */
+    .countdown-strip {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      border-top: 1px solid var(--rule-thin);
+      margin-top: .8rem;
+    }
+
+    .cd-cell {
+      flex: 1;
+      text-align: center;
+      padding: .7rem .4rem;
+      border-right: 1px solid var(--rule-thin);
+    }
+
+    .cd-cell:last-child { border-right: none; }
+
+    .cd-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--ink);
+      display: block;
+      line-height: 1;
+    }
+
+    .cd-lbl {
+      font-size: .55rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      display: block;
+      margin-top: .2rem;
+    }
+
+    /* ── RSVP BOX ── */
+    .rsvp-box {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 1.4rem;
+      text-align: center;
+      margin: .8rem 0;
+      position: relative;
+    }
+
+    .rsvp-box::after {
+      content: '';
+      position: absolute;
+      inset: 4px;
+      border: 1px solid rgba(247, 239, 227, 0.2);
+      pointer-events: none;
+    }
+
+    .rb-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      font-size: 1.1rem;
+      margin-bottom: .5rem;
+    }
+
+    .rb-body {
+      font-size: .78rem;
+      color: rgba(247, 239, 227, 0.65);
+      line-height: 1.7;
+      margin-bottom: .8rem;
+    }
+
+    .rb-deadline {
+      font-size: .6rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(247, 239, 227, 0.4);
+      margin-bottom: .9rem;
+      display: block;
+    }
+
+    .rb-btn {
+      display: inline-block;
+      border: 1px solid rgba(247, 239, 227, 0.6);
+      padding: .55rem 1.6rem;
+      text-decoration: none;
+      font-family: 'Jost', sans-serif;
+      font-size: .7rem;
+      font-weight: 400;
+      letter-spacing: .26em;
+      text-transform: uppercase;
+      color: var(--paper);
+      transition: all .25s;
+    }
+
+    .rb-btn:hover { background: rgba(247, 239, 227, 0.12); }
+
+    /* ── QR CODE SECTION ── */
+    .qr-seat-section {
+      border: 2px solid var(--ink);
+      padding: 1rem;
+      text-align: center;
+      margin: .8rem 0 0;
+      position: relative;
+      background: var(--paper);
+    }
+
+    .qr-seat-section::before {
+      content: '✦';
+      position: absolute;
+      top: -.55rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--paper);
+      padding: 0 .4rem;
+      font-size: .7rem;
+      color: var(--ink-light);
+    }
+
+    .qr-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-size: .9rem;
+      margin-bottom: .3rem;
+      color: var(--ink);
+    }
+
+    .qr-subtitle {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: .75rem;
+      color: var(--ink-light);
+      margin-bottom: .8rem;
+    }
+
+    .qr-canvas-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: .5rem auto;
+    }
+
+    #qr-canvas {
+      border: 6px solid var(--ink);
+      display: block;
+      image-rendering: pixelated;
+    }
+
+    .qr-note {
+      font-size: .62rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-top: .6rem;
+      line-height: 1.6;
+    }
+
+    .qr-tap-btn {
+      display: inline-block;
+      margin-top: .7rem;
+      border: 1px solid var(--ink);
+      padding: .45rem 1.2rem;
+      text-decoration: none;
+      font-family: 'Jost', sans-serif;
+      font-size: .65rem;
+      font-weight: 400;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      color: var(--ink);
+      transition: all .25s;
+      cursor: pointer;
+      background: none;
+    }
+
+    .qr-tap-btn:hover { background: var(--ink); color: var(--paper); }
+
+    /* ── NOTES ITEMS ── */
+    .note-item {
+      padding: .6rem 0;
+      border-bottom: 1px solid var(--rule-thin);
+    }
+
+    .note-item:last-child { border-bottom: none; }
+
+    .ni-head {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: .88rem;
+      color: var(--ink);
+      margin-bottom: .2rem;
+    }
+
+    .ni-text { font-size: .76rem; color: var(--ink-light); line-height: 1.65; }
+
+    /* ── VENUE CARD ── */
+    .venue-card { margin-bottom: 1rem; }
+
+    .vc-label {
+      font-size: .56rem;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      display: block;
+      margin-bottom: .2rem;
+    }
+
+    .vc-name {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--ink);
+      line-height: 1.3;
+      margin-bottom: .2rem;
+    }
+
+    .vc-addr { font-size: .76rem; color: var(--ink-light); line-height: 1.6; margin-bottom: .4rem; }
+
+    .vc-link {
+      font-size: .65rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 1px;
+    }
+
+    /* ── FAQ ── */
+    .faq-item { border-bottom: 1px solid var(--rule-thin); }
+
+    .faq-q {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: .88rem;
+      color: var(--ink);
+      padding: .5rem 0;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: .5rem;
+    }
+
+    .faq-q:hover { color: var(--ink-light); }
+
+    .faq-icon {
+      font-size: .9rem;
+      flex-shrink: 0;
+      margin-top: .05rem;
+      transition: transform .3s;
+    }
+
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+    .faq-a {
+      font-size: .76rem;
+      color: var(--ink-light);
+      line-height: 1.7;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .4s ease, padding .3s;
+    }
+
+    .faq-item.open .faq-a { max-height: 200px; padding-bottom: .6rem; }
+
+    /* ── BOTTOM GRID ── */
+    .bottom-grid {
+      display: grid;
+      grid-template-columns: 1fr 2px 1fr 2px 1fr;
+      padding: 0 2rem;
+      border-bottom: 2px solid var(--ink);
+    }
+
+    /* ── FOOTER ── */
+    .newspaper-footer {
+      padding: 1rem 2rem;
+      border-top: 3px double var(--ink);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: .5rem;
+    }
+
+    .nf-copy { font-size: .62rem; color: var(--ink-faint); letter-spacing: .12em; }
+    .nf-mark { font-family: 'Brush Script MT', cursive; font-size: 1.1rem; color: var(--ink-light); }
+    .nf-love { font-family: 'IM Fell English', serif; font-style: italic; font-size: .78rem; color: var(--ink-faint); }
+
+    /* ── MUSIC PLAYER ──
+       A newsprint clipping on the same stock as the paper, pinned slightly
+       crooked. It carries a 45 that turns while the track plays. */
+    #music-player {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      padding: .32rem .4rem;
+      background: var(--paper);
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+      border: 1px solid var(--ink);
+      /* the second hairline is the newspaper's double rule, not a shadow */
+      box-shadow: inset 0 0 0 3px var(--paper), inset 0 0 0 4px rgba(31, 2, 6, .35),
+                  0 6px 18px rgba(31, 2, 6, .3);
+      transform: rotate(-1.6deg);
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+
+    #music-player:hover { transform: rotate(0deg); }
+
+    #music-toggle {
+      position: relative;
+      flex: 0 0 auto;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: none;
+      border: 0;
+      padding: 0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* the record: grooves, paper centre label, spindle hole */
+    .mp-disc {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, #F7EFE3 0 5%, transparent 5%),
+        radial-gradient(circle, var(--burgundy) 0 30%, transparent 30%),
+        repeating-radial-gradient(circle, #1F0206 0 2px, #2A0E14 2px 3px),
+        var(--ink);
+      box-shadow: 0 1px 4px rgba(31, 2, 6, .5);
+      transition: transform .4s ease;
+    }
+
+    #music-toggle.playing .mp-disc { animation: spinR 3.2s linear infinite; }
+    #music-toggle:hover .mp-disc { transform: scale(1.04); }
+
+    @keyframes spinR { to { transform: rotate(360deg); } }
+
+    /* the icon rides on top of the record, so it needs its own contrast */
+    #music-toggle svg {
+      position: relative;
+      width: 15px;
+      height: 15px;
+      fill: var(--paper);
+      filter: drop-shadow(0 1px 2px rgba(31, 2, 6, .9));
+    }
+
+    .mp-meta {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1px;
+      /* the spacing lives here, not in a flex gap: inside a border-box element
+         clamped to max-width 0 it collapses with the panel, so the closed card
+         stays square around the record */
+      padding-left: .5rem;
+      /* collapsed by default; opening is what "now playing" looks like */
+      max-width: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-width .45s cubic-bezier(.4, 0, .2, 1), opacity .3s ease;
+    }
+
+    #music-player:hover .mp-meta,
+    #music-player.open .mp-meta {
+      max-width: 190px;
+      opacity: 1;
+    }
+
+    .mp-kicker {
+      font-family: 'Jost', sans-serif;
+      font-size: .42rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      white-space: nowrap;
+    }
+
+    #music-label {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: .72rem;
+      line-height: 1.2;
+      color: var(--ink);
+      white-space: nowrap;
+      padding-right: .3rem;
+    }
+
+    /* four bars of ink, standing still until the track runs */
+    .mp-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 7px;
+      margin-top: 2px;
+    }
+
+    .mp-bars i {
+      width: 2px;
+      height: 100%;
+      background: var(--ink-light);
+      transform: scaleY(.25);
+      transform-origin: bottom;
+    }
+
+    #music-player.playing .mp-bars i { animation: mpBar .9s ease-in-out infinite; }
+    #music-player.playing .mp-bars i:nth-child(2) { animation-duration: .62s; }
+    #music-player.playing .mp-bars i:nth-child(3) { animation-duration: 1.1s; }
+    #music-player.playing .mp-bars i:nth-child(4) { animation-duration: .78s; }
+
+    @keyframes mpBar {
+      0%, 100% { transform: scaleY(.25); }
+      50%      { transform: scaleY(1); }
+    }
+
+    @media (max-width: 560px) {
+      #music-player { bottom: 1rem; right: 1rem; }
+      #music-toggle { width: 40px; height: 40px; }
+      .mp-meta { padding-left: .4rem; }
+      /* wide enough for the full title: the panel clips with overflow:hidden, so
+         a tight max-width would cut the artist off mid-word */
+      #music-player:hover .mp-meta, #music-player.open .mp-meta { max-width: 186px; }
+      #music-label { font-size: .62rem; }
+    }
+
+    /* a spinning record and jumping bars are exactly what this asks us to stop */
+    @media (prefers-reduced-motion: reduce) {
+      #music-player { transform: none; }
+      #music-toggle.playing .mp-disc,
+      #music-player.playing .mp-bars i { animation: none; }
+      #music-player.playing .mp-bars i { transform: scaleY(.6); }
+      .mp-meta { transition: none; }
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 200;
+      width: 100%;
+      max-width: 960px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 48px;
+      background: rgba(247, 239, 227, 0.97);
+      border-bottom: 2px solid var(--ink);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-mark { font-family: 'Brush Script MT', cursive; font-size: 1.1rem; color: var(--ink); }
+
+    .nav-links { display: flex; gap: 1.2rem; }
+
+    .nav-links a {
+      font-size: .58rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      text-decoration: none;
+      transition: color .2s;
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+    }
+
+    .nav-links a:hover { color: var(--ink); }
+
+    .nav-rsvp {
+      font-size: .58rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      padding: .3rem .9rem;
+      border: 1px solid var(--ink);
+      color: var(--ink);
+      text-decoration: none;
+      transition: all .22s;
+      font-family: 'Jost', sans-serif;
+    }
+
+    .nav-rsvp:hover { background: var(--ink); color: var(--paper); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 3px;
+    }
+
+    .hamburger span { display: block; height: 2px; width: 22px; background: var(--ink); transition: all .3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(14px); transition: opacity .8s ease, transform .8s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+    .d1 { transition-delay: .12s; }
+    .d2 { transition-delay: .22s; }
+    .d3 { transition-delay: .32s; }
+
+    /* ===== MOBILE LAYOUT ===== */
+    @media (max-width: 720px) {
+      nav { padding: 0 1rem; }
+      .hamburger { display: flex; }
+
+      /* The panel is always in the DOM now, folded away rather than
+         display:none — a display swap cannot be transitioned, and this is the
+         one piece of chrome every mobile guest touches. Closed it is
+         visibility:hidden, which keeps it out of the tab order and deaf to
+         taps instead of sitting invisible on top of the page. */
+      .nav-links {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 48px;
+        left: 0;
+        right: 0;
+        background: rgba(247, 239, 227, 0.98);
+        border-bottom: 2px solid var(--ink);
+        padding: 1rem 1.5rem 1.5rem;
+        gap: 0;
+        z-index: 199;
+        visibility: hidden;
+        /* rolled up under the nav rule — the same gesture as the cover */
+        clip-path: inset(0 0 100% 0);
+        transform: translateY(-6px);
+        transition: clip-path .38s cubic-bezier(.4, 0, .2, 1),
+                    transform .38s cubic-bezier(.4, 0, .2, 1),
+                    /* held back so the panel is still painted while it folds
+                       shut; on the way in .open zeroes it and it flips first */
+                    visibility 0s linear .38s;
+      }
+
+      .nav-links.open {
+        visibility: visible;
+        clip-path: inset(0 0 0 0);
+        transform: none;
+        transition-delay: 0s;
+      }
+
+      .nav-links a {
+        padding: .8rem 0;
+        border-bottom: 1px solid var(--rule-thin);
+        /* the links arrive behind the fold, a beat apart */
+        opacity: 0;
+        transform: translateY(-8px);
+        transition: color .2s ease, opacity .3s ease, transform .3s ease;
+      }
+
+      .nav-links.open a { opacity: 1; transform: none; }
+      .nav-links.open a:nth-child(1) { transition-delay: .08s; }
+      .nav-links.open a:nth-child(2) { transition-delay: .14s; }
+      .nav-links.open a:nth-child(3) { transition-delay: .20s; }
+      .nav-links.open a:nth-child(4) { transition-delay: .26s; }
+      .nav-links.open a:nth-child(5) { transition-delay: .32s; }
+      .nav-links.open a:nth-child(6) { transition-delay: .38s; }
+      /* closing, they leave together — nobody waits out a stagger in reverse */
+      .nav-links:not(.open) a { transition-delay: 0s; }
+
+      .body-grid {
+        display: block;
+        padding: 0 1rem;
+        /* FIX mobile: ensure full border before hashtag banner */
+        border-bottom: 2px solid var(--ink);
+      }
+
+      .bottom-grid {
+        display: block;
+        padding: 0 1rem;
+      }
+
+      .col-divider { display: none; }
+
+      .col {
+        padding: 1.2rem 0;
+        border-bottom: 1px solid var(--rule-thin);
+      }
+
+      .col:last-child {
+        border-bottom: none;
+      }
+
+      /* 2-col layout for body cols 2 and 3 */
+      .body-grid .col:first-child {
+        display: block;
+        width: 100%;
+        border-bottom: 1px solid var(--rule-thin);
+      }
+
+      .body-grid .col:nth-child(2),
+      .body-grid .col:nth-child(3) {
+        display: inline-block;
+        width: 49%;
+        vertical-align: top;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        border-bottom: none;
+      }
+
+      /* FIX MOBILE: Add proper bottom spacing before hashtag — 1rem on the 2-col pair */
+      .body-grid .col:nth-child(3) {
+        padding-bottom: 1.2rem;
+      }
+
+      .body-grid .col:nth-child(2) {
+        padding-bottom: 1.2rem;
+      }
+
+      /* Ensure the body-grid itself has a proper bottom border flush */
+      .body-grid::after {
+        content: '';
+        display: block;
+        clear: both;
+      }
+
+      /* Bottom grid layout */
+      /* FIX MOBILE: Reorder bottom grid columns — RSVP (col2=venue) last, Sponsors first */
+      .bottom-grid {
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Original order: col1=message, col2=venue+rsvp, col3=sponsors */
+      /* New mobile order: col1=message, col3=sponsors, col2=venue+rsvp */
+      .bottom-grid .col:nth-child(1) { order: 1; border-bottom: 1px solid var(--rule-thin); }
+      .bottom-grid .col:nth-child(3) { order: 2; border-bottom: 1px solid var(--rule-thin); }
+      .bottom-grid .col:nth-child(2) { order: 3; border-bottom: none; }
+
+      .masthead { padding: 1rem 1rem .6rem; }
+      .headline-section { padding: 1.2rem 1rem .8rem; }
+      .hashtag-banner { padding: 1rem 1rem; }
+
+      .newspaper-footer {
+        padding: .8rem 1rem;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .art-body p:first-child::first-letter { font-size: 2.8rem; }
+
+      .attire-row { grid-template-columns: 1fr; }
+
+      /* ── MOBILE CONTENT FIXES ── */
+      .mast-top-bar {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: .25rem;
+        text-align: center;
+        align-items: center;
+        font-size: .52rem;
+        letter-spacing: .1em;
+      }
+
+      .mast-top-bar span,
+      .mast-top-bar .mast-tagline {
+        text-align: center;
+        font-size: .52rem;
+        letter-spacing: .1em;
+        white-space: normal;
+        word-break: break-word;
+      }
+
+      .mast-bottom-bar {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: .25rem;
+        text-align: center;
+        align-items: center;
+        font-size: .52rem;
+        letter-spacing: .1em;
+      }
+
+      .mast-bottom-bar span {
+        text-align: center;
+        font-size: .52rem;
+        letter-spacing: .1em;
+        white-space: normal;
+        word-break: break-word;
+      }
+
+      .body-grid .col:first-child > .art-label,
+      .body-grid .col:first-child > .art-head,
+      .body-grid .col:first-child > .art-byline { text-align: center; }
+
+      .couple-section-label { display: block; margin-top: .6rem; text-align: left; }
+
+      .couple-block {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: .5rem;
+        margin-top: .5rem;
+      }
+
+      .couple-block-divider { display: none; }
+
+      #entourage > .art-label,
+      #entourage > .art-head,
+      #entourage > .art-byline { text-align: center; }
+
+      .punong-abay-block {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: .5rem;
+        margin-bottom: .8rem;
+        text-align: left;
+      }
+
+      .punong-abay-block > div { text-align: left; }
+      .punong-abay-divider { display: none; }
+
+      .notes-section-label { text-align: center; display: block; margin-bottom: .5rem; }
+
+      /* FIX MOBILE: Notes 2x2 grid with all boxes closed (border-bottom on last item) */
+      #notes {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: .5rem;
+        margin-bottom: 1rem;
+      }
+
+      #notes .note-item {
+        border: 1px solid var(--rule-thin);
+        /* FIX: Override last-child removal of border-bottom so all boxes are closed */
+        border-bottom: 1px solid var(--rule-thin) !important;
+        padding: .5rem .4rem;
+        text-align: center;
+      }
+
+      #notes .note-item .ni-head { font-size: .78rem; }
+      #notes .note-item .ni-text { font-size: .68rem; }
+
+      /* FIX MOBILE: Remove extra space on photo block before hashtag */
+      .body-grid .col:nth-child(3) .photo-block {
+        margin-bottom: 0;
+      }
+
+      #venue > .art-label,
+      #venue > .art-head,
+      #venue > .art-byline { text-align: center; }
+
+      .venue-card { text-align: center; }
+      .venue-card .vc-label { text-align: center; }
+      .venue-card .vc-name { text-align: center; }
+      .venue-card .vc-addr { text-align: center; }
+      .venue-card .vc-link { display: inline-block; text-align: center; }
+
+      .secondary-sponsors-label { text-align: center; display: block; margin-bottom: .5rem; }
+
+      /* FIX MOBILE: Secondary sponsors as boxes instead of lines */
+      .roster { text-align: center; }
+      .roster-head { text-align: center; }
+
+      /* Secondary sponsors box layout */
+      .secondary-sponsors-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: .4rem;
+        margin-bottom: .6rem;
+      }
+
+      .secondary-sponsors-grid .roster-name-box {
+        border: 1px solid var(--rule-thin);
+        padding: .35rem .4rem;
+        font-family: 'Libre Baskerville', serif;
+        font-size: .7rem;
+        color: var(--ink-mid);
+        text-align: center;
+        line-height: 1.4;
+        background: var(--paper-mid);
+      }
+
+      /* If only 1 name in a group, span full width */
+      .secondary-sponsors-grid .roster-name-box.full-width {
+        grid-column: 1 / -1;
+      }
+
+      .bottom-grid .col:last-child > .art-label,
+      .bottom-grid .col:last-child > .art-head,
+      .bottom-grid .col:last-child > .art-byline { text-align: center; }
+
+      /* Mobile QR section */
+      .qr-seat-section { margin: .8rem 0 0; }
+
+      /* Mobile bottom grid: col:nth-child mapping for flex-direction:column with reorder */
+      .bottom-grid .col {
+        padding: 1.2rem 0;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .body-grid .col:nth-child(2),
+      .body-grid .col:nth-child(3) {
+        width: 100%;
+        display: block;
+        padding: 1rem 0;
+        border-bottom: 1px solid var(--rule-thin);
+      }
+
+      #notes { grid-template-columns: 1fr 1fr; }
+      .couple-block { grid-template-columns: 1fr 1fr; }
+      .punong-abay-block { grid-template-columns: 1fr 1fr; }
+      .secondary-sponsors-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ── INFINITE MOVING PHOTO STRIP ── */
+  /* ── INFINITE MOVING PHOTO STRIP CSS ── */
+.photo-strip-container {
+  width: 100%;
+  overflow: hidden;
+  border-top: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  background: var(--paper-mid);
+  padding: 15px 0;
+  margin: 0.25rem 0;
+  position: relative;
+}
+
+.photo-strip-viewport {
+  width: 100%;
+  overflow: hidden;
+}
+
+.photo-strip-track {
+  display: flex;
+  width: max-content;
+  /* Spacing MUST be margin, not gap: the marquee translates -50%, and gap is
+     excluded from that measure, so the loop drifted 142.5px per cycle. */
+  /* Increased from 30s to 120s because of the large number of photos */
+  animation: scroll-strip 120s linear infinite; 
+}
+
+/* Pause on hover */
+.photo-strip-container:hover .photo-strip-track {
+  animation-play-state: paused;
+}
+
+/* ── STRICT ANIMATIONS FOR BOTH DIRECTIONS ── */
+/* Normal: Right to Left */
+@keyframes scroll-strip {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Reverse: Left to Right */
+@keyframes scroll-strip-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+/* Apply reverse animation */
+.photo-strip-track.reverse {
+  animation: scroll-strip-reverse 60s linear infinite !important;
+}
+
+/* 1. Base styling for ALL photos */
+.photo-strip-item {
+  height: 200px;              /* keeps the strip perfectly level */
+  /* Single source of spacing. The marquee translates -50%, and `gap` is
+     excluded from that measure while margin is included — so spacing lives
+     here and the track carries no gap at all. */
+  margin-right: 15px;
+  background: linear-gradient(135deg, #3D1218, #4E1825);
+  flex-shrink: 0;
+  position: relative;
+  border: 1px solid var(--ink);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 2. Portrait shape (Narrow) */
+.photo-strip-item.portrait {
+  width: 140px; /* Narrower width for portraits */
+}
+
+/* 3. Landscape shape (Wide) */
+.photo-strip-item.landscape {
+  width: 280px; /* Wider width for landscapes */
+}
+
+
+
+.photo-strip-item img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .4s, filter .5s;
+  z-index: 2;
+}
+
+.photo-strip-item:hover img {
+  transform: scale(1.03);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   PALETTE ACCENT LAYER
+   The broadsheet is printed in the couple's colours. Hue is used
+   sparingly and always to mean something: emerald for structure and
+   labels, burgundy for the couple's own voice and calls to action,
+   rust for small print. Everything else stays ink on cream.
+   ══════════════════════════════════════════════════════════════ */
+
+/* — the sheet, lifted off the emerald cloth — */
+body { background: var(--mat); }
+.newspaper { box-shadow: 0 24px 70px rgba(31, 2, 6, .45); }
+
+/* — masthead — */
+.mast-top-bar, .mast-bottom-bar { color: var(--emerald); }
+.mast-tagline { color: var(--burgundy); }
+.mast-edition { color: var(--rust); }
+
+/* — nav stays part of the paper; only the marks carry colour — */
+.nav-mark { color: var(--emerald); }
+.nav-links a:hover { color: var(--burgundy); }
+.nav-rsvp { color: var(--burgundy); border-color: var(--burgundy); }
+.nav-rsvp:hover { background: var(--burgundy); color: var(--paper); }
+
+/* — section furniture — */
+.art-label, .hl-kicker { color: var(--emerald); }
+.art-head em { color: var(--burgundy); font-style: italic; }
+.hl-sub { color: var(--ink-mid); }
+.rule-ornate span { color: var(--emerald); }
+.db-title, .ni-head, .roster-head, .vc-name { color: var(--emerald); }
+.sponsor-table th { color: var(--rust); }
+
+/* — the illuminated initial — */
+.art-body p:first-child::first-letter { color: var(--burgundy); }
+
+/* — pull quotes are the couple speaking — */
+.pull-quote { border-top-color: var(--burgundy); border-bottom-color: var(--burgundy); }
+.pq-attr { color: var(--burgundy); }
+
+/* — programme & countdown — */
+.it-time { color: var(--burgundy); border-right-color: var(--rust); }
+.cd-lbl { color: var(--rust); }
+.countdown-strip { border-color: var(--rust); }
+
+/* — links and controls — */
+.vc-link { color: var(--burgundy); border-bottom-color: var(--burgundy); }
+.vc-link:hover { color: var(--rust); border-bottom-color: var(--rust); }
+.faq-icon { color: var(--rust); }
+.carousel-dot.active { background: var(--burgundy); }
+
+/* — the two dark bands, each its own colour — */
+.hashtag-banner { background: var(--emerald-deep); border-bottom-color: var(--emerald); }
+.hb-label { color: var(--caramel); }
+.hb-tag   { color: var(--paper); }
+.rsvp-box { background: var(--burgundy); }
+.rb-deadline { color: var(--caramel-light); }   /* 5.25:1 on burgundy */
+.rb-btn { border-color: var(--caramel-light); color: var(--caramel-light); }
+.rb-btn:hover { background: var(--caramel-light); color: var(--wine-black); }
+
+/* — dress code block gets an emerald frame, since it is where the
+     palette is literally the subject — */
+.dress-box { border-color: var(--emerald); }
+.qr-seat-section { border-color: var(--emerald); }
+.qr-title { color: var(--emerald); }
+.qr-tap-btn { color: var(--burgundy); border-color: var(--burgundy); }
+.qr-tap-btn:hover { background: var(--burgundy); color: var(--paper); }
+
+/* — footer — */
+.newspaper-footer { border-top-color: var(--emerald); }
+.nf-mark { color: var(--emerald); }
+
+/* — photographs run in full colour. The palette already carries the theme
+     through the ink, stock and accents, so the photos don't need to be
+     tinted to belong; desaturating them only dulled the couple. — */
+.photo-strip-item img { filter: saturate(1.04) contrast(1.02); }
+.photo-strip-item:hover img { filter: saturate(1.1) contrast(1.03); }
+
+
+/* ══════════════════════════════════════════════════════════════
+   MOTION
+   GSAP drives entrances when it loads; the CSS below is what the
+   page falls back to when it doesn't, plus the reduced-motion
+   contract that applies either way.
+   ══════════════════════════════════════════════════════════════ */
+
+/* GSAP takes ownership of .reveal by adding this class. The CSS transition
+   has to stop, or both systems animate the same properties at once. */
+.gsap-managed { transition: none !important; }
+
+/* Elements GSAP will animate in. Hidden only once GSAP has confirmed it is
+   driving — never in the base stylesheet, or a failed CDN leaves a blank page. */
+.js-anim-ready [data-anim] { opacity: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+  /* the marquees stop; hand the strips back as ordinary scrollers so the
+     photos past the fold stay reachable */
+  .photo-strip-track, .photo-strip-track.reverse { animation: none !important; transform: none !important; }
+  .photo-strip-viewport { overflow-x: auto; }
+  .reveal, .js-anim-ready [data-anim] { opacity: 1 !important; transform: none !important; }
+  .tap-to-unroll { animation: none !important; }
+  /* durations are already crushed above, but the delays are not: without this
+     the menu's visibility would flip a third of a second after it has folded
+     shut, and its links would still arrive one at a time */
+  .nav-links, .nav-links a { transition-delay: 0s !important; }
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   PAIRED BLOCKS — "Meet the couple" and "Best Man / Maid of Honour"
+   Both had NO desktop rule: their grid existed only inside the mobile
+   media query, so on a wide screen the two halves stacked and ran
+   ragged. They are a matched pair, so they now get identical
+   structure, centred type, and a hairline rule between them — the
+   same device the paper already uses for its column dividers.
+   Placed last in the sheet, so this block carries its own mobile
+   override rather than being undone by the earlier one.
+   ══════════════════════════════════════════════════════════════ */
+.couple-block,
+.punong-abay-block {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  align-items: stretch;
+  gap: 0;
+  margin-top: .7rem;
+  text-align: center;
+}
+.cb-rule { background: var(--rule-thin); }
+.cb-side { padding: 0 .75rem; }
+
+.cb-role {
+  font-family: 'Jost', sans-serif;
+  font-size: .55rem;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--emerald);
+  margin-bottom: .3rem;
+}
+.cb-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--ink);
+}
+/* the connective phrase, set small and italic so the eye reads
+   name → relationship → parents as one credit */
+.cb-rel {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: .68rem;
+  color: var(--ink-faint);
+  margin: .3rem 0 .12rem;
+}
+.cb-parents {
+  font-size: .72rem;
+  color: var(--ink-light);
+  line-height: 1.55;
+}
+
+@media (max-width: 720px) {
+  .couple-block,
+  .punong-abay-block { grid-template-columns: 1fr 1px 1fr; text-align: center; }
+  .cb-side { padding: 0 .45rem; }
+  .cb-name { font-size: .9rem; }
+}
+
+
+/* The entourage pair lives in the narrow third column (~230px), so it needs
+   tighter metrics than the couple block or the names break mid-surname. */
+.punong-abay-block .cb-side { padding: 0 .4rem; }
+.punong-abay-block .cb-role { font-size: .5rem; letter-spacing: .16em; }
+.punong-abay-block .cb-name { font-size: .82rem; line-height: 1.3; }
+
+@media (max-width: 720px) {
+  .punong-abay-block .cb-side { padding: 0 .3rem; }
+  .punong-abay-block .cb-name { font-size: .8rem; }
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   FRONT-PAGE PLATE
+   A broadsheet announces, then illustrates, then boxes its facts.
+   The headline leads; one photograph runs the full measure; the
+   names are a real caption (not a hover, which never existed on
+   touch); the logistics sit in a key-facts box ruled like the
+   column dividers.
+   ══════════════════════════════════════════════════════════════ */
+.frontpage {
+  margin: 0 0 .4rem;
+  /* the masthead, headline, body grid, hashtag band and footer all inset
+     2rem — the plate has to sit on the same measure or it reads as a
+     mistake rather than a full-bleed choice */
+  padding: 0 2rem;
+}
+
+.fp-plate {
+  margin: 0;
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: var(--ink);
+  border: 1px solid var(--ink);   /* sits in the paper's frame language */
+}
+.fp-plate img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Frame one carries no opacity rule of its own and never fades, so a blocked
+   script, a stalled download or a browser without the loop still leaves a
+   photograph in the plate rather than a hole. */
+.hp-frame { position: absolute; inset: 0; }
+.hp-frame ~ .hp-frame { opacity: 0; transition: opacity 1.15s ease; }
+.hp-frame ~ .hp-frame.is-on { opacity: 1; }
+
+.fp-caption {
+  display: flex;
+  gap: .5rem;
+  align-items: baseline;
+  padding: .5rem 0 .55rem;
+  border-bottom: 1px solid var(--rule-thin);
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: .74rem;
+  line-height: 1.5;
+  color: var(--ink-light);
+}
+.fp-caption-mark { font-style: normal; color: var(--burgundy); flex-shrink: 0; }
+
+.fp-facts {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  margin-top: .7rem;
+}
+.fp-fact {
+  padding: .75rem .7rem;
+  text-align: center;
+  border-left: 1px solid var(--rule-thin);
+}
+.fp-fact:first-child { border-left: none; }
+.fp-fact-lbl {
+  font-family: 'Jost', sans-serif;
+  font-size: .52rem;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--emerald);
+  margin-bottom: .3rem;
+}
+.fp-fact-val {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: .95rem;
+  line-height: 1.25;
+  color: var(--ink);
+}
+.fp-fact-note {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: .68rem;
+  color: var(--ink-faint);
+  margin-top: .22rem;
+  line-height: 1.35;
+}
+
+/* ── mobile: four cells in a row would be ~85px each, so the box
+      becomes 2×2 and the plate gains height (3:2) so the couple
+      isn't letterboxed into a strip on a phone ── */
+@media (max-width: 720px) {
+  .frontpage { padding: 0 1rem; }
+  .fp-plate { aspect-ratio: 3 / 2; }
+  .fp-facts { grid-template-columns: 1fr 1fr; }
+  .fp-fact { padding: .6rem .5rem; }
+  /* re-rule for a 2×2: left border only on the right-hand cell,
+     top hairline on the second row */
+  .fp-fact:nth-child(odd)  { border-left: none; }
+  .fp-fact:nth-child(n+3)  { border-top: 1px solid var(--rule-thin); }
+  .fp-fact-val { font-size: .88rem; }
+  .fp-caption { font-size: .7rem; }
+}
+@media (max-width: 420px) {
+  .fp-fact-val { font-size: .82rem; }
+  .fp-fact-note { font-size: .62rem; }
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   RSVP FORM
+   Fields are ruled lines rather than boxes — a form printed in a
+   newspaper, not a web widget. Everything sits on the burgundy
+   card, so contrast is measured against #801624.
+   ══════════════════════════════════════════════════════════════ */
+.rb-form { text-align: left; max-width: 380px; margin: .2rem auto 0; }
+
+.rb-field { margin-bottom: .95rem; border: none; padding: 0; }
+
+.rb-label {
+  display: block;
+  font-family: 'Jost', sans-serif;
+  font-size: .55rem;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--caramel-light);          /* 5.25:1 on burgundy */
+  margin-bottom: .35rem;
+  padding: 0;
+}
+.rb-label em { font-style: italic; text-transform: none; letter-spacing: .06em; opacity: .7; }
+
+.rb-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(247, 239, 227, .55);   /* 3.63:1 — this rule is the field boundary */
+  border-radius: 0;                      /* iOS rounds inputs by default */
+  padding: .35rem 0;
+  color: var(--paper);
+  font-family: 'Libre Baskerville', serif;
+  font-size: .82rem;
+  transition: border-color .25s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.rb-input::placeholder { color: rgba(247, 239, 227, .55); font-style: italic; }  /* 3.63:1 */
+.rb-input:focus { outline: none; border-bottom-color: var(--caramel-light); }
+.rb-input:focus-visible { outline: 2px solid var(--caramel-light); outline-offset: 3px; }
+.rb-textarea { resize: vertical; min-height: 2.4rem; line-height: 1.6; }
+
+.rb-select {
+  color: var(--paper);
+  background-image: linear-gradient(45deg, transparent 50%, rgba(247,239,227,.6) 50%),
+                    linear-gradient(135deg, rgba(247,239,227,.6) 50%, transparent 50%);
+  background-position: right 6px center, right 1px center;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 1.2rem;
+  cursor: pointer;
+}
+.rb-select option { background: var(--wine-mid); color: var(--paper); }
+
+/* attendance choice — real radios, visually replaced with ruled marks */
+.rb-options { display: flex; flex-direction: column; gap: .4rem; }
+.rb-opt { display: flex; align-items: center; gap: .55rem; cursor: pointer; }
+.rb-opt input {
+  position: absolute; opacity: 0; width: 1px; height: 1px;
+}
+.rb-opt span {
+  position: relative; padding-left: 1.35rem;
+  font-family: 'Libre Baskerville', serif;
+  font-size: .8rem; color: rgba(247, 239, 227, .8);
+  transition: color .2s ease;
+}
+.rb-opt span::before {
+  content: ''; position: absolute; left: 0; top: .18em;
+  width: .78rem; height: .78rem;
+  border: 1px solid rgba(247, 239, 227, .62);
+}
+.rb-opt span::after {
+  content: '✓'; position: absolute; left: .14rem; top: .02em;
+  font-size: .72rem; color: var(--caramel-light);
+  opacity: 0; transform: scale(.6); transition: opacity .2s ease, transform .2s ease;
+}
+.rb-opt input:checked + span { color: var(--paper); }
+.rb-opt input:checked + span::before { border-color: var(--caramel-light); }
+.rb-opt input:checked + span::after { opacity: 1; transform: scale(1); }
+.rb-opt input:focus-visible + span::before { outline: 2px solid var(--caramel-light); outline-offset: 2px; }
+
+.rb-error, .rb-formerror {
+  display: block;
+  font-family: 'Jost', sans-serif;
+  font-size: .58rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #FFC9A3;                        /* light enough to clear AA on burgundy */
+  margin-top: .3rem;
+  min-height: 0;
+}
+.rb-formerror { text-align: center; margin-top: .6rem; }
+.rb-field.is-invalid .rb-input { border-bottom-color: #FFC9A3; }
+
+.rb-submit {
+  display: block;
+  margin: 1.1rem auto 0;
+  background: transparent;
+  cursor: pointer;
+  font-family: 'Jost', sans-serif;
+}
+.rb-submit[disabled] { opacity: .55; cursor: progress; }
+
+/* ── success state ── */
+.rb-success { text-align: center; padding: .4rem 0 .2rem; }
+.rb-stamp {
+  display: inline-flex; flex-direction: column; align-items: center;
+  gap: .1rem;
+  border: 2px double var(--caramel-light);
+  border-radius: 3px;
+  padding: .5rem 1.1rem;
+  transform: rotate(-6deg);
+  margin-bottom: 1rem;
+  color: var(--caramel-light);
+}
+.rb-stamp-top, .rb-stamp-date {
+  font-family: 'Jost', sans-serif; font-size: .5rem;
+  letter-spacing: .28em; text-transform: uppercase;
+}
+.rb-stamp-main {
+  font-family: 'Playfair Display', serif; font-weight: 900;
+  font-size: 1.15rem; letter-spacing: .1em; text-transform: uppercase;
+  line-height: 1.1;
+}
+.rb-success-line {
+  font-family: 'Playfair Display', serif; font-size: 1rem;
+  color: var(--paper); margin: 0 0 .35rem;
+}
+.rb-success-sub {
+  font-family: 'IM Fell English', serif; font-style: italic;
+  font-size: .78rem; color: rgba(247, 239, 227, .7); margin: 0 0 .9rem;
+}
+.rb-textbtn {
+  background: none; border: none; cursor: pointer;
+  font-family: 'Jost', sans-serif; font-size: .58rem;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: rgba(247, 239, 227, .7);                      /* 5.06:1 */
+  border-bottom: 1px solid rgba(247, 239, 227, .45);
+  padding: .1rem 0;
+}
+.rb-textbtn:hover { color: var(--caramel-light); border-bottom-color: var(--caramel-light); }
+
+@media (max-width: 720px) {
+  .rb-form { max-width: none; }
+  .rb-input { font-size: 16px; }   /* under 16px iOS zooms the page on focus */
+  .rb-opt span { font-size: .82rem; }
+  .rb-stamp { transform: rotate(-4deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rb-stamp { transform: rotate(-6deg) !important; }
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   CUSTOM SELECT — reusable
+   Add `data-custom-select` to any <select> and enhanceSelect()
+   replaces it with a themed listbox. The native element stays in
+   the DOM holding the value, so forms still submit if JS fails.
+   ══════════════════════════════════════════════════════════════ */
+.cs { position: relative; }
+
+/* the native control still carries the value — kept reachable to
+   assistive tech via the custom combobox, not removed */
+.cs-native {
+  position: absolute;
+  width: 1px; height: 1px;
+  opacity: 0; pointer-events: none;
+  margin: 0; padding: 0; border: 0;
+}
+
+.cs-trigger {
+  width: 100%;
+  display: flex; align-items: center; justify-content: space-between; gap: .6rem;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(247, 239, 227, .55);   /* matches the ruled inputs */
+  border-radius: 0;
+  padding: .35rem 0;
+  color: var(--paper);
+  font-family: 'Libre Baskerville', serif;
+  font-size: .82rem;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color .25s ease;
+}
+.cs-trigger:hover { border-bottom-color: rgba(247, 239, 227, .75); }
+.cs-trigger:focus-visible { outline: 2px solid var(--caramel-light); outline-offset: 3px; }
+.cs.is-open .cs-trigger { border-bottom-color: var(--caramel-light); }
+
+.cs-caret {
+  flex-shrink: 0;
+  font-size: .6rem;
+  color: var(--caramel-light);
+  transition: transform .25s ease;
+}
+.cs.is-open .cs-caret { transform: rotate(180deg); }
+
+.cs-panel {
+  position: absolute;
+  z-index: 40;
+  top: calc(100% + .3rem);
+  left: 0; right: 0;
+  margin: 0; padding: .25rem 0;
+  list-style: none;
+  background: var(--wine-mid);
+  border: 1px solid var(--caramel-light);
+  box-shadow: 0 10px 30px rgba(31, 2, 6, .55);
+  max-height: 15rem;
+  overflow-y: auto;
+  opacity: 0;
+  transform: translateY(-4px);
+  visibility: hidden;
+  transition: opacity .18s ease, transform .18s ease, visibility .18s;
+}
+.cs.is-open .cs-panel { opacity: 1; transform: none; visibility: visible; }
+
+.cs-opt {
+  padding: .5rem .85rem;
+  font-family: 'Libre Baskerville', serif;
+  font-size: .8rem;
+  color: rgba(247, 239, 227, .82);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between; gap: .5rem;
+  transition: background .15s ease, color .15s ease;
+}
+.cs-opt:hover,
+.cs-opt.is-active { background: rgba(243, 125, 15, .16); color: var(--paper); }
+.cs-opt[aria-selected="true"] { color: var(--caramel-light); }
+.cs-opt[aria-selected="true"]::after { content: '✓'; font-size: .7rem; }
+
+@media (max-width: 720px) {
+  /* generous touch targets — this replaces the OS picker, so it has to
+     be at least as easy to hit as one */
+  .cs-opt { padding: .78rem .85rem; font-size: .85rem; }
+  .cs-trigger { font-size: 16px; }
+  .cs-panel { max-height: 60vh; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-panel { transition: none; }
+  .cs-caret { transition: none; }
+}
+
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <!-- GSAP core + ScrollTrigger. Everything below degrades gracefully: if these
+       fail to load, the page falls back to the CSS intro and an
+       IntersectionObserver reveal. SplitText/ScrollSmoother are deliberately
+       not used — neither is on cdnjs, and character splitting is 10 lines. -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+
+<body>
+
+  <!-- ══ INTRO: rolled newspaper ══ -->
+  <div id="newspaper-intro-wrapper">
+    <div id="physical-paper-container">
+      <div id="unroll-window">
+        <div id="paper-sheet">
+          <div class="np-inner-border">
+            <div class="np-inner-border-2">
+              <h1 class="np-masthead">The Wedding Times</h1>
+              <div class="np-date-row">
+                <span>Special Edition</span>
+                <span>Placeholder City</span>
+                <span>2 Pages</span>
+              </div>
+              <h2 class="np-headline">Randy &amp; Laurice<br>Are Getting Married</h2>
+              <div class="np-photo-section">
+                <img src="assets/img/np-cover.jpg" alt="Randy and Laurice" class="np-photo">
+                <p class="np-caption">"Of all the stories in the world, we're glad ours is this one."</p>
+              </div>
+
+              <div class="np-lede">
+                <span class="np-lede-dateline">Placeholder City &middot; Friday, October 30, 2026</span>
+                <p class="np-lede-body">After years of small ordinary days that somehow added up to this
+                  one, Randy and Laurice will be married in front of everyone they love &mdash; followed
+                  by dinner, dancing, and far too many photographs. All who love them are asked to come.</p>
+                <div class="np-lede-more">Full report inside &#9656;</div>
+              </div>
+
+              <div class="np-contents">
+                <div class="np-contents-label">Inside This Issue</div>
+                <div class="np-contents-list">
+                  <div><span>Our Story</span><span>p. 1</span></div>
+                  <div><span>The Programme</span><span>p. 1</span></div>
+                  <div><span>The Entourage</span><span>p. 2</span></div>
+                  <div><span>Reminders</span><span>p. 2</span></div>
+                  <div><span>Kindly Reply</span><span>p. 2</span></div>
+                </div>
+              </div>
+
+              <div class="np-notice">Replies by Sept. 30 &nbsp;&middot;&nbsp; #RandyAndLaurice</div>
+
+              <div class="np-colophon">
+                <span>Issue No. 1</span>
+                <span>Est. 2026</span>
+                <span>Printed with Love</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="paper-cylinder">
+        <div class="cylinder-rings"></div>
+        <div class="tap-to-unroll" id="btn-unroll">Tap to unroll</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ NAV ══ -->
+  <nav>
+    <span class="nav-mark">R&amp;L</span>
+    <div class="nav-links" id="navLinks">
+      <a href="#story" onclick="closeMenu()">Our Story</a>
+      <a href="#entourage" onclick="closeMenu()">Entourage</a>
+      <a href="#schedule" onclick="closeMenu()">Programme</a>
+      <a href="#venue" onclick="closeMenu()">Venue</a>
+      <a href="#notes" onclick="closeMenu()">Notes</a>
+      <a href="#rsvp" onclick="closeMenu()">RSVP</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:.6rem;">
+      <a href="#rsvp" class="nav-rsvp">RSVP</a>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <!-- ══ THE PAPER ══ -->
+  <div style="padding-top:48px;">
+    <div class="newspaper">
+
+      <!-- MASTHEAD -->
+      <div class="masthead">
+        <div class="mast-top-bar">
+          <span>Placeholder City</span>
+          <span class="mast-tagline">"Two hearts, one story"</span>
+          <span>Friday, October 30, 2026</span>
+        </div>
+        <div class="mast-name-block">
+          <div class="mast-edition">Special Edition · Celebrating the Journey of</div>
+          <div class="mast-title">The Wedding Times</div>
+          <div class="mast-subtitle">A Wedding Invitation &amp; Souvenir Programme</div>
+        </div>
+        <div class="mast-bottom-bar">
+          <span>Issue No. 1 &nbsp;·&nbsp; Est. 2026</span>
+          <span>Vol. I — The Wedding Edition</span>
+          <span>Printed with Love</span>
+        </div>
+      </div>
+
+      <!-- MAIN HEADLINE — the paper announces, then illustrates -->
+      <div class="headline-section reveal">
+        <div class="hl-kicker">Exclusive Announcement — Issue No. 1</div>
+        <div class="hl-main">THEY'RE GETTING MARRIED!</div>
+        <div class="hl-sub">After years of choosing each other, Randy and Laurice invite you to witness the beginning of their forever.</div>
+        <div class="hl-byline">&nbsp;·&nbsp; October 30, 2026 &nbsp;·&nbsp;</div>
+      </div>
+
+      <!-- FRONT-PAGE PLATE -->
+      <div class="frontpage reveal" id="story">
+        <!-- The plate cycles. Frame one is the base and never fades; the rest are
+             overlays that cross-fade above it, so the order they sit in the DOM
+             is the order they play. The later ones are decorative repeats of the
+             same subject, so they stay out of the accessibility tree. -->
+        <figure class="fp-plate" id="heroPlate">
+          <img class="hp-frame" src="assets/img/np-hero.jpg" alt="Randy and Laurice">
+          <img class="hp-frame" src="assets/img/np-hero2.jpg" alt="" aria-hidden="true" loading="lazy">
+          <img class="hp-frame" src="assets/img/np-hero3.jpg" alt="" aria-hidden="true" loading="lazy">
+          <img class="hp-frame" src="assets/img/np-hero4.jpg" alt="" aria-hidden="true" loading="lazy">
+        </figure>
+        <div class="fp-caption">
+          <span class="fp-caption-mark">&#8214;</span>
+          <span>Randy &amp; Laurice, photographed in Placeholder City &nbsp;·&nbsp; 2026</span>
+        </div>
+        <div class="fp-facts">
+          <div class="fp-fact">
+            <div class="fp-fact-lbl">The Date</div>
+            <div class="fp-fact-val">October 30, 2026</div>
+            <div class="fp-fact-note">Friday</div>
+          </div>
+          <div class="fp-fact">
+            <div class="fp-fact-lbl">Ceremony</div>
+            <div class="fp-fact-val">3:00 PM</div>
+            <div class="fp-fact-note">Placeholder Church</div>
+          </div>
+          <div class="fp-fact">
+            <div class="fp-fact-lbl">Reception</div>
+            <div class="fp-fact-val">5:30 PM</div>
+            <div class="fp-fact-note">Placeholder Reception Hall</div>
+          </div>
+          <div class="fp-fact">
+            <div class="fp-fact-lbl">RSVP By</div>
+            <div class="fp-fact-val">September 30, 2026</div>
+            <div class="fp-fact-note">#RandyAndLaurice</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BODY 3-COL -->
+      <div class="body-grid">
+
+        <!-- COL 1: STORY -->
+        <div class="col reveal" style="padding-bottom:1.4rem;">
+          <span class="art-label">How it all began</span>
+          <h2 class="art-head">Brought Together <em>by Chance</em></h2>
+          <div class="art-byline">By Randy &amp; Laurice &nbsp;·&nbsp; Placeholder City</div>
+          <div class="art-body">
+            <p>It started the way the best things usually do — quietly, and without either of them
+              realising what was beginning. A conversation that ran longer than it should have. A walk
+              home that took the long way round.</p>
+            <p>They had been near each other for years without knowing it: the same streets, the same
+              small town, the same handful of mutual friends. Life simply waited until they were both
+              ready to notice.</p>
+          </div>
+          <div class="pull-quote">
+            <div class="pq-text">"You are not just my favourite person. You are my favourite place, my
+              favourite moment, and my favourite feeling."</div>
+            <div class="pq-attr">— Randy</div>
+          </div>
+          <div class="art-body">
+            <p>What followed was not one grand gesture but a thousand ordinary ones — the meals cooked,
+              the bad days sat through, the small kindnesses nobody else ever saw.</p>
+            <p>Because sometimes love doesn't need a dramatic beginning. Sometimes a simple hello, given
+              at the right moment, quietly turns into a lifetime.</p>
+          </div>
+          <hr class="rule-thin" style="margin:.8rem 0;">
+
+          <span class="art-label couple-section-label" style="margin-top:.6rem;">Meet the couple</span>
+          <div class="couple-block">
+            <div class="cb-side">
+              <div class="cb-role">The Bride</div>
+              <div class="cb-name">Laurice Doe</div>
+              <div class="cb-rel">daughter of</div>
+              <div class="cb-parents">Mr. John Doe<br>&amp; Mrs. Jane Doe</div>
+            </div>
+            <div class="cb-rule"></div>
+            <div class="cb-side">
+              <div class="cb-role">The Groom</div>
+              <div class="cb-name">Randy Doe</div>
+              <div class="cb-rel">son of</div>
+              <div class="cb-parents">Mr. John Doe<br>&amp; Mrs. Jane Doe</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-divider"></div>
+
+        <!-- COL 2: PHOTOS · COUNTDOWN · PROGRAMME · ATTIRE -->
+        <div class="col reveal d1" style="padding-bottom:1.4rem;">
+          <span class="art-label">Moments worth keeping</span>
+          <h2 class="art-head" style="margin-bottom:.6rem;">Our Story <em>in Pictures</em></h2>
+          <div class="carousel-wrap">
+            <div class="carousel-label">Randy &amp; Laurice · Love, Illustrated</div>
+            <div class="carousel-viewport" id="carouselViewport">
+              <div class="carousel-track" id="carouselTrack">
+                <div class="carousel-slide" id="cslide-1"><img src="assets/img/np-c1.jpg" alt="Randy and Laurice, photo 1"><span class="carousel-num">01</span></div>
+                <div class="carousel-slide" id="cslide-2"><img src="assets/img/np-c2.jpg" alt="Randy and Laurice, photo 2" loading="lazy"><span class="carousel-num">02</span></div>
+                <div class="carousel-slide" id="cslide-3"><img src="assets/img/np-c3.jpg" alt="Randy and Laurice, photo 3" loading="lazy"><span class="carousel-num">03</span></div>
+                <div class="carousel-slide" id="cslide-4"><img src="assets/img/np-c4.jpg" alt="Randy and Laurice, photo 4" loading="lazy"><span class="carousel-num">04</span></div>
+                <div class="carousel-slide" id="cslide-5"><img src="assets/img/np-c5.jpg" alt="Randy and Laurice, photo 5" loading="lazy"><span class="carousel-num">05</span></div>
+                <div class="carousel-slide" id="cslide-6"><img src="assets/img/np-c6.jpg" alt="Randy and Laurice, photo 6" loading="lazy"><span class="carousel-num">06</span></div>
+                <div class="carousel-slide" id="cslide-7"><img src="assets/img/np-c7.jpg" alt="Randy and Laurice, photo 7" loading="lazy"><span class="carousel-num">07</span></div>
+                <div class="carousel-slide" id="cslide-8"><img src="assets/img/np-c8.jpg" alt="Randy and Laurice, photo 8" loading="lazy"><span class="carousel-num">08</span></div>
+              </div>
+              <button class="carousel-btn prev" onclick="carouselMove(-1)" aria-label="Previous photo">&#8249;</button>
+              <button class="carousel-btn next" onclick="carouselMove(1)" aria-label="Next photo">&#8250;</button>
+            </div>
+            <div class="carousel-dots" id="carouselDots">
+              <div class="carousel-dot active" onclick="carouselGoTo(0)"></div>
+              <div class="carousel-dot" onclick="carouselGoTo(1)"></div>
+              <div class="carousel-dot" onclick="carouselGoTo(2)"></div>
+              <div class="carousel-dot" onclick="carouselGoTo(3)"></div>
+              <div class="carousel-dot" onclick="carouselGoTo(4)"></div>
+              <div class="carousel-dot" onclick="carouselGoTo(5)"></div>
+              <div class="carousel-dot" onclick="carouselGoTo(6)"></div>
+              <div class="carousel-dot" onclick="carouselGoTo(7)"></div>
+            </div>
+          </div>
+
+          <span class="art-label">Counting down to the day</span>
+          <h2 class="art-head large">The Order of <em>Celebration</em></h2>
+          <div class="art-byline">What happens, and when</div>
+          <div class="countdown-strip" style="margin-bottom:1rem;">
+            <div class="cd-cell"><span class="cd-num" id="cd-d">--</span><span class="cd-lbl">Days</span></div>
+            <div class="cd-cell"><span class="cd-num" id="cd-h">--</span><span class="cd-lbl">Hours</span></div>
+            <div class="cd-cell"><span class="cd-num" id="cd-m">--</span><span class="cd-lbl">Minutes</span></div>
+            <div class="cd-cell"><span class="cd-num" id="cd-s">--</span><span class="cd-lbl">Seconds</span></div>
+          </div>
+          <div class="rule-ornate"><span>Programme</span></div>
+          <div class="itinerary" id="schedule">
+            <div class="it-row">
+              <div class="it-time">2:30 PM</div>
+              <div class="it-event"><strong>Guests Arrive</strong>Doors open and guests are seated.</div>
+            </div>
+            <div class="it-row">
+              <div class="it-time">3:00 PM</div>
+              <div class="it-event"><strong>The Ceremony</strong>Placeholder Church. Kindly silence your phones.</div>
+            </div>
+            <div class="it-row">
+              <div class="it-time">4:00 PM</div>
+              <div class="it-event"><strong>Photographs</strong>Family and friends with the newlyweds.</div>
+            </div>
+            <div class="it-row">
+              <div class="it-time">5:30 PM</div>
+              <div class="it-event"><strong>Reception &amp; Dinner</strong>Placeholder Reception Hall. Eat, drink, and dance.</div>
+            </div>
+            <div class="it-row">
+              <div class="it-time">9:00 PM</div>
+              <div class="it-event"><strong>Send-Off</strong>One last song, and goodnight.</div>
+            </div>
+          </div>
+          <hr class="rule-thin" style="margin:.9rem 0;">
+          <div class="dress-box" id="color-motif">
+            <div class="db-title">Formal &amp; Semi-Formal</div>
+            <div class="art-byline" style="border:none;padding:0;margin-bottom:.5rem;">Our Colour Palette</div>
+            <div class="db-swatches">
+              <div class="db-swatch" style="background:#005548;" title="Emerald Green"></div>
+              <div class="db-swatch" style="background:#801624;" title="Burgundy"></div>
+              <div class="db-swatch" style="background:#A73705;" title="Rusty Brown"></div>
+              <div class="db-swatch" style="background:#F37D0F;" title="Caramel"></div>
+              <div class="db-swatch" style="background:#D0AC92;" title="Cream"></div>
+            </div>
+            <div class="db-text">Emerald Green &nbsp;·&nbsp; Burgundy &nbsp;·&nbsp; Rusty Brown &nbsp;·&nbsp; Caramel &nbsp;·&nbsp; Cream</div>
+            <div class="attire-grid">
+              <div class="attire-row">
+                <div class="attire-role">Principal Sponsors (Gentlemen)</div>
+                <div class="attire-desc">Barong Tagalog, black trousers and black shoes</div>
+              </div>
+              <div class="attire-row">
+                <div class="attire-role">Principal Sponsors (Ladies)</div>
+                <div class="attire-desc">Long dress in <span class="attire-swatch-inline" style="background:#D0AC92;"></span><em>Cream</em></div>
+              </div>
+              <div class="attire-row">
+                <div class="attire-role">Bridesmaids</div>
+                <div class="attire-desc">Long dress in <span class="attire-swatch-inline" style="background:#801624;"></span><em>Burgundy</em></div>
+              </div>
+              <div class="attire-row">
+                <div class="attire-role">Groomsmen</div>
+                <div class="attire-desc">Suit or Barong in <span class="attire-swatch-inline" style="background:#005548;"></span><em>Emerald Green</em>, black trousers and shoes</div>
+              </div>
+              <div class="attire-row">
+                <div class="attire-role">Guests</div>
+                <div class="attire-desc"><span style="display:block;">Ladies: long or cocktail dress in <span class="attire-swatch-inline" style="background:#A73705;"></span><em>any palette colour</em></span><span style="display:block;">Gentlemen: Barong or suit, black trousers and shoes</span></div>
+              </div>
+              <div class="attire-row" style="border-bottom:none;">
+                <div class="attire-role" style="color:#801624;font-weight:600;">Please Avoid</div>
+                <div class="attire-desc" style="color:var(--ink-faint);font-size:.68rem;">Denim, white, off-white, ivory, and loud prints</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-divider"></div>
+
+        <!-- COL 3: ENTOURAGE + NOTES -->
+        <div class="col reveal d2" id="entourage" style="padding-bottom:1.4rem;">
+          <span class="art-label">With love and support</span>
+          <h2 class="art-head">Meet the <em>Wedding Party</em></h2>
+          <div class="art-byline">Standing with us</div>
+
+          <div class="punong-abay-block">
+            <div class="cb-side">
+              <div class="cb-role">Best Man</div>
+              <div class="cb-name">Mr. John Doe</div>
+            </div>
+            <div class="cb-rule"></div>
+            <div class="cb-side">
+              <div class="cb-role">Maid of Honour</div>
+              <div class="cb-name">Ms. Jane Doe</div>
+            </div>
+          </div>
+          <hr class="rule-thin punong-abay-divider">
+
+          <div style="margin:.8rem 0;">
+            <table class="sponsor-table">
+              <thead>
+                <tr>
+                  <th>Groomsmen</th>
+                  <th>Bridesmaids</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Mr. John Doe</td><td>Ms. Jane Doe</td></tr>
+                <tr><td>Mr. John Doe</td><td>Ms. Jane Doe</td></tr>
+                <tr><td>Mr. John Doe</td><td>Ms. Jane Doe</td></tr>
+                <tr><td>Mr. John Doe</td><td>Ms. Jane Doe</td></tr>
+                <tr><td>Mr. John Doe</td><td>Ms. Jane Doe</td></tr>
+                <tr><td>Mr. John Doe</td><td>Ms. Jane Doe</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <hr class="rule-thin" style="margin:.6rem 0;">
+
+          <span class="art-label notes-section-label" style="display:block;margin-bottom:.5rem;">Notes &amp; Reminders</span>
+          <div id="notes">
+            <div class="note-item">
+              <div class="ni-head">On Gifts</div>
+              <div class="ni-text">Your presence is the gift we are really hoping for. Should you wish to give
+                something more, a monetary gift would be warmly appreciated.
+                <br>GCash: John Doe · 0900 000 0000
+                <br>Bank: Jane Doe · 0000 0000 0000</div>
+            </div>
+            <div class="note-item">
+              <div class="ni-head">An Unplugged Ceremony</div>
+              <div class="ni-text">Please keep phones and cameras away during the ceremony. Our photographers
+                will capture every moment.</div>
+            </div>
+            <div class="note-item">
+              <div class="ni-head">Please Be On Time</div>
+              <div class="ni-text">The ceremony begins promptly at 3:00 PM. Kindly arrive at least thirty
+                minutes early.</div>
+            </div>
+            <div class="note-item">
+              <div class="ni-head">An Adults-Only Reception</div>
+              <div class="ni-text">We adore your little ones, but we have chosen an adults-only reception so
+                everyone can relax and celebrate — save for those in the entourage.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HASHTAG BANNER -->
+      <div class="hashtag-banner reveal">
+        <span class="hb-label">Our Wedding Hashtag</span>
+        <div class="hb-tag">#RandyAndLaurice</div>
+        <div class="hb-note">Tag your photos so we can relive every moment through your eyes! 📸</div>
+      </div>
+
+      <div class="photo-strip-container">
+        <div class="photo-strip-viewport">
+          <div class="photo-strip-track"></div>
+        </div>
+      </div>
+
+      <div class="photo-strip-container">
+        <div class="photo-strip-viewport">
+          <div class="photo-strip-track reverse"></div>
+        </div>
+      </div>
+
+      <!-- BOTTOM GRID -->
+      <div class="bottom-grid" id="sponsors">
+
+        <!-- COL 1: A MESSAGE FROM THE COUPLE -->
+        <div class="col reveal" style="padding-bottom:1.4rem;">
+          <span class="art-label">A message from the couple</span>
+          <h2 class="art-head">One Last <em>Invitation</em></h2>
+          <div class="art-byline">With our whole hearts</div>
+          <div class="art-body">
+            <p>This day would not be complete without you. Thank you for travelling — whether from across
+              town or across the country — to share in our joy.</p>
+            <p>The "yes" came a while ago. But on this day, in front of God and in front of you, we get to
+              say "I do".</p>
+          </div>
+          <div class="pull-quote" style="margin:.8rem 0;">
+            <div class="pq-text">"I'm not here because everything was perfect. I'm here because you stayed
+              steady, even when I couldn't. You loved me in all my moods, through all my overthinking."</div>
+            <div class="pq-attr">— Laurice</div>
+          </div>
+          <div class="art-body">
+            <p>After the ceremony, please join us for an evening of celebration at the reception. Come
+              hungry, leave happy, and be ready to dance.</p>
+          </div>
+          <hr class="rule-thin" style="margin:.8rem 0;">
+          <div style="text-align:center;padding:.6rem 0;">
+            <div style="font-family:'Brush Script MT',cursive;font-size:1.8rem;color:var(--ink);margin-bottom:.3rem;">R &amp; L</div>
+            <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:.95rem;color:var(--ink-light);">Randy &amp; Laurice</div>
+            <div style="font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-faint);margin-top:.3rem;">October 30, 2026 · Placeholder City</div>
+          </div>
+          <div class="rule-ornate"><span>Notes from the Archive</span></div>
+          <div style="font-size:.76rem;color:var(--ink-mid);line-height:1.8;">
+            <div style="display:flex;justify-content:space-between;padding:.25rem 0;border-bottom:1px solid var(--rule-thin);"><span>Years Together</span><span style="font-family:'Playfair Display',serif;font-weight:700;">0 years</span></div>
+            <div style="display:flex;justify-content:space-between;padding:.25rem 0;border-bottom:1px solid var(--rule-thin);"><span>First Met</span><span style="font-family:'Playfair Display',serif;font-weight:700;">Placeholder</span></div>
+            <div style="display:flex;justify-content:space-between;padding:.25rem 0;border-bottom:1px solid var(--rule-thin);"><span>First Date</span><span style="font-family:'Playfair Display',serif;font-weight:700;">Placeholder</span></div>
+            <div style="display:flex;justify-content:space-between;padding:.25rem 0;border-bottom:1px solid var(--rule-thin);"><span>The Proposal</span><span style="font-family:'Playfair Display',serif;font-weight:700;">Placeholder</span></div>
+            <div style="display:flex;justify-content:space-between;padding:.25rem 0;border-bottom:1px solid var(--rule-thin);"><span>The Wedding</span><span style="font-family:'Playfair Display',serif;font-weight:700;">Oct 30, 2026</span></div>
+          </div>
+        </div>
+
+        <div class="col-divider"></div>
+
+        <!-- COL 2: VENUE + FAQ + RSVP + DIRECTIONS QR -->
+        <div class="col reveal d1" id="venue" style="padding-bottom:1.4rem;">
+          <span class="art-label">Where to find us</span>
+          <h2 class="art-head">The <em>Venues</em></h2>
+          <div class="art-byline">Every detail you need</div>
+          <div class="venue-card" style="margin-top:.6rem;">
+            <span class="vc-label">The Ceremony</span>
+            <div class="vc-name">Placeholder Church</div>
+            <div class="vc-addr">123 Placeholder Street<br>Placeholder City<br>Friday, October 30, 2026 · 3:00 PM</div>
+            <a href="https://maps.google.com/?q=Manila" target="_blank" rel="noopener" class="vc-link">View Directions ↗</a>
+          </div>
+          <hr class="rule-dashed" style="margin:.8rem 0;">
+          <div class="venue-card">
+            <span class="vc-label">The Reception</span>
+            <div class="vc-name">Placeholder Reception Hall</div>
+            <div class="vc-addr">456 Placeholder Avenue, Placeholder City<br>Following the ceremony · 5:30 PM</div>
+            <a href="https://maps.google.com/?q=Manila" target="_blank" rel="noopener" class="vc-link">View Directions ↗</a>
+          </div>
+          <hr class="rule-thin" style="margin:.8rem 0;">
+          <span class="art-label" style="display:block;margin-bottom:.5rem;">Frequently Asked Questions</span>
+          <div class="faq-list">
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFaq(this)"><span>Can I bring a plus one?</span><span class="faq-icon">+</span></div>
+              <div class="faq-a">Our seats are limited, so we can only accommodate the names printed on your invitation. Thank you for understanding.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFaq(this)"><span>Is the celebration kid-friendly?</span><span class="faq-icon">+</span></div>
+              <div class="faq-a">The reception is an adults-only celebration. Only children who are part of the entourage will be able to join us.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFaq(this)"><span>Is parking available?</span><span class="faq-icon">+</span></div>
+              <div class="faq-a">Yes — free parking is available at both venues. Carpooling with fellow guests is encouraged.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFaq(this)"><span>What time should I arrive?</span><span class="faq-icon">+</span></div>
+              <div class="faq-a">Please arrive by 2:30 PM so you can be comfortably seated before the ceremony begins.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFaq(this)"><span>Can I post on social media?</span><span class="faq-icon">+</span></div>
+              <div class="faq-a">Please hold off during the ceremony itself. Afterwards, share away using #RandyAndLaurice.</div>
+            </div>
+          </div>
+
+          <div class="rsvp-box" id="rsvp" style="margin-top:1rem;">
+            <div class="rb-title">Will You Join Us?</div>
+            <div class="rb-body">It would mean the world to have you there. Please let us know whether you can
+              make it so we can save your seat.</div>
+            <span class="rb-deadline">Kindly reply by September 30, 2026 · Strictly no +1</span>
+
+            <form class="rb-form" id="rsvpForm" novalidate>
+              <div class="rb-field">
+                <label class="rb-label" for="rsvpName">Full name</label>
+                <input class="rb-input" type="text" id="rsvpName" name="name"
+                       autocomplete="name" required placeholder="As printed on your invitation">
+                <span class="rb-error" id="err-name" role="alert"></span>
+              </div>
+
+              <fieldset class="rb-field rb-choice">
+                <legend class="rb-label">Will you attend?</legend>
+                <div class="rb-options">
+                  <label class="rb-opt">
+                    <input type="radio" name="attending" value="Joyfully accepts" required>
+                    <span>Joyfully accepts</span>
+                  </label>
+                  <label class="rb-opt">
+                    <input type="radio" name="attending" value="Regretfully declines">
+                    <span>Regretfully declines</span>
+                  </label>
+                </div>
+                <span class="rb-error" id="err-attending" role="alert"></span>
+              </fieldset>
+
+              <div class="rb-field" id="guestsField">
+                <label class="rb-label" id="rsvpGuestsLabel" for="rsvpGuests">Seats in your name</label>
+                <!-- data-custom-select: enhanced into a themed listbox by enhanceSelect().
+                     The native <select> stays in the DOM and keeps the value, so the
+                     form still works if the script never runs. -->
+                <select class="rb-input rb-select" id="rsvpGuests" name="guests" data-custom-select>
+                  <option value="1">1 — just me</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                </select>
+              </div>
+
+              <div class="rb-field">
+                <label class="rb-label" for="rsvpMessage">A message for the couple <em>(optional)</em></label>
+                <textarea class="rb-input rb-textarea" id="rsvpMessage" name="message" rows="2"
+                          maxlength="400" placeholder="A wish, a blessing, a warning about the dance floor…"></textarea>
+              </div>
+
+              <button type="submit" class="rb-btn rb-submit" id="rsvpSubmit">Send Reply</button>
+              <div class="rb-formerror" id="rsvpFormError" role="alert"></div>
+            </form>
+
+            <!-- success state — swapped in on a confirmed submit -->
+            <div class="rb-success" id="rsvpSuccess" hidden>
+              <div class="rb-stamp" id="rsvpStamp">
+                <span class="rb-stamp-top">✦ Reply ✦</span>
+                <span class="rb-stamp-main">Received</span>
+                <span class="rb-stamp-date" id="rsvpStampDate"></span>
+              </div>
+              <p class="rb-success-line" id="rsvpSuccessLine">Thank you.</p>
+              <p class="rb-success-sub" id="rsvpSuccessSub">Your reply has been recorded in the register.</p>
+              <button type="button" class="rb-textbtn" id="rsvpEdit">Send another reply</button>
+            </div>
+          </div>
+
+          <!-- Repurposed from the sample's seat-finder QR: this build has no seat
+               finder, so the code carries directions to the venue instead. -->
+          <div class="qr-seat-section" id="directions">
+            <div class="qr-title">Getting There</div>
+            <div class="qr-subtitle">Scan or tap to open the venue in Maps</div>
+            <div class="qr-canvas-wrap">
+              <div id="qr-canvas" style="display:inline-block;"></div>
+            </div>
+            <a href="https://maps.google.com/?q=Manila" target="_blank" rel="noopener" class="qr-tap-btn" id="qr-open-btn">Open in Maps ↗</a>
+          </div>
+        </div>
+
+        <div class="col-divider"></div>
+
+        <!-- COL 3: PRINCIPAL & SECONDARY SPONSORS -->
+        <div class="col reveal d2" style="padding-bottom:1.4rem;">
+          <span class="art-label">With love and guidance</span>
+          <h2 class="art-head">Our Principal <em>Sponsors</em></h2>
+          <div class="art-byline">Chosen to guide us</div>
+          <table class="sponsor-table">
+            <thead>
+              <tr>
+                <th>Gentlemen</th>
+                <th>Ladies</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Mr. John Doe</td><td>Mrs. Jane Doe</td></tr>
+              <tr><td>Mr. John Doe</td><td>Mrs. Jane Doe</td></tr>
+              <tr><td>Mr. John Doe</td><td>Mrs. Jane Doe</td></tr>
+              <tr><td>Mr. John Doe</td><td>Mrs. Jane Doe</td></tr>
+              <tr><td>Mr. John Doe</td><td>Mrs. Jane Doe</td></tr>
+              <tr><td>Mr. John Doe</td><td>Mrs. Jane Doe</td></tr>
+              <tr><td>Mr. John Doe</td><td>Mrs. Jane Doe</td></tr>
+              <tr><td>Mr. John Doe</td><td>Mrs. Jane Doe</td></tr>
+            </tbody>
+          </table>
+          <hr class="rule-thin" style="margin:.8rem 0;">
+          <span class="art-label secondary-sponsors-label" style="display:block;margin-bottom:.5rem;">Secondary Sponsors</span>
+
+          <!-- Desktop: classic roster lines -->
+          <div class="roster desktop-roster" style="font-size:.75rem;">
+            <span class="roster-head">Ring Bearer</span>
+            <span class="roster-name" style="font-size:.78rem;">John Doe</span>
+            <span class="roster-head" style="margin-top:.5rem;">Bible Bearer</span>
+            <span class="roster-name" style="font-size:.78rem;">John Doe</span>
+            <span class="roster-head" style="margin-top:.5rem;">Coin Bearer</span>
+            <span class="roster-name" style="font-size:.78rem;">John Doe</span>
+            <span class="roster-head" style="margin-top:.5rem;">Flower Girls</span>
+            <span class="roster-name" style="font-size:.78rem;">Jane Doe</span>
+            <span class="roster-name" style="font-size:.78rem;">Jane Doe</span>
+            <span class="roster-head" style="margin-top:.5rem;">Candle Sponsors</span>
+            <span class="roster-name" style="font-size:.78rem;">Mr. John Doe &amp; Ms. Jane Doe</span>
+            <span class="roster-head" style="margin-top:.5rem;">Veil Sponsors</span>
+            <span class="roster-name" style="font-size:.78rem;">Mr. John Doe &amp; Ms. Jane Doe</span>
+            <span class="roster-head" style="margin-top:.5rem;">Cord Sponsors</span>
+            <span class="roster-name" style="font-size:.78rem;">Mr. John Doe &amp; Ms. Jane Doe</span>
+          </div>
+
+          <!-- Mobile: box grid (toggled by applyMobileView) -->
+          <div class="mobile-sponsors-boxes" style="display:none;">
+            <div style="margin-bottom:.6rem;">
+              <div class="roster-head" style="text-align:center;">Ring Bearer</div>
+              <div class="secondary-sponsors-grid"><div class="roster-name-box full-width">John Doe</div></div>
+            </div>
+            <div style="margin-bottom:.6rem;">
+              <div class="roster-head" style="text-align:center;">Bible Bearer</div>
+              <div class="secondary-sponsors-grid"><div class="roster-name-box full-width">John Doe</div></div>
+            </div>
+            <div style="margin-bottom:.6rem;">
+              <div class="roster-head" style="text-align:center;">Coin Bearer</div>
+              <div class="secondary-sponsors-grid"><div class="roster-name-box full-width">John Doe</div></div>
+            </div>
+            <div style="margin-bottom:.6rem;">
+              <div class="roster-head" style="text-align:center;">Flower Girls</div>
+              <div class="secondary-sponsors-grid">
+                <div class="roster-name-box">Jane Doe</div>
+                <div class="roster-name-box">Jane Doe</div>
+              </div>
+            </div>
+            <div style="margin-bottom:.6rem;">
+              <div class="roster-head" style="text-align:center;">Candle Sponsors</div>
+              <div class="secondary-sponsors-grid"><div class="roster-name-box full-width">Mr. John Doe &amp; Ms. Jane Doe</div></div>
+            </div>
+            <div style="margin-bottom:.6rem;">
+              <div class="roster-head" style="text-align:center;">Veil Sponsors</div>
+              <div class="secondary-sponsors-grid"><div class="roster-name-box full-width">Mr. John Doe &amp; Ms. Jane Doe</div></div>
+            </div>
+            <div style="margin-bottom:.6rem;">
+              <div class="roster-head" style="text-align:center;">Cord Sponsors</div>
+              <div class="secondary-sponsors-grid"><div class="roster-name-box full-width">Mr. John Doe &amp; Ms. Jane Doe</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="newspaper-footer">
+        <span class="nf-copy">Issue No. 1 · Happily Ever After · Est. 2026</span>
+        <span class="nf-mark">R&amp;L</span>
+        <span class="nf-love">Made with love · ♥ · We can't wait to celebrate with you</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- A clipping pinned to the corner of the page. Collapsed it is just the
+       record; playing, it opens to name the track — no hover required, because
+       on a phone there is no hover to give. -->
+  <div id="music-player">
+    <button id="music-toggle" aria-label="Play our song" aria-pressed="false">
+      <span class="mp-disc" aria-hidden="true"></span>
+      <svg id="icon-play" viewBox="0 0 24 24"><path d="M8 5.14v14l11-7-11-7z" /></svg>
+      <svg id="icon-pause" viewBox="0 0 24 24" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" /></svg>
+    </button>
+    <div class="mp-meta">
+      <span class="mp-kicker">On the Gramophone</span>
+      <span id="music-label">Goodness of God &middot; Bethel Music</span>
+      <span class="mp-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    </div>
+  </div>
+
+  <audio id="bg-music" loop preload="none">
+    <source src="assets/music/goodness-of-god.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    /* ══════════════════════════════════════════════════════════════
+       THE WEDDING TIMES — Randy & Laurice
+       Content that changes per couple lives in the CONFIG block below
+       and in the markup. See CONTENT.md.
+       ══════════════════════════════════════════════════════════════ */
+    var WEDDING_DATE = '2026-10-30T15:00:00+08:00';   // countdown target (keep the +08:00 offset)
+    var MAPS_URL     = 'https://maps.google.com/?q=Manila';  // QR + "Open in Maps"
+    var IMG          = 'assets/img/';
+
+    /* ══════════════════════════════════════════════════════════════
+       MOTION CORE
+       GSAP drives the choreography when it loads. Every animated
+       element is visible by default and only hidden once GSAP has
+       confirmed it is driving — a blocked CDN must never leave a
+       guest staring at a blank page.
+       ══════════════════════════════════════════════════════════════ */
+    var HAS_GSAP = typeof window.gsap !== 'undefined' && typeof window.ScrollTrigger !== 'undefined';
+    var REDUCED  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var EASE     = 'power3.out';
+    if (HAS_GSAP) gsap.registerPlugin(ScrollTrigger);
+
+    /* Word/character splitter. SplitText isn't on cdnjs, and this is all we
+       need. Words stay inline-block so real spaces remain between them and
+       the headline can still wrap on a phone. */
+    function splitText(el, mode) {
+      if (!el || el.dataset.split) return [];
+      var parts = el.textContent.split(/(\s+)/), units = [];
+      el.textContent = '';
+      parts.forEach(function (chunk) {
+        if (!chunk) return;
+        if (/^\s+$/.test(chunk)) { el.appendChild(document.createTextNode(chunk)); return; }
+        var word = document.createElement('span');
+        word.style.display = 'inline-block';
+        if (mode === 'chars') {
+          for (var i = 0; i < chunk.length; i++) {
+            var c = document.createElement('span');
+            c.style.display = 'inline-block';
+            c.textContent = chunk[i];
+            word.appendChild(c); units.push(c);
+          }
+        } else { word.textContent = chunk; units.push(word); }
+        el.appendChild(word);
+      });
+      el.dataset.split = '1';
+      return units;
+    }
+
+    var $  = function (q, c) { return (c || document).querySelector(q); };
+    var $$ = function (q, c) { return Array.prototype.slice.call((c || document).querySelectorAll(q)); };
+
+    /* Reveal helper: rise + fade, triggered once as it enters. */
+    function rise(target, o) {
+      o = o || {};
+      var els = typeof target === 'string' ? $$(target) : target;
+      if (!els || !els.length) return;
+      gsap.from(els, {
+        opacity: 0, y: o.y == null ? 22 : o.y,
+        duration: o.d || .8, ease: EASE,
+        stagger: o.stagger == null ? .07 : o.stagger,
+        scrollTrigger: { trigger: o.trigger || els[0], start: o.start || 'top 88%', once: true }
+      });
+    }
+
+    /* The masthead sets itself — called from the intro timeline so the page
+       begins moving before the roll has finished falling away. */
+    function playMastheadEntrance() {
+      if (!HAS_GSAP || REDUCED) return;
+      var title = $('.mast-title');
+      var chars = splitText(title, 'chars');
+      var tl = gsap.timeline();
+      if (chars.length) tl.from(chars, { opacity: 0, yPercent: 40, duration: .7, ease: EASE, stagger: .022 }, 0);
+      tl.from('.mast-edition',   { opacity: 0, y: -8, duration: .6, ease: EASE }, .05)
+        .from('.mast-subtitle',  { opacity: 0, y: 8,  duration: .6, ease: EASE }, .18)
+        .from('.mast-top-bar, .mast-bottom-bar', { opacity: 0, duration: .6, ease: EASE, stagger: .08 }, .1)
+        ;
+      /* the double rules draw outward from the centre */
+      gsap.from(['.mast-top-bar', '.mast-bottom-bar'], {
+        scaleX: .82, transformOrigin: 'center', duration: .9, ease: 'power2.out', stagger: .08
+      });
+    }
+
+    /* Everything below the fold. */
+    function initPageMotion() {
+      if (!HAS_GSAP) return;
+      var mm = gsap.matchMedia();
+
+      mm.add('(prefers-reduced-motion: reduce)', function () {
+        /* end state, instantly */
+        $$('.reveal').forEach(function (el) { el.classList.add('in', 'gsap-managed'); });
+        gsap.set('[data-anim]', { clearProps: 'all', opacity: 1, y: 0 });
+      });
+
+      mm.add('(prefers-reduced-motion: no-preference)', function () {
+        /* hand .reveal over: kill the CSS transition so both systems
+           aren't animating opacity/transform at once */
+        $$('.reveal').forEach(function (el) { el.classList.add('in', 'gsap-managed'); });
+
+        /* front-page plate: the photograph settles, then its caption,
+           then the fact cells tick in left to right */
+        gsap.from('.fp-plate', { opacity: 0, y: 26, duration: 1, ease: EASE,
+          scrollTrigger: { trigger: '.frontpage', start: 'top 88%', once: true } });
+        gsap.from('.fp-plate img', { scale: 1.09, duration: 1.5, ease: 'power2.out',
+          scrollTrigger: { trigger: '.frontpage', start: 'top 92%', once: true } });
+        rise('.fp-caption', { trigger: '.frontpage', y: 10, d: .7 });
+        gsap.from('.fp-fact', { opacity: 0, y: 14, duration: .7, ease: EASE, stagger: .08,
+          scrollTrigger: { trigger: '.fp-facts', start: 'top 94%', once: true } });
+
+        /* headline */
+        var hlWords = splitText($('.hl-main'), 'chars');
+        if (hlWords.length) gsap.from(hlWords, { opacity: 0, yPercent: 45, duration: .7, ease: EASE, stagger: .015,
+          scrollTrigger: { trigger: '.headline-section', start: 'top 85%', once: true } });
+        rise('.hl-kicker', { y: -10, trigger: '.headline-section' });
+        rise('.hl-sub, .hl-byline', { trigger: '.headline-section', stagger: .1 });
+
+        /* the column rules wipe down as each grid arrives */
+        $$('.body-grid, .bottom-grid').forEach(function (grid) {
+          var rules = $$('.col-divider', grid);
+          if (!rules.length) return;
+          gsap.from(rules, { scaleY: 0, transformOrigin: 'top center', duration: 1.1, ease: 'power2.inOut', stagger: .12,
+            scrollTrigger: { trigger: grid, start: 'top 80%', once: true } });
+        });
+
+        /* articles, per element rather than per column */
+        $$('.body-grid .col, .bottom-grid .col').forEach(function (col) {
+          var bits = $$('.art-label, .art-head, .art-byline, .art-body p, .couple-block, .punong-abay-block', col);
+          if (bits.length) rise(bits, { trigger: col, stagger: .06 });
+        });
+
+        /* pull quotes: rules first, then the words */
+        $$('.pull-quote').forEach(function (q) {
+          gsap.from(q, { scaleX: .9, opacity: 0, duration: .7, ease: EASE,
+            scrollTrigger: { trigger: q, start: 'top 88%', once: true } });
+          rise($$('.pq-text, .pq-attr', q), { trigger: q, y: 10, stagger: .1, d: .7 });
+        });
+
+        rise('.it-row',        { stagger: .06, trigger: '.itinerary' });
+        rise('.note-item',     { stagger: .08 });
+        rise('.venue-card',    { stagger: .1 });
+        rise('.faq-item',      { stagger: .05, y: 14 });
+        rise('.rsvp-box',      { y: 26 });
+        rise('.qr-seat-section', { y: 26 });
+        rise('.roster-head, .roster-name, .roster-name-box', { stagger: .035, y: 12, d: .6 });
+        rise('.newspaper-footer', { y: 14 });
+
+        /* sponsor tables row by row */
+        $$('.sponsor-table').forEach(function (t) {
+          rise($$('tbody tr', t), { trigger: t, stagger: .04, y: 12, d: .6 });
+        });
+
+        /* the palette introducing itself */
+        gsap.from('.db-swatch', { scale: 0, opacity: 0, duration: .55, ease: 'back.out(2)', stagger: .07,
+          scrollTrigger: { trigger: '.db-swatches', start: 'top 90%', once: true } });
+
+        /* hashtag band */
+        gsap.from('.hb-tag', { scale: .96, opacity: 0, duration: .9, ease: EASE,
+          scrollTrigger: { trigger: '.hashtag-banner', start: 'top 85%', once: true } });
+
+        /* restrained parallax — the photo drifts inside its frame, nothing moves
+           far enough to read as movement for its own sake */
+        var heroImg = $('.fp-plate img');
+        if (heroImg) {
+          gsap.set(heroImg, { scale: 1.12 });
+          gsap.fromTo(heroImg, { yPercent: -4 }, { yPercent: 4, ease: 'none',
+            scrollTrigger: { trigger: '.frontpage', start: 'top bottom', end: 'bottom top', scrub: 1 } });
+        }
+
+        return function () { ScrollTrigger.getAll().forEach(function (t) { t.kill(); }); };
+      });
+    }
+
+    /* ── INTRO: unroll the newspaper ──
+       One timeline when GSAP is present; the original CSS transitions when it
+       isn't. Both paths keep the music gesture, keyboard access and failsafe. */
+    document.addEventListener('DOMContentLoaded', function () {
+      var wrapper = document.getElementById('newspaper-intro-wrapper');
+      var container = document.getElementById('physical-paper-container');
+      var cylinder = document.getElementById('paper-cylinder');
+      var unrollWindow = document.getElementById('unroll-window');
+      var btnUnroll = document.getElementById('btn-unroll');
+      if (!wrapper) { initPageMotion(); return; }
+      var isUnrolled = false;
+      document.body.style.overflow = 'hidden';
+
+      function finishIntro() {
+        if (wrapper.parentNode) wrapper.remove();
+        document.body.style.overflow = '';
+        if (HAS_GSAP) ScrollTrigger.refresh();
+      }
+
+      function unroll() {
+        if (isUnrolled) return;
+        isUnrolled = true;
+        playMusic();                       /* the tap is what unlocks autoplay */
+        /* pulseBtn animates opacity, and a running animation beats an inline
+           style — so the hint has to be stopped before it will fade out */
+        btnUnroll.style.animation = 'none';
+
+        if (!HAS_GSAP || REDUCED) {
+          btnUnroll.style.opacity = '0';
+          unrollWindow.style.height = '100%';
+          cylinder.style.top = 'calc(100% - 30px)';
+          setTimeout(function () {
+            container.style.transform = 'translateY(120vh) rotate(-5deg)';
+            wrapper.style.backgroundColor = 'transparent';
+            setTimeout(finishIntro, REDUCED ? 100 : 1200);
+          }, REDUCED ? 200 : 4500);
+          return;
+        }
+
+        /* GSAP owns these properties now — the CSS transitions would fight it */
+        [unrollWindow, cylinder, container].forEach(function (el) { el.style.transition = 'none'; });
+        var sheetBits = $$('#paper-sheet .np-inner-border-2 > *');
+
+        gsap.timeline({ defaults: { ease: 'power2.inOut' }, onComplete: finishIntro })
+          .to(btnUnroll, { opacity: 0, duration: .25 }, 0)
+          /* the sheet unrolls off the cylinder */
+          .to(unrollWindow, { height: '100%', duration: 1.5 }, 0)
+          .to(cylinder, { top: 'calc(100% - 30px)', duration: 1.5 }, 0)
+          /* the front page sets itself while the paper is still travelling */
+          .from(sheetBits, { opacity: 0, y: 12, duration: .5, ease: EASE, stagger: .09 }, .75)
+          /* the paper settles — the beat the CSS version never had */
+          .to(container, { y: 10, duration: .16, ease: 'power2.out' }, 1.5)
+          .to(container, { y: 0, duration: .5, ease: 'elastic.out(1, .55)' }, '>')
+          .to({}, { duration: 1.6 })                       /* a moment to read it — the lede and
+                                                              contents rule need longer than the
+                                                              headline alone did */
+          .to(container, { y: '120vh', rotate: -5, duration: 1.1, ease: 'power2.in' }, 'drop')
+          .to(wrapper, { backgroundColor: 'rgba(31,2,6,0)', duration: .9 }, 'drop')
+          /* handoff: the masthead starts before the roll has finished falling,
+             so there is no cut between intro and page */
+          .add(playMastheadEntrance, 'drop+=0.45');
+      }
+
+      wrapper.addEventListener('click', unroll);
+      /* keyboard users shouldn't be trapped behind a click-only overlay */
+      wrapper.setAttribute('tabindex', '0');
+      wrapper.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); unroll(); }
+      });
+      /* last resort: never leave a guest stuck on the cover */
+      setTimeout(function () {
+        if (!isUnrolled && document.body.style.overflow === 'hidden') unroll();
+      }, 20000);
+
+      initPageMotion();
+    });
+
+    /* ── NAV ── */
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('open');
+      document.getElementById('hamburger').classList.toggle('open');
+    }
+    function closeMenu() {
+      document.getElementById('navLinks').classList.remove('open');
+      document.getElementById('hamburger').classList.remove('open');
+    }
+
+    /* Digits tick over rather than snapping. Only the value that actually
+       changed animates, so this costs one short tween a second, not four. */
+    function rollDigit(id, value) {
+      var el = document.getElementById(id);
+      if (!el || el.textContent === value) return;
+      if (!HAS_GSAP || REDUCED) { el.textContent = value; return; }
+      gsap.timeline()
+        .to(el, { y: -5, opacity: 0, duration: .12, ease: 'power2.in' })
+        .add(function () { el.textContent = value; })
+        .fromTo(el, { y: 5, opacity: 0 }, { y: 0, opacity: 1, duration: .2, ease: EASE });
+    }
+
+    /* ── COUNTDOWN ── */
+    var WEDDING = new Date(WEDDING_DATE);
+    function tick() {
+      var diff = WEDDING - new Date();
+      var strip = document.querySelector('.countdown-strip');
+      if (!strip) return;
+      if (diff <= 0) {
+        strip.innerHTML = '<p style="font-family:Playfair Display,serif;font-style:italic;font-size:1.1rem;color:var(--ink);padding:.6rem 1rem;text-align:center;width:100%;">Today is the day! 🥂</p>';
+        clearInterval(cdTimer);
+        return;
+      }
+      var pad = function (n) { return String(Math.floor(n)).padStart(2, '0'); };
+      rollDigit('cd-d', pad(diff / 86400000));
+      rollDigit('cd-h', pad((diff % 86400000) / 3600000));
+      rollDigit('cd-m', pad((diff % 3600000) / 60000));
+      rollDigit('cd-s', pad((diff % 60000) / 1000));
+    }
+    tick();
+    var cdTimer = setInterval(tick, 1000);
+
+    /* ── SCROLL REVEAL (fallback only) ──
+       When GSAP is driving, initPageMotion() handles every reveal and this
+       observer is skipped entirely. */
+    if (!HAS_GSAP) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, { threshold: .08 });
+      document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+      /* iOS Safari occasionally never fires the observer — force it after 3s */
+      setTimeout(function () {
+        document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+      }, 3000);
+    }
+
+    /* ── MUSIC ──
+       The player hides itself if the <source> has no src, so an empty track
+       never ships a button that silently does nothing. */
+    var audio = document.getElementById('bg-music');
+    var musicBtn = document.getElementById('music-toggle');
+    var musicPlayer = document.getElementById('music-player');
+    var iPlay = document.getElementById('icon-play');
+    var iPause = document.getElementById('icon-pause');
+    var started = false;
+
+    function hasTrack() {
+      var s = audio && audio.querySelector('source');
+      return !!(s && s.getAttribute('src'));
+    }
+    function setPlay(p) {
+      iPlay.style.display = p ? 'none' : '';
+      iPause.style.display = p ? '' : 'none';
+      musicBtn.classList.toggle('playing', p);         /* spins the record */
+      musicBtn.setAttribute('aria-pressed', p ? 'true' : 'false');
+      musicBtn.setAttribute('aria-label', p ? 'Pause our song' : 'Play our song');
+      /* the clipping opens to name the track while it runs — the only cue a
+         touch guest gets, since .mp-meta's other trigger is :hover */
+      musicPlayer.classList.toggle('playing', p);
+      musicPlayer.classList.toggle('open', p);
+    }
+    function playMusic() {
+      if (!hasTrack()) return;
+      audio.volume = .45;
+      /* Claimed synchronously. The cover tap calls this from unroll(), and then
+         the same click bubbles to the document-level fallback below — without
+         this line that fallback fires a second play() on the one gesture. */
+      started = true;
+      var pr = audio.play();
+      /* Refused (no gesture yet, or a data-saver setting) — put the face back
+         and hand the fallback its job again. Otherwise the 20s failsafe unroll,
+         which has no gesture behind it, would disarm the fallback for good and
+         the guest would never get the song at all. */
+      if (pr && pr.catch) pr.catch(function () { started = false; setPlay(false); });
+    }
+    if (!hasTrack()) {
+      if (musicPlayer) musicPlayer.style.display = 'none';
+    } else {
+      musicBtn.addEventListener('click', function () {
+        if (audio.paused) playMusic();
+        else audio.pause();
+        started = true;
+      });
+      var tryAuto = function () { if (!started) playMusic(); };
+      document.addEventListener('click', tryAuto, { once: true });
+      document.addEventListener('scroll', tryAuto, { once: true });
+      document.addEventListener('touchstart', tryAuto, { once: true });
+      /* The face follows the element, not the play() promise. On a slow
+         connection that promise can take seconds to settle, and a guest who
+         taps a record that neither spins nor names the song assumes it is
+         broken and taps again. 'play' fires the moment playback is requested. */
+      audio.addEventListener('play', function () { started = true; setPlay(true); });
+      audio.addEventListener('pause', function () { setPlay(false); });
+    }
+
+    /* ── HERO PLATE LOOP ──
+       Cross-fades the front-page plate through its frames and back to the first.
+       Deliberately not GSAP: the transition is one CSS property, and the plate is
+       the first thing a guest sees, so it must not wait on a CDN. */
+    (function initHeroLoop() {
+      var plate = document.getElementById('heroPlate');
+      if (!plate || REDUCED) return;        /* reduced motion keeps frame one */
+
+      var frames = $$('.hp-frame', plate).slice(1);   /* frame one is the base */
+      if (!frames.length) return;
+
+      var HOLD = 5200;
+      var step = 0;                        /* 0 = base showing, n = frame n up */
+      var timer = null;
+      var inView = true;
+
+      /* Nothing cross-fades while it is off-screen or the tab is in the
+         background — that is somebody's phone battery. */
+      function awake() { return inView && !document.hidden; }
+
+      /* The plate is already in the viewport, behind the cover, while the paper
+         unrolls. Cycling then would spend frame one before anyone saw it. */
+      function coverUp() { return !!document.getElementById('newspaper-intro-wrapper'); }
+
+      function schedule() { if (!timer && awake()) timer = setTimeout(tick, HOLD); }
+      function stop() { if (timer) { clearTimeout(timer); timer = null; } }
+
+      /* A self-rescheduling chain rather than setInterval, so a turn we decline
+         to take gives the frame on screen another full hold instead of landing
+         mid-beat the moment the reason to decline goes away. */
+      function tick() {
+        timer = null;
+        if (!awake()) return;                      /* sync() starts us again */
+
+        var next = (step + 1) % (frames.length + 1);
+        var img = next === 0 ? null : frames[next - 1];
+        /* Fading in a frame the browser hasn't finished fetching shows nothing,
+           then pops it in with no fade at all. Keep this one and try again. */
+        if (coverUp() || (img && (!img.complete || !img.naturalWidth))) { schedule(); return; }
+
+        step = next;
+        if (step === 0) {
+          /* Wrapping: drop every overlay at once and the base is simply there
+             again. Fading them out one at a time would not work — an earlier
+             frame cannot show through a later one that is still up. */
+          frames.forEach(function (f) { f.classList.remove('is-on'); });
+        } else {
+          img.classList.add('is-on');
+        }
+        schedule();
+      }
+
+      function sync() { awake() ? schedule() : stop(); }
+
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries) {
+          inView = entries[0].isIntersecting;
+          sync();
+        }, { threshold: .15 }).observe(plate);
+      }
+      document.addEventListener('visibilitychange', sync);
+      sync();
+    })();
+
+    /* ── FAQ ACCORDION ── */
+    function toggleFaq(el) {
+      var item = el.closest('.faq-item');
+      var open = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function (i) { i.classList.remove('open'); });
+      if (!open) item.classList.add('open');
+    }
+
+    /* ── CAROUSEL ── */
+    var carouselIndex = 0;
+    var TOTAL_SLIDES = 8;
+    var carouselAutoTimer = null;
+    function carouselUpdateUI() {
+      document.getElementById('carouselTrack').style.transform = 'translateX(-' + (carouselIndex * 100) + '%)';
+      document.querySelectorAll('.carousel-dot').forEach(function (d, i) {
+        d.classList.toggle('active', i === carouselIndex);
+      });
+    }
+    function carouselMove(dir) {
+      carouselIndex = (carouselIndex + dir + TOTAL_SLIDES) % TOTAL_SLIDES;
+      carouselUpdateUI(); resetCarouselAuto();
+    }
+    function carouselGoTo(idx) { carouselIndex = idx; carouselUpdateUI(); resetCarouselAuto(); }
+    function resetCarouselAuto() {
+      if (carouselAutoTimer) clearInterval(carouselAutoTimer);
+      carouselAutoTimer = setInterval(function () { carouselMove(1); }, 4000);
+    }
+    resetCarouselAuto();
+
+    var cTouchStartX = 0;
+    var cViewport = document.getElementById('carouselViewport');
+    cViewport.addEventListener('touchstart', function (e) { cTouchStartX = e.touches[0].clientX; }, { passive: true });
+    cViewport.addEventListener('touchend', function (e) {
+      var diff = cTouchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) carouselMove(diff > 0 ? 1 : -1);
+    }, { passive: true });
+
+
+    /* ══════════════════════════════════════════════════════════════
+       RSVP
+
+       ┌──────────────────────────────────────────────────────────┐
+       │ TODO(apps-script): CONNECT THE FORM BEFORE SENDING THIS  │
+       │ OUT. While RSVP_ENDPOINT is empty the form validates and │
+       │ shows its success state, but NOTHING IS SAVED ANYWHERE.  │
+       │ Setup steps are in CONTENT.md §6.                        │
+       └──────────────────────────────────────────────────────────┘
+       ══════════════════════════════════════════════════════════════ */
+    var RSVP_ENDPOINT = '';   // ← paste the Apps Script Web App /exec URL here
+
+    (function initRsvp() {
+      var form    = document.getElementById('rsvpForm');
+      var success = document.getElementById('rsvpSuccess');
+      if (!form || !success) return;
+
+      var submitBtn = document.getElementById('rsvpSubmit');
+      var formError = document.getElementById('rsvpFormError');
+      var guestsFld = document.getElementById('guestsField');
+
+      function setError(id, msg) {
+        var el = document.getElementById(id);
+        if (el) el.textContent = msg || '';
+        var field = el && el.closest('.rb-field');
+        if (field) field.classList.toggle('is-invalid', !!msg);
+      }
+
+      /* seats only make sense if they're coming */
+      form.addEventListener('change', function (e) {
+        if (e.target.name !== 'attending') return;
+        var coming = e.target.value.indexOf('Joyfully') === 0;
+        guestsFld.hidden = !coming;
+        setError('err-attending', '');
+      });
+
+      form.addEventListener('input', function (e) {
+        if (e.target.id === 'rsvpName') setError('err-name', '');
+      });
+
+      function validate(data) {
+        var ok = true;
+        if (!data.name.trim()) { setError('err-name', 'Please tell us your name'); ok = false; }
+        if (!data.attending)   { setError('err-attending', 'Please choose one'); ok = false; }
+        return ok;
+      }
+
+      function showSuccess(data) {
+        var first = data.name.trim().split(/\s+/)[0];
+        var coming = data.attending.indexOf('Joyfully') === 0;
+        document.getElementById('rsvpSuccessLine').textContent = 'Thank you, ' + first + '.';
+        document.getElementById('rsvpSuccessSub').textContent = coming
+          ? 'Your seat is reserved. We cannot wait to celebrate with you.'
+          : 'We will miss you dearly, but thank you for letting us know.';
+        document.getElementById('rsvpStampDate').textContent = new Date()
+          .toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase();
+
+        form.hidden = true;
+        success.hidden = false;
+
+        if (HAS_GSAP && !REDUCED) {
+          gsap.from('#rsvpStamp', { scale: 2.4, opacity: 0, rotate: -28, duration: .5, ease: 'back.out(2.2)' });
+          gsap.from(['#rsvpSuccessLine', '#rsvpSuccessSub', '#rsvpEdit'],
+            { opacity: 0, y: 10, duration: .55, ease: EASE, stagger: .08, delay: .18 });
+        }
+        success.setAttribute('tabindex', '-1');
+        success.focus({ preventScroll: true });
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        formError.textContent = '';
+
+        var picked = form.querySelector('input[name="attending"]:checked');
+        var data = {
+          name:      document.getElementById('rsvpName').value,
+          attending: picked ? picked.value : '',
+          guests:    guestsFld.hidden ? '0' : document.getElementById('rsvpGuests').value,
+          message:   document.getElementById('rsvpMessage').value,
+          submitted: new Date().toISOString()
+        };
+        if (!validate(data)) return;
+
+        /* Not wired up yet: succeed locally so the form can be demoed, but say
+           so loudly in the console rather than pretending it saved. */
+        if (!RSVP_ENDPOINT) {
+          console.warn('[RSVP] RSVP_ENDPOINT is empty — nothing was saved. ' +
+                       'Connect Apps Script before sending this to guests. See CONTENT.md §6.', data);
+          window.__rsvpLastPayload = data;
+          showSuccess(data);
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending…';
+
+        /* URLSearchParams keeps this a "simple" request, so the browser skips
+           the CORS preflight that Apps Script cannot answer. doPost reads
+           these off e.parameter. */
+        fetch(RSVP_ENDPOINT, { method: 'POST', body: new URLSearchParams(data) })
+          .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r; })
+          .then(function () { showSuccess(data); })
+          .catch(function (err) {
+            console.error('[RSVP] submit failed', err);
+            formError.textContent = 'Sorry — that did not send. Please try again, or message us directly.';
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send Reply';
+          });
+      });
+
+      document.getElementById('rsvpEdit').addEventListener('click', function () {
+        success.hidden = true;
+        form.hidden = false;
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Reply';
+        form.reset();
+        guestsFld.hidden = false;
+        setError('err-name', ''); setError('err-attending', '');
+        document.getElementById('rsvpName').focus();
+      });
+    })();
+
+
+    /* ══════════════════════════════════════════════════════════════
+       CUSTOM SELECT — reusable component
+
+       Usage: add `data-custom-select` to any <select>. Nothing else.
+       enhanceSelect() builds a themed listbox beside it and mirrors
+       every choice back onto the native element, so form code (and
+       the form itself, if the script never runs) keeps working.
+
+         <select id="meal" name="meal" data-custom-select>
+           <option value="chicken">Chicken</option>
+           <option value="fish">Fish</option>
+         </select>
+
+       Label it with `id` on the <label> — the trigger picks it up
+       through aria-labelledby.
+       ══════════════════════════════════════════════════════════════ */
+    var csSeq = 0;
+
+    function enhanceSelect(select) {
+      if (!select || select.dataset.csReady) return;
+      select.dataset.csReady = '1';
+      var uid = 'cs' + (++csSeq);
+
+      var wrap = document.createElement('div');
+      wrap.className = 'cs';
+      select.parentNode.insertBefore(wrap, select);
+      wrap.appendChild(select);
+      select.classList.add('cs-native');
+      select.setAttribute('tabindex', '-1');
+      select.setAttribute('aria-hidden', 'true');
+
+      var opts = Array.prototype.slice.call(select.options);
+
+      var trigger = document.createElement('button');
+      trigger.type = 'button';
+      trigger.className = 'cs-trigger';
+      trigger.id = uid + '-trigger';
+      trigger.setAttribute('role', 'combobox');
+      trigger.setAttribute('aria-haspopup', 'listbox');
+      trigger.setAttribute('aria-expanded', 'false');
+      trigger.setAttribute('aria-controls', uid + '-panel');
+      var lbl = select.closest('.rb-field') && select.closest('.rb-field').querySelector('.rb-label');
+      if (lbl && lbl.id) trigger.setAttribute('aria-labelledby', lbl.id + ' ' + uid + '-trigger');
+      trigger.innerHTML = '<span class="cs-value"></span><span class="cs-caret" aria-hidden="true">▾</span>';
+
+      var panel = document.createElement('ul');
+      panel.className = 'cs-panel';
+      panel.id = uid + '-panel';
+      panel.setAttribute('role', 'listbox');
+
+      opts.forEach(function (o, i) {
+        var li = document.createElement('li');
+        li.className = 'cs-opt';
+        li.id = uid + '-opt' + i;
+        li.setAttribute('role', 'option');
+        li.dataset.value = o.value;
+        li.textContent = o.textContent;
+        panel.appendChild(li);
+      });
+
+      wrap.appendChild(trigger);
+      wrap.appendChild(panel);
+
+      var items = Array.prototype.slice.call(panel.children);
+      var active = Math.max(0, select.selectedIndex);
+      var open = false;
+
+      function paint() {
+        items.forEach(function (li, i) {
+          li.setAttribute('aria-selected', i === select.selectedIndex ? 'true' : 'false');
+          li.classList.toggle('is-active', i === active);
+        });
+        trigger.querySelector('.cs-value').textContent = opts[select.selectedIndex].textContent;
+        trigger.setAttribute('aria-activedescendant', open ? items[active].id : '');
+      }
+
+      function setOpen(next) {
+        open = next;
+        wrap.classList.toggle('is-open', open);
+        trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (open) {
+          active = Math.max(0, select.selectedIndex);
+          paint();
+          items[active].scrollIntoView({ block: 'nearest' });
+        } else {
+          trigger.removeAttribute('aria-activedescendant');
+        }
+      }
+
+      function choose(i) {
+        select.selectedIndex = i;
+        active = i;
+        /* mirror onto the native element so existing form code and any
+           other listeners see a normal change event */
+        select.dispatchEvent(new Event('change', { bubbles: true }));
+        paint();
+        setOpen(false);
+        trigger.focus();
+      }
+
+      function move(delta) {
+        active = Math.min(items.length - 1, Math.max(0, active + delta));
+        paint();
+        items[active].scrollIntoView({ block: 'nearest' });
+      }
+
+      trigger.addEventListener('click', function () { setOpen(!open); });
+
+      trigger.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          if (!open) { setOpen(true); if (e.key === 'ArrowDown') move(1); if (e.key === 'ArrowUp') move(-1); }
+          else if (e.key === 'Enter' || e.key === ' ') choose(active);
+          else move(e.key === 'ArrowDown' ? 1 : -1);
+          return;
+        }
+        if (e.key === 'Escape' && open) { e.preventDefault(); setOpen(false); return; }
+        if (e.key === 'Home' && open) { e.preventDefault(); active = 0; paint(); return; }
+        if (e.key === 'End' && open)  { e.preventDefault(); active = items.length - 1; paint(); return; }
+        if (e.key === 'Tab' && open) setOpen(false);
+        /* type-ahead: jump to the first option starting with the key */
+        if (e.key.length === 1 && /\S/.test(e.key)) {
+          var hit = opts.findIndex(function (o) {
+            return o.textContent.trim().toLowerCase().indexOf(e.key.toLowerCase()) === 0;
+          });
+          if (hit > -1) { if (!open) choose(hit); else { active = hit; paint(); } }
+        }
+      });
+
+      items.forEach(function (li, i) {
+        li.addEventListener('click', function () { choose(i); });
+        li.addEventListener('mousemove', function () { if (active !== i) { active = i; paint(); } });
+      });
+
+      document.addEventListener('click', function (e) {
+        if (open && !wrap.contains(e.target)) setOpen(false);
+      });
+
+      /* clicking the label should reach the trigger, not the hidden select */
+      if (lbl) lbl.addEventListener('click', function (e) { e.preventDefault(); trigger.focus(); });
+
+      paint();
+    }
+
+    document.querySelectorAll('select[data-custom-select]').forEach(enhanceSelect);
+
+    /* ── QR: directions to the venue ── */
+    document.addEventListener('DOMContentLoaded', function () {
+      var wrap = document.getElementById('qr-canvas');
+      if (!wrap || typeof QRCode === 'undefined') return;
+      wrap.innerHTML = '';
+      new QRCode(wrap, {
+        text: MAPS_URL, width: 160, height: 160,
+        colorDark: '#1F0206', colorLight: '#F7EFE3',
+        correctLevel: QRCode.CorrectLevel.H
+      });
+    });
+
+    /* ── MOBILE: swap roster presentation ── */
+    function applyMobileView() {
+      var isMobile = window.innerWidth <= 720;
+      var desktop = document.querySelector('.desktop-roster');
+      var mobile = document.querySelector('.mobile-sponsors-boxes');
+      if (desktop && mobile) {
+        desktop.style.display = isMobile ? 'none' : '';
+        mobile.style.display = isMobile ? '' : 'none';
+      }
+    }
+    applyMobileView();
+    window.addEventListener('resize', applyMobileView);
+
+    /* ── INFINITE PHOTO STRIPS ──
+       Local files, not inline base64 — the reference sample embedded its photos
+       and ballooned to 2.2 MB as a result. */
+    var PHOTOS = [
+      { src: IMG + 'np-s1.jpg',  type: 'landscape' },
+      { src: IMG + 'np-s2.jpg',  type: 'portrait'  },
+      { src: IMG + 'np-s3.jpg',  type: 'landscape' },
+      { src: IMG + 'np-s4.jpg',  type: 'landscape' },
+      { src: IMG + 'np-s5.jpg',  type: 'portrait'  },
+      { src: IMG + 'np-s6.jpg',  type: 'landscape' },
+      { src: IMG + 'np-s7.jpg',  type: 'landscape' },
+      { src: IMG + 'np-s8.jpg',  type: 'landscape' },
+      { src: IMG + 'np-s9.jpg',  type: 'landscape' },
+      { src: IMG + 'np-s10.jpg', type: 'landscape' }
+    ];
+    var PHOTOS_REVERSE = [
+      { src: IMG + 'np-r1.jpg',  type: 'landscape' },
+      { src: IMG + 'np-r2.jpg',  type: 'landscape' },
+      { src: IMG + 'np-r3.jpg',  type: 'portrait'  },
+      { src: IMG + 'np-r4.jpg',  type: 'landscape' },
+      { src: IMG + 'np-r5.jpg',  type: 'landscape' },
+      { src: IMG + 'np-r6.jpg',  type: 'portrait'  },
+      { src: IMG + 'np-r7.jpg',  type: 'landscape' },
+      { src: IMG + 'np-r8.jpg',  type: 'landscape' },
+      { src: IMG + 'np-r9.jpg',  type: 'landscape' },
+      { src: IMG + 'np-r10.jpg', type: 'landscape' }
+    ];
+
+    function initMovingPhotoStrip() {
+      var tracks = document.querySelectorAll('.photo-strip-track');
+      if (!tracks.length) return;
+      tracks.forEach(function (track) {
+        track.innerHTML = '';
+        var set = track.classList.contains('reverse') ? PHOTOS_REVERSE : PHOTOS;
+        var build = function () {
+          return set.map(function (photo) {
+            var div = document.createElement('div');
+            div.className = 'photo-strip-item ' + photo.type;
+            var img = document.createElement('img');
+            img.src = photo.src;
+            img.alt = 'Randy and Laurice';
+            img.loading = 'lazy';
+            div.appendChild(img);
+            return div;
+          });
+        };
+        /* appended twice so the CSS loop has a duplicate to scroll into */
+        build().forEach(function (el) { track.appendChild(el); });
+        build().forEach(function (el) { track.appendChild(el); });
+      });
+    }
+    document.addEventListener('DOMContentLoaded', initMovingPhotoStrip);
+  </script>
+</body>
+</html>
