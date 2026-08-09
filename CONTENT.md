@@ -201,6 +201,7 @@ Newspaper set (`np-*`, ~2.5 MB total, 33 files):
 | File | Where | Size |
 |---|---|---|
 | `np-cover.jpg` | Photo on the rolled intro paper | 760×440 |
+| `np-share.jpg` | Link-preview card (`og:image`) | 1200×630 |
 | `np-hero.jpg` | Front-page plate, **frame 1** | 1440×810 |
 | `np-hero2–hero4.jpg` | Front-page plate, frames 2–4 | 1440×810 |
 | `np-c1–c8.jpg` | Carousel, 16:9 | 900×506 |
@@ -342,5 +343,30 @@ the `<script>` block or you will silently edit the CSS instead.
 ## 10. Housekeeping
 
 The earlier passport build (`index-passport.html`), the raw sample copy (`newspaper.html`), and the
-20 passport-era crops have all been deleted. `assets/img/` now holds exactly the 30 `np-*` files this
+20 passport-era crops have all been deleted. `assets/img/` now holds exactly the `np-*` files this
 build uses — nothing in there is spare.
+
+---
+
+## 11. The link preview
+
+What a guest sees when the URL is pasted into Messenger, Viber, WhatsApp or iMessage. All of it lives in
+the `<head>`, and none of it is placeholder — the title and description are already the couple's.
+
+| | Value |
+|---|---|
+| Title | Randy & Laurice — The Wedding Times |
+| Description | A special edition. You are invited. |
+| Image | `assets/img/np-share.jpg`, 1200×630 — the picnic photograph, so the card matches the cover the link opens on |
+| Icon | `favicon.ico` (16/32/48) and `apple-touch-icon.png` (180) — a cream ampersand on wine-black |
+
+⚠️ **`og:image`, `og:url` and `twitter:image` are absolute URLs and have to stay that way.** A relative
+`og:image` is silently dropped by every chat app — and since the card asks for `summary_large_image`,
+that failure renders as an empty grey box rather than no image. It shipped that way once.
+
+**If the domain ever changes**, five values need updating together: `canonical`, `og:url`, `og:image`,
+`twitter:image`, and the `CNAME` file. Nothing computes them from the others.
+
+⚠️ **Facebook and Messenger cache a preview the first time a link is posted.** Editing these tags will
+not refresh what has already been cached — the URL has to be re-scraped through Facebook's Sharing
+Debugger (`developers.facebook.com/tools/debug/`). Worth knowing before the invitation circulates.
