@@ -2,24 +2,46 @@
 
 **Current build: `index.html` — "The Wedding Times" broadsheet, in English.**
 
-Only the couple's first names are real. Everything else is a placeholder. Find every one of them:
+**The names, dates, venue and story are now the real ones**, taken from `R_L_Wedding_Plan.xlsx`
+(sheets `ENTOURAGE` and `STORY`). Anything the plan did not supply reads **`Pending`** on the page
+rather than a fake value. Find what is still outstanding:
 
 ```bash
-grep -n "Placeholder\|John Doe\|Jane Doe\|TODO(content)\|0900 000 0000\|0 years" index.html
+grep -n "Pending" index.html
 ```
+
+### Still `Pending` — needs the couple
+
+| Field | Where |
+|---|---|
+| RSVP deadline | front-page fact box, RSVP box, intro notice |
+| Guest arrival time | programme, FAQ |
+| Photographs / Send-off times | programme |
+| GCash and bank details | "On Gifts" note |
+| First met / first date | Notes from the Archive |
+| Parking at the venue | FAQ |
+
+⚠️ **One thing to confirm in the plan itself.** In the principal sponsors list, row 7 has
+*Mary Jone G. Yap* under the **Mr.** column and *Asterio B. Yap* under **Ms.** — the reverse of every
+other pair. The page reproduces the spreadsheet exactly; if it is a transcription slip, swap that one
+`<tr>`.
 
 ---
 
 ## 1. Do this first — the constants at the top of the `<script>`
 
 ```js
-var WEDDING_DATE = '2026-10-30T15:00:00+08:00';          // countdown target, keep the +08:00 offset
-var MAPS_URL     = 'https://maps.google.com/?q=Manila';  // QR code + "Open in Maps" button
-var IMG          = 'assets/img/';                        // leave alone
+var WEDDING_DATE = '2026-10-30T14:30:00+08:00';   // countdown target, keep the +08:00 offset
+var MAPS_URL     = 'https://maps.google.com/?q=Golden+Peak+Hotel+and+Suites+Cebu+City';
+var IMG          = 'assets/img/';                 // leave alone
 ```
 
+`WEDDING_DATE` is the **ceremony** time, 2:30 PM — that is what the countdown counts down to.
+
 `MAPS_URL` drives the QR **and** the button beneath it. The two `View Directions ↗` links inside the
-venue cards are separate `href`s in the markup — update those too if the venues differ.
+venue cards are separate `href`s in the markup and currently carry the same URL, because the plan
+lists **one venue for the whole day**. If the ceremony moves to a church, those two `href`s and the
+ceremony venue card have to change independently.
 
 ---
 
@@ -43,15 +65,21 @@ Also: `<title>`, the `og:` meta tags, `.nav-mark` (`R&L`), `.nf-mark` in the foo
 
 ## 3. Names
 
-| Field | Placeholder |
+All of these are now set from the `ENTOURAGE` sheet — 51 people.
+
+| Field | Value |
 |---|---|
-| Bride / Groom full names | `Laurice Doe` / `Randy Doe` |
-| Both sets of parents | `Mr. John Doe` / `Mrs. Jane Doe` |
-| Best Man / Maid of Honour | `Mr. John Doe` / `Ms. Jane Doe` |
-| Groomsmen & Bridesmaids | 6 rows of `John Doe` / `Jane Doe` — add or remove `<tr>`s freely |
-| Principal Sponsors | 8 rows, same |
-| Officiant | *removed* — the sponsors column now reads "Chosen to guide us". To reinstate, put the name back in that `.art-byline`. |
-| Secondary sponsors | ring / bible / coin bearers, flower girls, candle / veil / cord sponsors |
+| Bride / Groom | Michelle Laurice A. De Joya / Engr. Randy W. Odchigue |
+| Bride's parents | Mr. Rey Arnel S. De Joya & Mrs. Eulogia A. De Joya |
+| Groom's parents | Mr. Efrino G. Odchigue & Mrs. Eva W. Odchigue |
+| Best Man / Maid of Honour | John Rey A. De Joya / Mellen Angelie W. Odchigue |
+| Groomsmen & Bridesmaids | 5 rows each — add or remove `<tr>`s freely |
+| Principal Sponsors | 11 rows |
+| Officiant | *removed* — the sponsors column reads "Chosen to guide us". To reinstate, put the name back in that `.art-byline`. |
+| Secondary sponsors | ring / coin / bible bearers, flower girls, little brides, candle / cord / veil sponsors, offertory |
+
+Titles (`Mr.` / `Ms.`) were dropped from the roster lines — the plan lists bare names, and several
+secondary sponsors have no title given.
 
 **Secondary sponsors are written twice** — once as `.desktop-roster` lines and once as
 `.mobile-sponsors-boxes`. `applyMobileView()` swaps them at 720px. Edit **both** or they'll disagree
@@ -61,42 +89,49 @@ between phone and desktop.
 
 ## 4. Dates, times, venues
 
-**The wedding date is real: Friday, October 30, 2026.** It is set everywhere it appears, including
-`WEDDING_DATE`. The *times* around it are still placeholders.
-
-⚠️ **The RSVP deadline is an assumption.** The build had it one month before the old date, so it now
-reads **September 30, 2026** — one month before October 30. Confirm it, or change it in the two places
-below.
-
-| Field | Placeholder | Appears in |
+| Field | Value | Appears in |
 |---|---|---|
 | Wedding date | ✅ Friday, October 30, 2026 | `WEDDING_DATE`, mast top bar, front-page fact box, headline byline, intro dateline, venue cards, closing block, archive table |
-| Ceremony | 3:00 PM | front-page fact box, programme, venue card, FAQ, reminders |
-| Guest arrival | 2:30 PM | programme, FAQ |
-| Reception | 5:30 PM | front-page fact box, programme, venue card |
-| RSVP deadline | ⚠️ September 30, 2026 (assumed) | front-page fact box, RSVP box, intro notice |
-| City | Placeholder City | mast bar, front-page caption, bylines, venue cards, closing block, intro dateline |
-| Ceremony venue | Placeholder Church | front-page fact box, programme, venue card |
-| Reception venue | Placeholder Reception Hall | front-page fact box, programme, venue card |
-| Addresses | 123 / 456 Placeholder St. | venue cards |
-| Hashtag | `#RandyAndLaurice` | front-page fact box, hashtag banner, FAQ |
+| Ceremony | ✅ 2:30 PM | front-page fact box, programme, venue card, FAQ, reminders |
+| Reception | ✅ 5:00 PM | front-page fact box, programme, venue card |
+| Guest arrival | ⏳ Pending | programme, FAQ |
+| Photographs / Send-off | ⏳ Pending | programme |
+| RSVP deadline | ⏳ Pending | front-page fact box, RSVP box, intro notice |
+| City | ✅ Cebu City | mast bar, front-page caption, bylines, venue cards, closing block, intro dateline |
+| Venue (both) | ✅ Golden Peak Hotel & Suites | front-page fact box, programme, venue cards |
+| Address | ✅ Gorordo Avenue, corner North Escario Street, Cebu City, Philippines | venue cards |
+| Hashtag | `#RandyAndLaurice` — derived from their names, not from the plan | front-page fact box, hashtag banner, FAQ |
+
+The plan lists a single venue block after **both** the ceremony and the reception times, so both
+venue cards carry Golden Peak. If the ceremony is actually at a church, that is the one detail to
+correct.
+
+**Timeline dates** from the `STORY` sheet feed the archive table: became a couple **June 20, 2024**,
+proposal **September 29, 2025**, wedding **October 30, 2026** — which makes "Years Together" read
+**2 years**.
 
 ---
 
 ## 5. Copy to make theirs
 
-The article text is written to be usable as-is, but it's generic by design — it's their voice, not ours.
+The prose is now the couple's own, lifted from the `STORY` sheet and split across the two article
+blocks so neither column runs away with it.
 
-- **The intro sheet's lede** (`.np-lede-body`) — the four lines under the cover photo. Generic on
-  purpose, and the first thing a guest reads. If only one paragraph on the whole site gets rewritten
-  in their voice, make it this one.
-- **"Brought Together by Chance"** — the love story, three paragraphs plus a pull quote from Randy.
-- **"One Last Invitation"** — the closing message plus a pull quote from Laurice.
-- **"Notes from the Archive"** — five fun facts, currently `0 years` / `Placeholder`. Either fill these
-  in or delete the block; shipping "0 years" would be worse than not having it.
-- **Notes & Reminders** — gifts (with GCash/bank placeholders), unplugged ceremony, punctuality,
-  adults-only reception. **The adults-only note is a real policy decision** — delete it if it doesn't apply.
-- **FAQ** — five questions. Check each answer is actually true for this wedding.
+- **"Brought Together by Chance"** — the first half of their story, from strangers through
+  *"Hi, dayun ta laag?"* (the pull quote) to Ecclesiastes 3:11 (the second pull quote).
+- **"One Last Invitation"** — the closing half: the grateful-hearts paragraph, the bigger yes, and
+  *"This is our story. This is our answered prayer."*
+- **The intro sheet's lede** (`.np-lede-body`) — the plan's one-line invitation plus the time and
+  venue. Also used verbatim as the headline sub.
+- **"Notes from the Archive"** — six rows now. First met and first date are `Pending`; the rest are
+  real.
+- **Notes & Reminders** — gifts (GCash/bank are `Pending`), unplugged ceremony, punctuality
+  (2:30 PM), adults-only reception. **The adults-only note is a real policy decision** — delete it if
+  it doesn't apply.
+- **FAQ** — five questions. Arrival time and parking answer `Pending`; check the other three are
+  actually true for this wedding.
+
+Nothing was invented to fill a gap. Where the plan is silent, the page says `Pending`.
 
 ---
 
@@ -184,8 +219,8 @@ picks it up via `aria-labelledby`.
 
 ### Gifts
 
-Gift details in the "On Gifts" note: `GCash: John Doe · 0900 000 0000`,
-`Bank: Jane Doe · 0000 0000 0000`.
+Gift details in the "On Gifts" note read `GCash: Pending` and `Bank: Pending` — the plan does not
+carry them.
 
 ---
 
