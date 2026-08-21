@@ -142,27 +142,42 @@ blocks so neither column runs away with it.
 - **FAQ** — five questions. Arrival time and parking answer `Pending`; check the other three are
   actually true for this wedding.
 
-### ⚠️ The swatches and the dress-code illustration disagree
+### The dress box runs on the couple's own card
 
-`np-dresscode.jpg` sits in the dress box between the swatch row and the attire grid, so the two are
-read together — and they do not currently match.
+Both images in the box are crops of the same dress-code card, so the palette, the outfits and the
+attire chips are one set of colours rather than three:
 
-| Swatch on the page | Nearest colour in the illustration |
+| | |
 |---|---|
-| Emerald Green `#005548` — a deep teal | **no equivalent**; the card has sage `#BAB074` and olive `#49471E` |
-| Burgundy `#801624` | `#5F1A15` — deeper |
-| Rusty Brown `#A73705` | `#573215` — browner, less orange |
-| Caramel `#F37D0F` | `#A9652F` — muted |
-| Cream `#D0AC92` | `#E7C49C` — paler |
-| *(none)* | the card carries **six** colours to the page's five |
+| `np-palette.jpg` | the six swatches, above `.db-text` |
+| `np-dresscode.jpg` | the eight figures, between `.db-text` and the attire grid |
 
-The green is the one that actually matters: the attire grid tells groomsmen "Suit or Barong in
-*Emerald Green*", and the suits in the illustration directly beneath are sage and olive. Someone will
-buy the wrong suit.
+Both keep the card's cream field (`#F8E4CC`), which is a shade warmer than `--paper`. That is
+deliberate — it is what makes them read as a matched pair from one printed card instead of two stray
+images.
 
-Fixing it is five inline `background:` values on `.db-swatch` (plus the matching
-`.attire-swatch-inline` chips) — **not** the `:root` variables, which are the paper's own ink and must
-stay as they are. Confirm the real garment colours with the couple before changing either one.
+The palette, sampled from the card:
+
+| Name on the page | Hex |
+|---|---|
+| Sage Green | `#BAB076` |
+| Olive Green | `#4A481F` |
+| Chocolate Brown | `#5A3216` |
+| Burgundy | `#5F1917` |
+| Caramel | `#AB6631` |
+| Cream | `#E8C49E` |
+
+⚠️ **These are garment colours and have nothing to do with `:root`.** The paper's own ink still uses
+`--emerald #005548`, `--burgundy #801624` and the rest for labels, rules and frames; those must not be
+changed to match the dress code. The only places the garment colours appear are `np-palette.jpg`,
+`.db-text`, and the four `.attire-swatch-inline` chips.
+
+⚠️ **The groomsmen's colour was renamed.** It read "Emerald Green" with a teal chip, which matched
+neither the card nor the suits pictured below it; it now reads **Olive Green** against `#4A481F`. If
+the entourage was told "emerald", change the word — but change it with the chip, not on its own.
+
+The card's own summary line ("burgundi + green + caramel") is cropped out of `np-palette.jpg` on
+purpose: the colour names are already in `.db-text`, and the line carries a typo.
 
 Nothing was invented to fill a gap. Where the plan is silent, the page says `Pending`.
 
@@ -264,11 +279,12 @@ carry them.
 | `assets/photos/` | 32 originals, 2048px | ❌ No — archive only, and **gitignored** |
 | `assets/img/` | web-sized crops | ✅ Yes |
 
-Newspaper set (`np-*`, ~3.0 MB total, 36 files):
+Newspaper set (`np-*`, ~3.0 MB total, 37 files):
 
 | File | Where | Size |
 |---|---|---|
 | `np-cover.jpg` | Photo on the rolled intro paper — the bamboo-hut canopy shot | 760×440 |
+| `np-palette.jpg` | Swatch strip at the top of the dress box | 900×155 |
 | `np-dresscode.jpg` | Illustration inside the dress box | 900×696 |
 | `np-share.jpg` | Link-preview card (`og:image`) | 1200×630 |
 | `np-hero.jpg` | Front-page plate, **frame 1** | 1440×810 |

@@ -1130,19 +1130,11 @@
       margin-bottom: .5rem;
     }
 
-    .db-swatches {
-      display: flex;
-      justify-content: center;
-      gap: .6rem;
-      margin: .6rem 0;
-    }
-
-    .db-swatch {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      border: 1px solid var(--grey-mid);
-    }
+    /* The palette strip, lifted from the couple's own dress-code card. It
+       keeps the card's cream field, which is what makes it sit as a matched
+       pair with the illustration lower down rather than as a stray image. */
+    .db-palette { margin: .6rem 0 .1rem; }
+    .db-palette img { display: block; width: 100%; height: auto; }
 
     .db-text { font-size: .75rem; color: var(--ink-mid); line-height: 1.7; }
 
@@ -2978,14 +2970,11 @@ body { background: var(--mat); }
           <div class="dress-box" id="color-motif">
             <div class="db-title">Formal &amp; Semi-Formal</div>
             <div class="art-byline" style="border:none;padding:0;margin-bottom:.5rem;">Our Colour Palette</div>
-            <div class="db-swatches">
-              <div class="db-swatch" style="background:#005548;" title="Emerald Green"></div>
-              <div class="db-swatch" style="background:#801624;" title="Burgundy"></div>
-              <div class="db-swatch" style="background:#A73705;" title="Rusty Brown"></div>
-              <div class="db-swatch" style="background:#F37D0F;" title="Caramel"></div>
-              <div class="db-swatch" style="background:#D0AC92;" title="Cream"></div>
+            <div class="db-palette">
+              <img src="assets/img/np-palette.jpg" loading="lazy"
+                   alt="Six palette swatches: sage green, olive green, chocolate brown, burgundy, caramel and cream.">
             </div>
-            <div class="db-text">Emerald Green &nbsp;·&nbsp; Burgundy &nbsp;·&nbsp; Rusty Brown &nbsp;·&nbsp; Caramel &nbsp;·&nbsp; Cream</div>
+            <div class="db-text">Sage Green &nbsp;·&nbsp; Olive Green &nbsp;·&nbsp; Chocolate Brown &nbsp;·&nbsp; Burgundy &nbsp;·&nbsp; Caramel &nbsp;·&nbsp; Cream</div>
             <figure class="db-figure">
               <img src="assets/img/np-dresscode.jpg" loading="lazy"
                    alt="Eight guests in the palette — sage and olive green, chocolate brown, burgundy, caramel and cream — in suits and long dresses.">
@@ -2998,19 +2987,19 @@ body { background: var(--mat); }
               </div>
               <div class="attire-row">
                 <div class="attire-role">Principal Sponsors (Ladies)</div>
-                <div class="attire-desc">Long dress in <span class="attire-swatch-inline" style="background:#D0AC92;"></span><em>Cream</em></div>
+                <div class="attire-desc">Long dress in <span class="attire-swatch-inline" style="background:#E8C49E;"></span><em>Cream</em></div>
               </div>
               <div class="attire-row">
                 <div class="attire-role">Bridesmaids</div>
-                <div class="attire-desc">Long dress in <span class="attire-swatch-inline" style="background:#801624;"></span><em>Burgundy</em></div>
+                <div class="attire-desc">Long dress in <span class="attire-swatch-inline" style="background:#5F1917;"></span><em>Burgundy</em></div>
               </div>
               <div class="attire-row">
                 <div class="attire-role">Groomsmen</div>
-                <div class="attire-desc">Suit or Barong in <span class="attire-swatch-inline" style="background:#005548;"></span><em>Emerald Green</em>, black trousers and shoes</div>
+                <div class="attire-desc">Suit or Barong in <span class="attire-swatch-inline" style="background:#4A481F;"></span><em>Olive Green</em>, black trousers and shoes</div>
               </div>
               <div class="attire-row">
                 <div class="attire-role">Guests</div>
-                <div class="attire-desc"><span style="display:block;">Ladies: long or cocktail dress in <span class="attire-swatch-inline" style="background:#A73705;"></span><em>any palette colour</em></span><span style="display:block;">Gentlemen: Barong or suit, black trousers and shoes</span></div>
+                <div class="attire-desc"><span style="display:block;">Ladies: long or cocktail dress in <span class="attire-swatch-inline" style="background:#AB6631;"></span><em>any palette colour</em></span><span style="display:block;">Gentlemen: Barong or suit, black trousers and shoes</span></div>
               </div>
               <div class="attire-row" style="border-bottom:none;">
                 <div class="attire-role" style="color:#801624;font-weight:600;">Please Avoid</div>
@@ -3556,8 +3545,8 @@ body { background: var(--mat); }
         });
 
         /* the palette introducing itself */
-        gsap.from('.db-swatch', { scale: 0, opacity: 0, duration: .55, ease: 'back.out(2)', stagger: .07,
-          scrollTrigger: { trigger: '.db-swatches', start: 'top 90%', once: true } });
+        gsap.from('.db-palette', { scale: .94, opacity: 0, duration: .7, ease: EASE,
+          scrollTrigger: { trigger: '.db-palette', start: 'top 90%', once: true } });
 
         /* hashtag band */
         gsap.from('.hb-tag', { scale: .96, opacity: 0, duration: .9, ease: EASE,
