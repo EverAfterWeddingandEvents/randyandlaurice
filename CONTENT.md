@@ -286,10 +286,9 @@ comes off the bedding.
 are the two derived crops. Keep the full-resolution file wherever the rest of the originals live —
 without it there is nothing to re-crop from.
 
-⚠️ **`np-share.jpg` no longer matches the cover.** The link-preview card is still the picnic
-photograph, which was chosen so the card matched the first thing the link opened on. Regenerating it
-from the new cover photo would restore that — but Facebook and Messenger cache a preview on first
-post, so it would need re-scraping through the Sharing Debugger to take effect (see §11).
+`np-share.jpg` is a third crop of the same original, at 1.9:1. That one is nudged **70px down**
+rather than top-anchored — the card is much wider than the cover, so a top anchor left a band of
+empty roof above the couple.
 
 `np-hero.jpg` and `np-c5.jpg` are the same photograph — that predates this build, but it is the kind of
 repeat worth avoiding if more crops get made.
@@ -416,7 +415,7 @@ the `<head>`, and none of it is placeholder — the title and description are al
 |---|---|
 | Title | Randy & Laurice — The Wedding Times |
 | Description | A special edition. You are invited. |
-| Image | `assets/img/np-share.jpg`, 1200×630 — the picnic photograph, so the card matches the cover the link opens on |
+| Image | `assets/img/np-share.jpg`, 1200×630 — the bamboo-hut photograph, the same shot as the cover the link opens on |
 | Icon | `favicon.ico` (16/32/48) and `apple-touch-icon.png` (180) — a cream ampersand on wine-black |
 
 ⚠️ **`og:image`, `og:url` and `twitter:image` are absolute URLs and have to stay that way.** A relative
