@@ -32,16 +32,23 @@ Ladies. The spreadsheet itself still has it the other way round.
 
 ```js
 var WEDDING_DATE = '2026-10-30T14:30:00+08:00';   // countdown target, keep the +08:00 offset
-var MAPS_URL     = 'https://maps.google.com/?q=Golden+Peak+Hotel+and+Suites+Cebu+City';
+var MAPS_URL     = 'https://maps.app.goo.gl/59h7Bm5nqG49pVAh9';   // the ceremony
 var IMG          = 'assets/img/';                 // leave alone
 ```
 
 `WEDDING_DATE` is the **ceremony** time, 2:30 PM — that is what the countdown counts down to.
 
-`MAPS_URL` drives the QR **and** the button beneath it. The two `View Directions ↗` links inside the
-venue cards are separate `href`s in the markup and currently carry the same URL, because the plan
-lists **one venue for the whole day**. If the ceremony moves to a church, those two `href`s and the
-ceremony venue card have to change independently.
+`MAPS_URL` drives the QR **and** the button beneath it, and points at the **ceremony** — the first
+place guests have to find. The "Getting There" subtitle says so, and the reception has its own link
+on its venue card.
+
+The two `View Directions ↗` links inside the venue cards are separate `href`s and now carry
+**different** URLs, one per venue. There are three map links in total: ceremony card, reception card,
+and `MAPS_URL`.
+
+⚠️ The ceremony link is the Google Maps shortlink the couple supplied
+(`maps.app.goo.gl/59h7Bm5nqG49pVAh9`, with its `?g_st=ic` app-tracking param stripped). It has never
+been opened from this repo — **tap it once on a phone** before the invitation circulates.
 
 ---
 
@@ -98,13 +105,17 @@ between phone and desktop.
 | Photographs / Send-off | ⏳ Pending | programme |
 | RSVP deadline | ⏳ Pending | front-page fact box, RSVP box, intro notice |
 | City | ✅ Cebu City | mast bar, front-page caption, bylines, venue cards, closing block, intro dateline |
-| Venue (both) | ✅ Golden Peak Hotel & Suites | front-page fact box, programme, venue cards |
-| Address | ✅ Gorordo Avenue, corner North Escario Street, Cebu City, Philippines | venue cards |
+| Ceremony venue | ✅ Archdiocesan Shrine of St. Thérèse, Lahug, Cebu City | front-page fact box, programme, venue card, intro lede |
+| Reception venue | ✅ Golden Peak Hotel & Suites, Gorordo Avenue corner North Escario Street, Cebu City | front-page fact box, programme, venue card, intro lede |
 | Hashtag | `#RandyAndLaurice` — derived from their names, not from the plan | front-page fact box, hashtag banner, FAQ |
 
-The plan lists a single venue block after **both** the ceremony and the reception times, so both
-venue cards carry Golden Peak. If the ceremony is actually at a church, that is the one detail to
-correct.
+The spreadsheet listed only Golden Peak, under both the ceremony and reception times. The couple
+confirmed the ceremony is at the **Archdiocesan Shrine of St. Thérèse** in Lahug and the reception at
+**Golden Peak** — so the two venues are now separate everywhere they appear. The `ENTOURAGE`/`STORY`
+plan still shows only the one.
+
+The front-page fact box says **"Shrine of St. Thérèse"** rather than the full name; the box is narrow
+and the full title wraps to three lines there. The venue card and programme carry it in full.
 
 **Timeline dates** from the `STORY` sheet feed the archive table: became a couple **June 20, 2024**,
 proposal **September 29, 2025**, wedding **October 30, 2026** — which makes "Years Together" read
