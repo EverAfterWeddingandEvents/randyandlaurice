@@ -21,10 +21,10 @@ grep -n "Pending" index.html
 | First met / first date | Notes from the Archive |
 | Parking at the venue | FAQ |
 
-⚠️ **One thing to confirm in the plan itself.** In the principal sponsors list, row 7 has
-*Mary Jone G. Yap* under the **Mr.** column and *Asterio B. Yap* under **Ms.** — the reverse of every
-other pair. The page reproduces the spreadsheet exactly; if it is a transcription slip, swap that one
-`<tr>`.
+**One correction to the plan.** The `ENTOURAGE` sheet has principal sponsor row 7 as
+*Mary Jone G. Yap* under **Mr.** and *Asterio B. Yap* under **Ms.**, the reverse of every other pair.
+Confirmed as a transcription slip and swapped on the page: Asterio under Gentlemen, Mary Jone under
+Ladies. The spreadsheet itself still has it the other way round.
 
 ---
 
