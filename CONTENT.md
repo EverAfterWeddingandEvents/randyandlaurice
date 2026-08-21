@@ -239,17 +239,17 @@ carry them.
 
 | Folder | What | Deploy? |
 |---|---|---|
-| `assets/photos/` | 31 originals, 2048px, **9.8 MB** | ❌ No — archive only |
+| `assets/photos/` | 32 originals, 2048px | ❌ No — archive only, and **gitignored** |
 | `assets/img/` | web-sized crops | ✅ Yes |
 
-Newspaper set (`np-*`, ~2.5 MB total, 33 files):
+Newspaper set (`np-*`, ~2.9 MB total, 35 files):
 
 | File | Where | Size |
 |---|---|---|
-| `np-cover.jpg` | Photo on the rolled intro paper | 760×440 |
+| `np-cover.jpg` | Photo on the rolled intro paper — the bamboo-hut canopy shot | 760×440 |
 | `np-share.jpg` | Link-preview card (`og:image`) | 1200×630 |
 | `np-hero.jpg` | Front-page plate, **frame 1** | 1440×810 |
-| `np-hero2–hero4.jpg` | Front-page plate, frames 2–4 | 1440×810 |
+| `np-hero2–hero5.jpg` | Front-page plate, frames 2–5 | 1440×810 |
 | `np-c1–c8.jpg` | Carousel, 16:9 | 900×506 |
 | `np-s1–s10.jpg` | First photo strip | 560×400 landscape / 280×400 portrait |
 | `np-r1–r10.jpg` | Second strip (reversed) | same |
@@ -277,9 +277,22 @@ It skips a turn — holding the current frame for another full 5.2s — while th
 frame 1 gets its moment once the paper drops) and while the next frame is still downloading (a fade to a
 half-loaded image shows nothing, then pops). It stops entirely off-screen and in a background tab.
 
-**All 31 originals are now spoken for**, so a fifth hero frame means reusing a photo that already appears
-somewhere else on the page. `np-hero.jpg` and `np-c5.jpg` are already the same photograph — that predates
-this build, but it is the kind of repeat worth avoiding if more crops get made.
+The plate runs **five** frames. `np-hero5.jpg` and the current `np-cover.jpg` are two crops of the same
+new photograph — the couple on the canopy bed in the bamboo hut — cropped 16:9 and 1.73:1 respectively
+from one 2048×1365 original, both anchored to the top edge so the canopy peak survives and the trim
+comes off the bedding.
+
+⚠️ **That original is not in the repo.** `assets/photos/` is gitignored, so the only copies of it here
+are the two derived crops. Keep the full-resolution file wherever the rest of the originals live —
+without it there is nothing to re-crop from.
+
+⚠️ **`np-share.jpg` no longer matches the cover.** The link-preview card is still the picnic
+photograph, which was chosen so the card matched the first thing the link opened on. Regenerating it
+from the new cover photo would restore that — but Facebook and Messenger cache a preview on first
+post, so it would need re-scraping through the Sharing Debugger to take effect (see §11).
+
+`np-hero.jpg` and `np-c5.jpg` are the same photograph — that predates this build, but it is the kind of
+repeat worth avoiding if more crops get made.
 
 All photographs run in **full colour**. Earlier drafts tinted the strips monochrome and then sepia;
 both dulled the couple, and the palette already carries the theme through the ink, stock and accents.
