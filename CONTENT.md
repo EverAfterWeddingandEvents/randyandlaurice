@@ -142,6 +142,28 @@ blocks so neither column runs away with it.
 - **FAQ** — five questions. Arrival time and parking answer `Pending`; check the other three are
   actually true for this wedding.
 
+### ⚠️ The swatches and the dress-code illustration disagree
+
+`np-dresscode.jpg` sits in the dress box between the swatch row and the attire grid, so the two are
+read together — and they do not currently match.
+
+| Swatch on the page | Nearest colour in the illustration |
+|---|---|
+| Emerald Green `#005548` — a deep teal | **no equivalent**; the card has sage `#BAB074` and olive `#49471E` |
+| Burgundy `#801624` | `#5F1A15` — deeper |
+| Rusty Brown `#A73705` | `#573215` — browner, less orange |
+| Caramel `#F37D0F` | `#A9652F` — muted |
+| Cream `#D0AC92` | `#E7C49C` — paler |
+| *(none)* | the card carries **six** colours to the page's five |
+
+The green is the one that actually matters: the attire grid tells groomsmen "Suit or Barong in
+*Emerald Green*", and the suits in the illustration directly beneath are sage and olive. Someone will
+buy the wrong suit.
+
+Fixing it is five inline `background:` values on `.db-swatch` (plus the matching
+`.attire-swatch-inline` chips) — **not** the `:root` variables, which are the paper's own ink and must
+stay as they are. Confirm the real garment colours with the couple before changing either one.
+
 Nothing was invented to fill a gap. Where the plan is silent, the page says `Pending`.
 
 ---
@@ -242,11 +264,12 @@ carry them.
 | `assets/photos/` | 32 originals, 2048px | ❌ No — archive only, and **gitignored** |
 | `assets/img/` | web-sized crops | ✅ Yes |
 
-Newspaper set (`np-*`, ~2.9 MB total, 35 files):
+Newspaper set (`np-*`, ~3.0 MB total, 36 files):
 
 | File | Where | Size |
 |---|---|---|
 | `np-cover.jpg` | Photo on the rolled intro paper — the bamboo-hut canopy shot | 760×440 |
+| `np-dresscode.jpg` | Illustration inside the dress box | 900×696 |
 | `np-share.jpg` | Link-preview card (`og:image`) | 1200×630 |
 | `np-hero.jpg` | Front-page plate, **frame 1** | 1440×810 |
 | `np-hero2–hero5.jpg` | Front-page plate, frames 2–5 | 1440×810 |

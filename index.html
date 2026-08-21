@@ -1146,6 +1146,25 @@
 
     .db-text { font-size: .75rem; color: var(--ink-mid); line-height: 1.7; }
 
+    /* The dress-code plate. Full-width inside the box and height:auto, so it
+       scales with the column instead of needing its own breakpoint. */
+    .db-figure { margin: .8rem 0 0; }
+    .db-figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--rule-thin);
+      background: var(--paper-mid);
+    }
+    .db-figure figcaption {
+      font-family: 'Libre Baskerville', serif;
+      font-style: italic;
+      font-size: .68rem;
+      line-height: 1.5;
+      color: var(--ink-faint);
+      margin-top: .4rem;
+    }
+
     .attire-grid {
       margin-top: .75rem;
       border-top: 1px solid var(--rule-thin);
@@ -2967,6 +2986,11 @@ body { background: var(--mat); }
               <div class="db-swatch" style="background:#D0AC92;" title="Cream"></div>
             </div>
             <div class="db-text">Emerald Green &nbsp;·&nbsp; Burgundy &nbsp;·&nbsp; Rusty Brown &nbsp;·&nbsp; Caramel &nbsp;·&nbsp; Cream</div>
+            <figure class="db-figure">
+              <img src="assets/img/np-dresscode.jpg" loading="lazy"
+                   alt="Eight guests in the palette — sage and olive green, chocolate brown, burgundy, caramel and cream — in suits and long dresses.">
+              <figcaption>Earthy, elegant, romantic, timeless &mdash; a guide, not a uniform.</figcaption>
+            </figure>
             <div class="attire-grid">
               <div class="attire-row">
                 <div class="attire-role">Principal Sponsors (Gentlemen)</div>
