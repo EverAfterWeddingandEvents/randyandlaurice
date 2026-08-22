@@ -1806,6 +1806,7 @@
       .nav-links.open a:nth-child(4) { transition-delay: .26s; }
       .nav-links.open a:nth-child(5) { transition-delay: .32s; }
       .nav-links.open a:nth-child(6) { transition-delay: .38s; }
+      .nav-links.open a:nth-child(7) { transition-delay: .44s; }
       /* closing, they leave together — nobody waits out a stagger in reverse */
       .nav-links:not(.open) a { transition-delay: 0s; }
 
@@ -2078,8 +2079,10 @@
   width: max-content;
   /* Spacing MUST be margin, not gap: the marquee translates -50%, and gap is
      excluded from that measure, so the loop drifted 142.5px per cycle. */
-  /* Increased from 30s to 120s because of the large number of photos */
-  animation: scroll-strip 120s linear infinite; 
+  /* Duration tracks the item count: the strip scrolls one full copy of the set
+     per cycle, so more photos over the same seconds means a faster crawl.
+     30s suited 10 photos; 18 photos want 216s to keep the same pace. */
+  animation: scroll-strip 216s linear infinite;
 }
 
 /* Pause on hover */
@@ -2102,7 +2105,7 @@
 
 /* Apply reverse animation */
 .photo-strip-track.reverse {
-  animation: scroll-strip-reverse 60s linear infinite !important;
+  animation: scroll-strip-reverse 108s linear infinite !important;  /* same rescale, half the period: this strip runs at twice the pace by design */
 }
 
 /* 1. Base styling for ALL photos */
@@ -2146,6 +2149,190 @@
 
 .photo-strip-item:hover img {
   transform: scale(1.03);
+}
+
+/* ══ PICTURE SUPPLEMENT — the 53-frame gallery and its viewer ══
+   The grid is laid out in JS, not with CSS `columns`: multi-column fills
+   top-to-bottom down column 1 before it starts column 2, which would bury
+   the couple's best-ranked frames at the foot of the first column. The JS
+   drops each photo into whichever column is currently shortest, so the
+   ranking reads across the top row the way a contact sheet does. */
+.gallery-section {
+  padding: 2.2rem 1.6rem 2.4rem;
+  border-top: 3px double var(--rule);
+}
+.gallery-byline {
+  font-family: 'Jost', sans-serif;
+  font-size: .62rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: -.2rem 0 1.1rem;
+}
+.gallery-grid { display: flex; gap: 10px; align-items: flex-start; }
+.gallery-col  { display: flex; flex-direction: column; gap: 10px; flex: 1 1 0; min-width: 0; }
+
+/* each frame is a pasted-in clipping: hairline rule, a sliver of stock
+   around the image, the same treatment the strips and plate already use */
+.gallery-item {
+  display: block;
+  width: 100%;
+  padding: 4px;
+  border: 1px solid var(--rule-thin);
+  background: var(--paper-mid);
+  cursor: zoom-in;
+  position: relative;
+  transition: box-shadow .35s ease, transform .35s ease;
+}
+.gallery-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: saturate(1.04) contrast(1.02);
+  transition: filter .5s ease;
+}
+.gallery-item:hover,
+.gallery-item:focus-visible {
+  box-shadow: 0 8px 24px rgba(31, 2, 6, .28);
+  transform: translateY(-2px);
+  outline: none;
+}
+.gallery-item:focus-visible { border-color: var(--burgundy); }
+.gallery-item:hover img { filter: saturate(1.1) contrast(1.03); }
+/* the frame number, set like a caption credit */
+.gallery-item::after {
+  content: attr(data-num);
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  font-family: 'Jost', sans-serif;
+  font-size: .5rem;
+  letter-spacing: .12em;
+  color: var(--paper);
+  background: rgba(31, 2, 6, .62);
+  padding: 2px 5px;
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+.gallery-item:hover::after,
+.gallery-item:focus-visible::after { opacity: 1; }
+
+.gallery-note {
+  font-family: 'Jost', sans-serif;
+  font-size: .58rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  text-align: center;
+  margin-top: 1.1rem;
+}
+
+/* Offscreen tiles skip layout and paint until they are scrolled near. The
+   contain-intrinsic-size keeps the scrollbar honest while they are skipped —
+   without it the page height jumps around as you scroll. */
+.gallery-item { content-visibility: auto; contain-intrinsic-size: auto 300px; }
+
+/* ── COLLAPSED STATE ──
+   The section opens on 12 frames. The fade is the only signal that the grid is
+   cut, so it sits on the grid rather than the section: it has to end where the
+   photographs end, not where the button does. */
+.gallery-section.is-collapsed .gallery-grid {
+  -webkit-mask-image: linear-gradient(to bottom, #000 88%, rgba(0, 0, 0, .42) 100%);
+          mask-image: linear-gradient(to bottom, #000 88%, rgba(0, 0, 0, .42) 100%);
+}
+.gallery-more-wrap { text-align: center; margin-top: 1.2rem; }
+.gallery-more {
+  font-family: 'Jost', sans-serif;
+  font-size: .6rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--rule);
+  padding: .62rem 1.5rem;
+  cursor: pointer;
+  transition: background .28s ease, color .28s ease;
+}
+.gallery-more:hover,
+.gallery-more:focus-visible {
+  background: var(--ink);
+  color: var(--paper);
+  outline: none;
+}
+
+@media (max-width: 720px) {
+  .gallery-section { padding: 1.6rem 1rem 1.8rem; }
+  .gallery-grid, .gallery-col { gap: 7px; }
+  .gallery-item { padding: 3px; contain-intrinsic-size: auto 190px; }
+  .gallery-more { font-size: .56rem; padding: .58rem 1.2rem; }
+}
+
+/* ── THE VIEWER ──
+   Lives at the end of <body>, never inside .gallery-section: `.reveal`
+   carries a transform, and a transformed ancestor makes `position: fixed`
+   resolve against it instead of the viewport. */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 4000;
+  background: rgba(10, 1, 3, .975);   /* opaque enough that the nav and the music clipping behind it read as gone, not as a glitch */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3.2rem 1rem;
+  opacity: 0;
+  transition: opacity .28s ease;
+}
+.lightbox[hidden] { display: none; }
+.lightbox.open { opacity: 1; }
+
+.lb-figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: .7rem; max-width: 100%; max-height: 100%; }
+.lb-figure img {
+  max-width: 100%;
+  max-height: calc(100vh - 8.6rem);   /* the padding *and* the caption below: leave both out of the photo's budget or it overflows the box */
+  width: auto;
+  height: auto;
+  display: block;
+  background: var(--wine-black);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, .6);
+  transition: opacity .2s ease;
+}
+.lightbox.loading .lb-figure img { opacity: .35; }
+.lb-count {
+  font-family: 'Jost', sans-serif;
+  font-size: .6rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--paper-dark);
+}
+
+.lb-close, .lb-nav {
+  position: absolute;
+  background: rgba(247, 239, 227, .1);
+  border: 1px solid rgba(247, 239, 227, .3);
+  color: var(--paper);
+  cursor: pointer;
+  font-family: 'Jost', sans-serif;
+  line-height: 1;
+  transition: background .25s ease, border-color .25s ease;
+}
+.lb-close:hover, .lb-nav:hover,
+.lb-close:focus-visible, .lb-nav:focus-visible {
+  background: rgba(247, 239, 227, .24);
+  border-color: var(--paper);
+  outline: none;
+}
+.lb-close { top: 1rem; right: 1rem; width: 42px; height: 42px; font-size: 1.5rem; }
+.lb-nav   { top: 50%; transform: translateY(-50%); width: 46px; height: 64px; font-size: 2rem; }
+.lb-nav.prev { left: 1rem; }
+.lb-nav.next { right: 1rem; }
+
+@media (max-width: 720px) {
+  .lightbox { padding: 3.4rem .5rem 4.2rem; }
+  .lb-figure img { max-height: calc(100vh - 9.8rem); }
+  .lb-nav { width: 40px; height: 54px; font-size: 1.6rem; top: auto; bottom: .9rem; transform: none; }
+  .lb-nav.prev { left: 1.2rem; }
+  .lb-nav.next { right: 1.2rem; }
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -2727,6 +2914,8 @@ body { background: var(--mat); }
                   <div><span>The Programme</span><span>p. 1</span></div>
                   <div><span>The Entourage</span><span>p. 2</span></div>
                   <div><span>Reminders</span><span>p. 2</span></div>
+                  <div><span>Picture Supplement</span><span>p. 2</span></div>
+                  <div><span>The Venue</span><span>p. 2</span></div>
                   <div><span>Kindly Reply</span><span>p. 2</span></div>
                 </div>
               </div>
@@ -2758,6 +2947,7 @@ body { background: var(--mat); }
       <a href="#schedule" onclick="closeMenu()">Programme</a>
       <a href="#venue" onclick="closeMenu()">Venue</a>
       <a href="#notes" onclick="closeMenu()">Notes</a>
+      <a href="#gallery" onclick="closeMenu()">Gallery</a>
       <a href="#rsvp" onclick="closeMenu()">RSVP</a>
     </div>
     <div style="display:flex;align-items:center;gap:.6rem;">
@@ -2780,7 +2970,7 @@ body { background: var(--mat); }
         <div class="mast-name-block">
           <div class="mast-edition">Special Edition · Celebrating the Journey of</div>
           <div class="mast-title">The Wedding Times</div>
-          <div class="mast-subtitle">A Wedding Invitation &amp; Souvenir Programme</div>
+          <div class="mast-subtitle">An Invitation to Our Forever &amp; Celebration Guide</div>
         </div>
         <div class="mast-bottom-bar">
           <span>Issue No. 1 &nbsp;·&nbsp; Est. 2026</span>
@@ -2792,8 +2982,8 @@ body { background: var(--mat); }
       <!-- MAIN HEADLINE — the paper announces, then illustrates -->
       <div class="headline-section reveal">
         <div class="hl-kicker">Exclusive Announcement — Issue No. 1</div>
-        <div class="hl-main">THEY'RE GETTING MARRIED!</div>
-        <div class="hl-sub">After years of choosing each other, Randy and Laurice invite you to witness the beginning of their forever.</div>
+        <div class="hl-main">WE’RE GETTING MARRIED!</div>
+        <div class="hl-sub">After years of choosing each other, we invite you to witness the beginning of our forever.</div>
         <div class="hl-byline">&nbsp;·&nbsp; October 30, 2026 &nbsp;·&nbsp;</div>
       </div>
 
@@ -3096,6 +3286,18 @@ body { background: var(--mat); }
         </div>
       </div>
 
+      <!-- PICTURE SUPPLEMENT — every frame, in the couple's own running order -->
+      <div class="gallery-section reveal" id="gallery">
+        <span class="art-label">The picture supplement</span>
+        <h2 class="art-head">Our Album, <em>In Full</em></h2>
+        <div class="gallery-byline">Randy &amp; Laurice &middot; every photograph we couldn’t bear to leave out</div>
+        <div class="gallery-grid" id="galleryGrid"></div>
+        <div class="gallery-more-wrap">
+          <button type="button" class="gallery-more" id="galleryMore" aria-controls="galleryGrid" aria-expanded="false">View all 53 photographs</button>
+        </div>
+        <div class="gallery-note">Tap any photograph to open it full size</div>
+      </div>
+
       <!-- BOTTOM GRID -->
       <div class="bottom-grid" id="sponsors">
 
@@ -3131,8 +3333,6 @@ body { background: var(--mat); }
           <div class="rule-ornate"><span>Notes from the Archive</span></div>
           <div style="font-size:.76rem;color:var(--ink-mid);line-height:1.8;">
             <div style="display:flex;justify-content:space-between;padding:.25rem 0;border-bottom:1px solid var(--rule-thin);"><span>Years Together</span><span style="font-family:'Playfair Display',serif;font-weight:700;">2 years</span></div>
-            <div style="display:flex;justify-content:space-between;padding:.25rem 0;border-bottom:1px solid var(--rule-thin);"><span>First Met</span><span style="font-family:'Playfair Display',serif;font-weight:700;">Pending</span></div>
-            <div style="display:flex;justify-content:space-between;padding:.25rem 0;border-bottom:1px solid var(--rule-thin);"><span>First Date</span><span style="font-family:'Playfair Display',serif;font-weight:700;">Pending</span></div>
             <div style="display:flex;justify-content:space-between;padding:.25rem 0;border-bottom:1px solid var(--rule-thin);"><span>Became a Couple</span><span style="font-family:'Playfair Display',serif;font-weight:700;">Jun 20, 2024</span></div>
             <div style="display:flex;justify-content:space-between;padding:.25rem 0;border-bottom:1px solid var(--rule-thin);"><span>The Proposal</span><span style="font-family:'Playfair Display',serif;font-weight:700;">Sep 29, 2025</span></div>
             <div style="display:flex;justify-content:space-between;padding:.25rem 0;border-bottom:1px solid var(--rule-thin);"><span>The Wedding</span><span style="font-family:'Playfair Display',serif;font-weight:700;">Oct 30, 2026</span></div>
@@ -3221,8 +3421,6 @@ body { background: var(--mat); }
                 <select class="rb-input rb-select" id="rsvpGuests" name="guests" data-custom-select>
                   <option value="1">1 — just me</option>
                   <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
                 </select>
               </div>
 
@@ -3297,7 +3495,7 @@ body { background: var(--mat); }
             <span class="roster-head">Ring Bearer</span>
             <span class="roster-name" style="font-size:.78rem;">Francis Jose G. De Joya</span>
             <span class="roster-head" style="margin-top:.5rem;">Coin Bearer</span>
-            <span class="roster-name" style="font-size:.78rem;">Gio G. Gutierez</span>
+            <span class="roster-name" style="font-size:.78rem;">Gio G. Gutierrez</span>
             <span class="roster-head" style="margin-top:.5rem;">Bible Bearer</span>
             <span class="roster-name" style="font-size:.78rem;">Zayr Aellius D. Pedroza</span>
             <span class="roster-head" style="margin-top:.5rem;">Flower Girls</span>
@@ -3325,7 +3523,7 @@ body { background: var(--mat); }
             </div>
             <div style="margin-bottom:.6rem;">
               <div class="roster-head" style="text-align:center;">Coin Bearer</div>
-              <div class="secondary-sponsors-grid"><div class="roster-name-box full-width">Gio G. Gutierez</div></div>
+              <div class="secondary-sponsors-grid"><div class="roster-name-box full-width">Gio G. Gutierrez</div></div>
             </div>
             <div style="margin-bottom:.6rem;">
               <div class="roster-head" style="text-align:center;">Bible Bearer</div>
@@ -3377,6 +3575,19 @@ body { background: var(--mat); }
   <!-- A clipping pinned to the corner of the page. Collapsed it is just the
        record; playing, it opens to name the track — no hover required, because
        on a phone there is no hover to give. -->
+  <!-- PHOTO VIEWER — deliberately a sibling of the paper, not a child of the
+       gallery: .reveal sets a transform, and a transformed ancestor would make
+       this `position: fixed` resolve against the section instead of the screen. -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photograph viewer" hidden>
+    <button class="lb-close" id="lbClose" aria-label="Close viewer">&times;</button>
+    <button class="lb-nav prev" id="lbPrev" aria-label="Previous photograph">&#8249;</button>
+    <button class="lb-nav next" id="lbNext" aria-label="Next photograph">&#8250;</button>
+    <figure class="lb-figure">
+      <img id="lbImg" alt="">
+      <figcaption class="lb-count" id="lbCount"></figcaption>
+    </figure>
+  </div>
+
   <div id="music-player">
     <button id="music-toggle" aria-label="Play our song" aria-pressed="false">
       <span class="mp-disc" aria-hidden="true"></span>
@@ -4155,6 +4366,294 @@ body { background: var(--mat); }
     applyMobileView();
     window.addEventListener('resize', applyMobileView);
 
+
+    /* ── PICTURE SUPPLEMENT ──
+       53 frames, ranked by the couple: g01 is their first pick, g53 their last.
+       Two files per frame — np-gNN.jpg is the 640px grid thumb, np-gNN-lg.jpg
+       the 1600px copy the viewer fetches only when a frame is actually opened.
+       w/h are the *thumb's* pixel dimensions; they set the <img> attributes so
+       every tile reserves its height before the bytes land, and they are what
+       the column balancer measures. */
+    var GALLERY = [
+      { n: "01", w: 640, h: 426 },
+      { n: "02", w: 640, h: 426 },
+      { n: "03", w: 640, h: 426 },
+      { n: "04", w: 640, h: 426 },
+      { n: "05", w: 640, h: 426 },
+      { n: "06", w: 640, h: 426 },
+      { n: "07", w: 640, h: 426 },
+      { n: "08", w: 640, h: 426 },
+      { n: "09", w: 640, h: 426 },
+      { n: "10", w: 640, h: 426 },
+      { n: "11", w: 640, h: 426 },
+      { n: "12", w: 640, h: 426 },
+      { n: "13", w: 640, h: 426 },
+      { n: "14", w: 640, h: 426 },
+      { n: "15", w: 640, h: 681 },
+      { n: "16", w: 640, h: 426 },
+      { n: "17", w: 640, h: 426 },
+      { n: "18", w: 640, h: 426 },
+      { n: "19", w: 640, h: 426 },
+      { n: "20", w: 640, h: 426 },
+      { n: "21", w: 640, h: 426 },
+      { n: "22", w: 640, h: 426 },
+      { n: "23", w: 640, h: 960 },
+      { n: "24", w: 640, h: 426 },
+      { n: "25", w: 640, h: 426 },
+      { n: "26", w: 640, h: 426 },
+      { n: "27", w: 640, h: 960 },
+      { n: "28", w: 640, h: 426 },
+      { n: "29", w: 640, h: 426 },
+      { n: "30", w: 640, h: 426 },
+      { n: "31", w: 640, h: 960 },
+      { n: "32", w: 640, h: 426 },
+      { n: "33", w: 640, h: 960 },
+      { n: "34", w: 640, h: 426 },
+      { n: "35", w: 640, h: 426 },
+      { n: "36", w: 640, h: 426 },
+      { n: "37", w: 640, h: 426 },
+      { n: "38", w: 640, h: 426 },
+      { n: "39", w: 640, h: 426 },
+      { n: "40", w: 640, h: 426 },
+      { n: "41", w: 640, h: 426 },
+      { n: "42", w: 640, h: 426 },
+      { n: "43", w: 640, h: 426 },
+      { n: "44", w: 640, h: 426 },
+      { n: "45", w: 640, h: 426 },
+      { n: "46", w: 640, h: 426 },
+      { n: "47", w: 640, h: 426 },
+      { n: "48", w: 640, h: 426 },
+      { n: "49", w: 640, h: 426 },
+      { n: "50", w: 640, h: 426 },
+      { n: "51", w: 640, h: 426 },
+      { n: "52", w: 640, h: 426 },
+      { n: "53", w: 640, h: 960 }
+    ];
+
+    function galleryColumns() { return window.innerWidth <= 720 ? 2 : 3; }
+
+    /* How many frames the section shows before you ask for the rest. 53 photos
+       laid out in full turned the supplement into the longest thing on the page
+       — a wedding invitation should not make you scroll past a contact sheet to
+       reach the RSVP. Twelve fills about one screen in either column count; the
+       viewer still pages through all 53 from any of them. */
+    var GALLERY_PREVIEW = 12;
+    var galleryExpanded = false;
+
+    /* The tile's real display width, so the browser can pick the cheaper rung.
+       Mobile is two columns inside 1rem padding and a 7px gap; desktop is three
+       inside the 960px sheet, 1.6rem padding and two 10px gaps. Without this a
+       phone downloads the 640px file to paint it 175px wide. */
+    var GALLERY_SIZES = '(max-width: 720px) calc(50vw - 20px), (max-width: 960px) calc((100vw - 71px) / 3), 296px';
+
+    function buildGallery(force) {
+      var grid = document.getElementById('galleryGrid');
+      if (!grid) return;
+      var cols = galleryColumns();
+      var shown = galleryExpanded ? GALLERY.length : Math.min(GALLERY_PREVIEW, GALLERY.length);
+      var state = cols + ':' + shown;
+      if (!force && grid.dataset.state === state) return;   /* nothing to redo */
+      grid.dataset.state = state;
+      grid.innerHTML = '';
+
+      var colEls = [], colH = [];
+      for (var c = 0; c < cols; c++) {
+        var col = document.createElement('div');
+        col.className = 'gallery-col';
+        grid.appendChild(col);
+        colEls.push(col);
+        colH.push(0);
+      }
+
+      GALLERY.slice(0, shown).forEach(function (photo, i) {
+        /* shortest-column placement: the ranking then reads across the top row
+           rather than straight down column one, which is what CSS `columns`
+           would have given us */
+        var target = 0;
+        for (var c = 1; c < cols; c++) { if (colH[c] < colH[target]) target = c; }
+
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'gallery-item';
+        btn.setAttribute('data-num', photo.n);
+        btn.setAttribute('aria-label', 'Open photograph ' + (i + 1) + ' of ' + GALLERY.length);
+
+        var img = document.createElement('img');
+        var base = IMG + 'np-g' + photo.n;
+        img.src = base + '-640.jpg';                     /* the fallback if srcset is ignored */
+        img.srcset = base + '-400.jpg 400w, ' + base + '-640.jpg 640w';
+        img.sizes = GALLERY_SIZES;
+        img.width = photo.w;
+        img.height = photo.h;
+        img.alt = 'Randy and Laurice, photograph ' + (i + 1);
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        btn.appendChild(img);
+
+        btn.addEventListener('click', function () { lightboxOpen(i); });
+        colEls[target].appendChild(btn);
+        colH[target] += photo.h / photo.w;   /* aspect, not pixels — columns are equal width */
+      });
+
+      var section = document.getElementById('gallery');
+      if (section) section.classList.toggle('is-collapsed', !galleryExpanded);
+      var more = document.getElementById('galleryMore');
+      if (more) {
+        more.textContent = galleryExpanded
+          ? 'Show fewer'
+          : 'View all ' + GALLERY.length + ' photographs';
+        more.setAttribute('aria-expanded', galleryExpanded ? 'true' : 'false');
+      }
+    }
+
+    function galleryToggle() {
+      var section = document.getElementById('gallery');
+      galleryExpanded = !galleryExpanded;
+      buildGallery(true);
+      /* collapsing from far down the list would otherwise leave the reader
+         stranded below the section that just got shorter */
+      if (!galleryExpanded && section) {
+        section.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      }
+    }
+
+    /* ── THE VIEWER ── */
+    var lbIndex = 0, lbLastFocus = null, lbScrollY = 0;
+
+    /* The viewer gets its own two rungs. A phone opening a frame was pulling the
+       full 1600px file — ~390 KB, and two more for the neighbours it preloads.
+       `sizes="100vw"` lets it take the 1000px copy instead, which is all a
+       390pt screen can show even at 3x. */
+    function lbSet(i) {
+      var base = IMG + 'np-g' + GALLERY[i].n;
+      return { src: base + '-1600.jpg',
+               srcset: base + '-1000.jpg 1000w, ' + base + '-1600.jpg 1600w' };
+    }
+
+    function lightboxShow(i) {
+      var box = document.getElementById('lightbox');
+      var img = document.getElementById('lbImg');
+      var count = document.getElementById('lbCount');
+      lbIndex = (i + GALLERY.length) % GALLERY.length;
+
+      box.classList.add('loading');
+      img.alt = 'Randy and Laurice, photograph ' + (lbIndex + 1);
+      img.onload = function () { box.classList.remove('loading'); };
+      img.onerror = function () { box.classList.remove('loading'); };
+      var set = lbSet(lbIndex);
+      img.sizes = '100vw';
+      img.srcset = set.srcset;
+      img.src = set.src;
+      count.textContent = (lbIndex + 1) + ' / ' + GALLERY.length;
+
+      /* warm the neighbours so a tap on ‹ or › is instant — but not on a metered
+         or slow connection, where three photos to show one is the wrong trade */
+      var c = navigator.connection;
+      if (c && (c.saveData || /^([23]g|slow-2g)$/.test(c.effectiveType || ''))) return;
+      [lbIndex + 1, lbIndex - 1].forEach(function (n) {
+        var pre = new Image();
+        var ps = lbSet((n + GALLERY.length) % GALLERY.length);
+        pre.sizes = '100vw';
+        pre.srcset = ps.srcset;
+        pre.src = ps.src;
+      });
+    }
+
+    function lightboxOpen(i) {
+      var box = document.getElementById('lightbox');
+      if (!box) return;
+      lbLastFocus = document.activeElement;
+      /* freeze the page behind the overlay without losing the reading position */
+      lbScrollY = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = -lbScrollY + 'px';
+      document.body.style.width = '100%';
+
+      box.hidden = false;
+      lightboxShow(i);
+      requestAnimationFrame(function () { box.classList.add('open'); });
+      document.getElementById('lbClose').focus();
+    }
+
+    function lightboxClose() {
+      var box = document.getElementById('lightbox');
+      if (!box || box.hidden) return;
+      box.classList.remove('open');
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      window.scrollTo(0, lbScrollY);
+
+      var finish = function () {
+        box.hidden = true;
+        document.getElementById('lbImg').removeAttribute('src');   /* drop the 1600px copy */
+      };
+      /* wait out the fade, but never strand the dialog open if the
+         transition never fires (reduced motion crushes it to .01ms) */
+      var done = false;
+      var end = function () { if (done) return; done = true; finish(); };
+      box.addEventListener('transitionend', end, { once: true });
+      setTimeout(end, 350);
+
+      if (lbLastFocus && lbLastFocus.focus) lbLastFocus.focus();
+    }
+
+    function lightboxStep(d) { lightboxShow(lbIndex + d); }
+
+    function initGallery() {
+      buildGallery();
+      var more = document.getElementById('galleryMore');
+      if (more) more.addEventListener('click', galleryToggle);
+
+      var box = document.getElementById('lightbox');
+      if (!box) return;
+      document.getElementById('lbClose').addEventListener('click', lightboxClose);
+      document.getElementById('lbPrev').addEventListener('click', function () { lightboxStep(-1); });
+      document.getElementById('lbNext').addEventListener('click', function () { lightboxStep(1); });
+      /* backdrop click closes; clicks on the photo or the buttons do not */
+      box.addEventListener('click', function (e) { if (e.target === box) lightboxClose(); });
+
+      document.addEventListener('keydown', function (e) {
+        if (box.hidden) return;
+        if (e.key === 'Escape') { lightboxClose(); }
+        else if (e.key === 'ArrowRight') { lightboxStep(1); }
+        else if (e.key === 'ArrowLeft') { lightboxStep(-1); }
+        else if (e.key === 'Tab') {
+          /* keep Tab inside the dialog — there is nothing useful behind it */
+          var stops = [document.getElementById('lbClose'),
+                       document.getElementById('lbPrev'),
+                       document.getElementById('lbNext')];
+          var at = stops.indexOf(document.activeElement);
+          var next = e.shiftKey ? at - 1 : at + 1;
+          if (at === -1 || next < 0 || next >= stops.length) {
+            e.preventDefault();
+            stops[e.shiftKey ? stops.length - 1 : 0].focus();
+          }
+        }
+      });
+
+      /* swipe, for the phones this will mostly be read on */
+      var x0 = null, y0 = null;
+      box.addEventListener('touchstart', function (e) {
+        x0 = e.changedTouches[0].clientX; y0 = e.changedTouches[0].clientY;
+      }, { passive: true });
+      box.addEventListener('touchend', function (e) {
+        if (x0 === null) return;
+        var dx = e.changedTouches[0].clientX - x0;
+        var dy = e.changedTouches[0].clientY - y0;
+        /* horizontal intent only, so a vertical flick never flips the photo */
+        if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) lightboxStep(dx < 0 ? 1 : -1);
+        x0 = y0 = null;
+      }, { passive: true });
+
+      var t;
+      window.addEventListener('resize', function () {
+        clearTimeout(t);
+        t = setTimeout(buildGallery, 180);   /* only rebuilds if the column count actually changed */
+      });
+    }
+    document.addEventListener('DOMContentLoaded', initGallery);
+
     /* ── INFINITE PHOTO STRIPS ──
        Local files, not inline base64 — the reference sample embedded its photos
        and ballooned to 2.2 MB as a result. */
@@ -4168,7 +4667,15 @@ body { background: var(--mat); }
       { src: IMG + 'np-s7.jpg',  type: 'landscape' },
       { src: IMG + 'np-s8.jpg',  type: 'landscape' },
       { src: IMG + 'np-s9.jpg',  type: 'landscape' },
-      { src: IMG + 'np-s10.jpg', type: 'landscape' }
+      { src: IMG + 'np-s10.jpg', type: 'landscape' },
+      { src: IMG + 'np-s11.jpg', type: 'landscape' },
+      { src: IMG + 'np-s12.jpg', type: 'landscape' },
+      { src: IMG + 'np-s13.jpg', type: 'landscape' },
+      { src: IMG + 'np-s14.jpg', type: 'portrait'  },
+      { src: IMG + 'np-s15.jpg', type: 'landscape' },
+      { src: IMG + 'np-s16.jpg', type: 'landscape' },
+      { src: IMG + 'np-s17.jpg', type: 'landscape' },
+      { src: IMG + 'np-s18.jpg', type: 'landscape' }
     ];
     var PHOTOS_REVERSE = [
       { src: IMG + 'np-r1.jpg',  type: 'landscape' },
@@ -4180,7 +4687,15 @@ body { background: var(--mat); }
       { src: IMG + 'np-r7.jpg',  type: 'landscape' },
       { src: IMG + 'np-r8.jpg',  type: 'landscape' },
       { src: IMG + 'np-r9.jpg',  type: 'landscape' },
-      { src: IMG + 'np-r10.jpg', type: 'landscape' }
+      { src: IMG + 'np-r10.jpg', type: 'landscape' },
+      { src: IMG + 'np-r11.jpg', type: 'landscape' },
+      { src: IMG + 'np-r12.jpg', type: 'landscape' },
+      { src: IMG + 'np-r13.jpg', type: 'landscape' },
+      { src: IMG + 'np-r14.jpg', type: 'portrait'  },
+      { src: IMG + 'np-r15.jpg', type: 'landscape' },
+      { src: IMG + 'np-r16.jpg', type: 'landscape' },
+      { src: IMG + 'np-r17.jpg', type: 'landscape' },
+      { src: IMG + 'np-r18.jpg', type: 'landscape' }
     ];
 
     function initMovingPhotoStrip() {

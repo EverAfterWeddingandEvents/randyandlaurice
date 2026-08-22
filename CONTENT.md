@@ -233,7 +233,7 @@ values arrive on `e.parameter`.
 |---|---|
 | `name` | Required |
 | `attending` | Required — "Joyfully accepts" / "Regretfully declines" |
-| `guests` | 1–4; sent as `0` automatically when they decline |
+| `guests` | 1–2; sent as `0` automatically when they decline. Capped at 2 on purpose — an invitation may name a couple, but never an extra guest on top of the names printed on it, which is what the "Strictly no +1" line beside the field means. Widening the `<select>` re-opens that contradiction. |
 | `message` | Optional, capped at 400 characters |
 | `submitted` | ISO timestamp from the guest's browser |
 
@@ -276,10 +276,12 @@ carry them.
 
 | Folder | What | Deploy? |
 |---|---|---|
-| `assets/photos/` | 32 originals, 2048px | ❌ No — archive only, and **gitignored** |
+| `assets/photos/` | 31 early originals at 2048px **+ 53 full-resolution camera files** (6240×4160, ~1 GB) | ❌ No — archive only, and **gitignored** |
 | `assets/img/` | web-sized crops | ✅ Yes |
 
-Newspaper set (`np-*`, ~3.0 MB total, 37 files):
+Newspaper set (`np-*`, ~30 MB on disk, 265 files). Disk size is not page weight: the gallery ships
+four rungs of every frame and a browser downloads exactly one of them. A full read of the page costs
+**~3.4 MB on desktop and ~3.0 MB on a phone**.
 
 | File | Where | Size |
 |---|---|---|
@@ -290,11 +292,72 @@ Newspaper set (`np-*`, ~3.0 MB total, 37 files):
 | `np-hero.jpg` | Front-page plate, **frame 1** | 1440×810 |
 | `np-hero2–hero5.jpg` | Front-page plate, frames 2–5 | 1440×810 |
 | `np-c1–c8.jpg` | Carousel, 16:9 | 900×506 |
-| `np-s1–s10.jpg` | First photo strip | 560×400 landscape / 280×400 portrait |
-| `np-r1–r10.jpg` | Second strip (reversed) | same |
+| `np-s1–s18.jpg` | First photo strip | 560×400 landscape / 280×400 portrait |
+| `np-r1–r18.jpg` | Second strip (reversed) | same |
+| `np-g01–g53-400.jpg` | Grid tile — phones, and desktop at 1× | 400px wide |
+| `np-g01–g53-640.jpg` | Grid tile — desktop at 2× | 640px wide |
+| `np-g01–g53-1000.jpg` | Viewer — phones | 1000px long edge |
+| `np-g01–g53-1600.jpg` | Viewer — desktop | 1600px long edge |
 
 The `type` (`landscape` / `portrait`) in the `PHOTOS` and `PHOTOS_REVERSE` arrays must match the
 crop's actual shape — it sets the item's width. A portrait file in a landscape slot will stretch.
+
+Both strips run **18** photos now, up from 10. The scroll duration has to move with the count: a strip
+travels exactly one copy of its set per cycle, so leaving 120s in place while adding eight photos would
+simply have made the crawl 80% faster. `scroll-strip` is now **216s** and `scroll-strip-reverse` **108s**
+— the reverse strip is meant to run at twice the pace, which is why it is half, not equal.
+
+### The picture supplement — `#gallery`
+
+53 frames, the couple's own running order: `np-g01` is their first pick and `np-g53` their last. The
+source files were named `1IMG_…` through `8IMG_…` by rank, unprefixed meaning last; that ranking is
+baked into the `np-gNN` numbering, so **to re-rank, re-cut the files — the page just counts upward.**
+
+**It opens on 12 frames, not 53.** `GALLERY_PREVIEW` at the top of the gallery script sets that, and
+the button below the grid swaps between the twelve and the full set. Laid out in full the supplement
+was the longest thing on the page — a wedding invitation should not make you scroll past a contact
+sheet to reach the RSVP. Twelve fills roughly one screen in either column count, and the viewer still
+pages through all 53 starting from any of them, so nothing is actually hidden. The soft fade at the
+foot of a collapsed grid is the only cue that it is cut, which is why the mask sits on `.gallery-grid`
+and not on the section — it has to end where the photographs end, not where the button does.
+
+**Every frame ships in four sizes and the browser picks one.** The grid tile carries
+`srcset="…-400.jpg 400w, …-640.jpg 640w"` plus a `sizes` string that describes the real column width
+(two columns inside 1rem padding and a 7px gap on a phone; three inside the 960px sheet, 1.6rem
+padding and two 10px gaps above that). Get `sizes` wrong and the saving evaporates — a phone will
+happily download the 640px file to paint it 175px wide, which is exactly what it did before. The
+viewer does the same with its 1000/1600 pair at `sizes="100vw"`.
+
+Together with the 12-frame preview that is the difference between a **6.5 MB** page and a **3.4 MB**
+one; on a phone, between 6.1 MB and 3.0 MB, and a tapped frame costs ~130 KB instead of ~390 KB.
+
+Three more things that are not arbitrary:
+
+- **The grid is laid out in JS, not with CSS `columns`.** Multi-column fills straight down column one
+  before it starts column two, which would have buried the couple's best-ranked frames at the foot of
+  the first column. Each photo goes into whichever column is currently shortest, so the ranking reads
+  *across* the top row the way a contact sheet does. Three columns above 720px, two below.
+- **The viewer is a sibling of the paper, not a child of the gallery.** `.gallery-section` carries
+  `.reveal`, and `.reveal` sets a transform — a transformed ancestor makes `position: fixed` resolve
+  against *it* rather than the viewport, which would have pinned the overlay inside the section.
+- **`w`/`h` in the `GALLERY` array are the 640px file's real dimensions.** They become the `<img>`
+  attributes, so each tile reserves its height before the bytes arrive, and they are also what the
+  column balancer measures. Wrong numbers mean both a jumping page and lopsided columns. They are
+  only ever read as a *ratio*, so they stay correct no matter which rung the browser fetches.
+
+Tiles also carry `content-visibility: auto`, which lets the browser skip layout and paint for frames
+scrolled well away — it matters most with the grid expanded to 53. The paired `contain-intrinsic-size`
+is what keeps the scrollbar from lurching while they are skipped.
+
+Escape closes the viewer, ← and → step through and wrap, Tab is trapped inside the dialog, and on a
+phone a horizontal swipe flips frames. Opening a frame freezes the page behind it at its scroll
+position and restores it on close. Neighbouring frames are preloaded so ‹ and › feel instant — except
+on a connection that reports `saveData` or 2G/3G, where fetching three photographs to show one is the
+wrong trade.
+
+⚠️ The hero plate and carousel crops were checked for the same treatment and **left alone on purpose**:
+they are already efficiently encoded. Re-compressing `np-hero3.jpg` at q45 bought 16% and cost visible
+quality, and `np-c1.jpg` at q50 bought 5%. There is nothing to win there.
 
 ### The front-page plate cycles
 
@@ -322,7 +385,9 @@ from one 2048×1365 original, both anchored to the top edge so the canopy peak s
 comes off the bedding.
 
 ⚠️ **That original is not in the repo.** `assets/photos/` is gitignored, so the only copies of it here
-are the two derived crops. Keep the full-resolution file wherever the rest of the originals live —
+are the two derived crops. The same warning now covers ~1 GB of full-resolution camera files sitting in
+that folder — they are the source for every `np-g*` frame and every `np-s11`–`s18` / `np-r11`–`r18` crop,
+and **nothing in git has a copy of them.** Back that folder up. Keep the full-resolution file wherever the rest of the originals live —
 without it there is nothing to re-crop from.
 
 `np-share.jpg` is a third crop of the same original, at 1.9:1. That one is nudged **70px down**
