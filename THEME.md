@@ -1,6 +1,6 @@
 # Randy & Laurice — Theme & Style Guide
 
-**`index.html` — "The Wedding Times", a vintage broadsheet printed in the couple's palette,
+**`index.html` — "The Moment We Say “I Do”", a vintage broadsheet printed in the couple's palette,
 in English, with a GSAP motion layer.** Based on `Weddings/samples/newspaper/`.
 
 ---

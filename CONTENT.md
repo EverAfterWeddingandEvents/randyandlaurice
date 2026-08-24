@@ -1,6 +1,6 @@
 # Content Checklist — Randy & Laurice
 
-**Current build: `index.html` — "The Wedding Times" broadsheet, in English.**
+**Current build: `index.html` — "The Moment We Say “I Do”" broadsheet, in English.**
 
 **The names, dates, venue and story are now the real ones**, taken from `R_L_Wedding_Plan.xlsx`
 (sheets `ENTOURAGE` and `STORY`). Anything the plan did not supply reads **`Pending`** on the page
@@ -14,12 +14,10 @@ grep -n "Pending" index.html
 
 | Field | Where |
 |---|---|
-| RSVP deadline | front-page fact box, RSVP box, intro notice |
-| Guest arrival time | programme, FAQ |
+| Guest arrival time | programme |
 | Photographs / Send-off times | programme |
 | GCash and bank details | "On Gifts" note |
 | First met / first date | Notes from the Archive |
-| Parking at the venue | FAQ |
 
 **One correction to the plan.** The `ENTOURAGE` sheet has principal sponsor row 7 as
 *Mary Jone G. Yap* under **Mr.** and *Asterio B. Yap* under **Ms.**, the reverse of every other pair.
@@ -65,8 +63,9 @@ The paper's identity appears in **two** places and they should agree:
 | Contents | `.np-contents-list` | the nav links |
 | RSVP / hashtag | `.np-notice` | `.rb-deadline` |
 
-Also: `<title>`, the `og:` meta tags, `.nav-mark` (`R&L`), `.nf-mark` in the footer, and the
-`R & L` script monogram in the closing message.
+Also: `<title>`, the `og:` meta tags, and the three placements of the monogram —
+`.nav-mark` in the nav, `.nf-mark` in the footer, and `.sig-logo` above the signature in the
+closing message. All three draw `assets/img/np-logo.png`, masked to a circle.
 
 ---
 
@@ -76,10 +75,10 @@ All of these are now set from the `ENTOURAGE` sheet — 51 people.
 
 | Field | Value |
 |---|---|
-| Bride / Groom | Michelle Laurice A. De Joya / Engr. Randy W. Odchigue |
-| Bride's parents | Mr. Rey Arnel S. De Joya & Mrs. Eulogia A. De Joya |
+| Bride / Groom | Michelle Laurice A. DeJoya / Engr. Randy W. Odchigue |
+| Bride's parents | Mr. Rey Arnel S. DeJoya & Mrs. Eulogia A. DeJoya |
 | Groom's parents | Mr. Efrino G. Odchigue & Mrs. Eva W. Odchigue |
-| Best Man / Maid of Honour | John Rey A. De Joya / Mellen Angelie W. Odchigue |
+| Best Man / Maid of Honour | John Rey A. DeJoya / Mellen Angelie W. Odchigue |
 | Groomsmen & Bridesmaids | 5 rows each — add or remove `<tr>`s freely |
 | Principal Sponsors | 11 rows |
 | Officiant | *removed* — the sponsors column reads "Chosen to guide us". To reinstate, put the name back in that `.art-byline`. |
@@ -101,13 +100,13 @@ between phone and desktop.
 | Wedding date | ✅ Friday, October 30, 2026 | `WEDDING_DATE`, mast top bar, front-page fact box, headline byline, intro dateline, venue cards, closing block, archive table |
 | Ceremony | ✅ 2:30 PM | front-page fact box, programme, venue card, FAQ, reminders |
 | Reception | ✅ 5:00 PM | front-page fact box, programme, venue card |
-| Guest arrival | ⏳ Pending | programme, FAQ |
+| Guest arrival | ⏳ Pending in programme; FAQ says arrive before 2:30 PM | programme |
 | Photographs / Send-off | ⏳ Pending | programme |
-| RSVP deadline | ⏳ Pending | front-page fact box, RSVP box, intro notice |
+| RSVP deadline | ✅ October 3, 2026 | front-page fact box, RSVP box, intro notice |
 | City | ✅ Cebu City | mast bar, front-page caption, bylines, venue cards, closing block, intro dateline |
 | Ceremony venue | ✅ Archdiocesan Shrine of St. Thérèse, Lahug, Cebu City | front-page fact box, programme, venue card, intro lede |
 | Reception venue | ✅ Golden Peak Hotel & Suites, Gorordo Avenue corner North Escario Street, Cebu City | front-page fact box, programme, venue card, intro lede |
-| Hashtag | `#RandyAndLaurice` — derived from their names, not from the plan | front-page fact box, hashtag banner, FAQ |
+| Hashtag | `#GodUnitedRandyAndLaurice` | front-page fact box, hashtag banner, intro notice, FAQ |
 
 The spreadsheet listed only Golden Peak, under both the ceremony and reception times. The couple
 confirmed the ceremony is at the **Archdiocesan Shrine of St. Thérèse** in Lahug and the reception at
@@ -128,7 +127,7 @@ proposal **September 29, 2025**, wedding **October 30, 2026** — which makes "Y
 The prose is now the couple's own, lifted from the `STORY` sheet and split across the two article
 blocks so neither column runs away with it.
 
-- **"Brought Together by Chance"** — the first half of their story, from strangers through
+- **"Faith Lead Us Here"** — the first half of their story, from strangers through
   *"Hi, dayun ta laag?"* (the pull quote) to Ecclesiastes 3:11 (the second pull quote).
 - **"One Last Invitation"** — the closing half: the grateful-hearts paragraph, the bigger yes, and
   *"This is our story. This is our answered prayer."*
@@ -510,7 +509,7 @@ the `<head>`, and none of it is placeholder — the title and description are al
 
 | | Value |
 |---|---|
-| Title | Randy & Laurice — The Wedding Times |
+| Title | Randy & Laurice — The Moment We Say “I Do” |
 | Description | A special edition. You are invited. |
 | Image | `assets/img/np-share.jpg`, 1200×630 — the bamboo-hut photograph, the same shot as the cover the link opens on |
 | Icon | `favicon.ico` (16/32/48) and `apple-touch-icon.png` (180) — a cream ampersand on wine-black |
