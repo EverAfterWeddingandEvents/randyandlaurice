@@ -1317,6 +1317,9 @@
       text-align: center;
       line-height: 1.35;
       text-wrap: balance;
+      hyphens: none;
+      overflow-wrap: normal;
+      word-break: keep-all;
     }
 
     .db-chip {
@@ -1328,12 +1331,19 @@
       border: 1px solid rgba(31, 2, 6, 0.12);
     }
 
-    /* three across rather than six hairline-thin chips on a phone */
+    /* all six stay on one row on a phone; the type steps down so the longest
+       word still fits its cell without breaking */
     @media (max-width: 720px) {
       .db-palette {
-        grid-template-columns: repeat(3, 1fr);
-        gap: .5rem .4rem;
+        gap: .3rem .22rem;
       }
+
+      .db-swatch {
+        font-size: .42rem;
+        letter-spacing: .02em;
+      }
+
+      .db-chip { margin-bottom: .22rem; }
     }
 
 
