@@ -4075,14 +4075,12 @@ body { background: var(--mat); }
     /* ══════════════════════════════════════════════════════════════
        RSVP
 
-       ┌──────────────────────────────────────────────────────────┐
-       │ TODO(apps-script): CONNECT THE FORM BEFORE SENDING THIS  │
-       │ OUT. While RSVP_ENDPOINT is empty the form validates and │
-       │ shows its success state, but NOTHING IS SAVED ANYWHERE.  │
-       │ Setup steps are in CONTENT.md §6.                        │
-       └──────────────────────────────────────────────────────────┘
+       Replies are posted to the Apps Script web app in apps-script/Code.gs,
+       which writes them to the `RSVPs` tab of the RSVP spreadsheet. If that
+       deployment is ever replaced, paste the new /exec URL below — an empty
+       string makes the form succeed locally and save nothing. See CONTENT.md §6.
        ══════════════════════════════════════════════════════════════ */
-    var RSVP_ENDPOINT = '';   // ← paste the Apps Script Web App /exec URL here
+    var RSVP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbya71WwFbdc_r1Aok_3YDSjVyh20CrlHPRGkJQpi7pxrWXG_BpkGiSJQmBb4vaCeqHH/exec';
 
     (function initRsvp() {
       var form    = document.getElementById('rsvpForm');
@@ -4155,8 +4153,8 @@ body { background: var(--mat); }
         };
         if (!validate(data)) return;
 
-        /* Not wired up yet: succeed locally so the form can be demoed, but say
-           so loudly in the console rather than pretending it saved. */
+        /* Endpoint removed: succeed locally so the form can still be demoed,
+           but say so loudly in the console rather than pretending it saved. */
         if (!RSVP_ENDPOINT) {
           console.warn('[RSVP] RSVP_ENDPOINT is empty — nothing was saved. ' +
                        'Connect Apps Script before sending this to guests. See CONTENT.md §6.', data);

@@ -183,34 +183,27 @@ Nothing was invented to fill a gap. Where the plan is silent, the page says `Pen
 
 ---
 
-## 6. RSVP — ⚠️ NOT CONNECTED YET
+## 6. RSVP — connected
 
-The form is built and works end to end, **but nothing is being saved.** `RSVP_ENDPOINT` at the top of
-the RSVP block in the inline `<script>` is an empty string. While it's empty the form validates and
-shows its success state so it can be demoed, and logs a warning to the console — but replies go
-nowhere. **Connect this before the invitation goes out.**
+The form posts to the Apps Script web app in [`apps-script/Code.gs`](apps-script/Code.gs), which
+writes each reply to the **`RSVPs`** tab of the RSVP spreadsheet. `RSVP_ENDPOINT` at the top of the
+RSVP block in the inline `<script>` holds the live `/exec` URL. If it is ever emptied, the form still
+validates and shows its success state so it can be demoed, and logs a warning to the console — but
+replies go nowhere.
 
-### Connecting it to Google Sheets (Apps Script)
+### How it is wired (Apps Script → Google Sheets)
 
-1. Create a Google Sheet. Name a tab **`RSVPs`** and give it the header row:
-   `Timestamp · Name · Attending · Seats · Message`
-2. **Extensions → Apps Script**, and replace the contents with:
+1. A Google Sheet holds the replies.
+2. **Extensions → Apps Script**, and replace the contents with [`apps-script/Code.gs`](apps-script/Code.gs),
+   then run `setup()` once from the editor and grant the permissions it asks for. That creates the
+   **`RSVPs`** tab and its header row:
+   `Timestamp · Name · Attending · Seats · Message · Submitted (browser) · Revisions`
 
-   ```js
-   function doPost(e) {
-     var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('RSVPs');
-     sheet.appendRow([
-       new Date(),
-       e.parameter.name,
-       e.parameter.attending,
-       e.parameter.guests,
-       e.parameter.message
-     ]);
-     return ContentService
-       .createTextOutput(JSON.stringify({ ok: true }))
-       .setMimeType(ContentService.MimeType.JSON);
-   }
-   ```
+   The script validates and clamps what arrives (name required, attending must be one of the two
+   values, seats forced to 0 on a decline and capped at 2, message truncated at 400), takes a lock so
+   simultaneous replies cannot collide on a row, and — with `UPDATE_EXISTING` on — overwrites a
+   guest's earlier row when they reply again instead of leaving two. `CONFIG` at the top also carries
+   an optional RSVP cutoff date and a token for the `?action=stats` read.
 
 3. **Deploy → New deployment → Web app.** Execute as **Me**; who has access **Anyone**.
    (It must be "Anyone", or guests get a sign-in wall.)
