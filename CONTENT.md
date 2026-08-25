@@ -70,10 +70,10 @@ All of these are now set from the `ENTOURAGE` sheet — 51 people.
 
 | Field | Value |
 |---|---|
-| Bride / Groom | Michelle Laurice A. DeJoya / Engr. Randy W. Odchigue |
-| Bride's parents | Mr. Rey Arnel S. DeJoya & Mrs. Eulogia A. DeJoya |
+| Bride / Groom | Michelle Laurice A. De Joya / Engr. Randy W. Odchigue |
+| Bride's parents | Mr. Rey Arnel S. De Joya & Mrs. Eulogia A. De Joya |
 | Groom's parents | Mr. Efrino G. Odchigue & Mrs. Eva W. Odchigue |
-| Best Man / Maid of Honour | John Rey A. DeJoya / Mellen Angelie W. Odchigue |
+| Best Man / Maid of Honour | John Rey A. De Joya / Mellen Angelie W. Odchigue |
 | Groomsmen & Bridesmaids | 5 rows each — add or remove `<tr>`s freely |
 | Principal Sponsors | 11 rows |
 | Officiant | *removed* — the sponsors column reads "Chosen to guide us". To reinstate, put the name back in that `.art-byline`. |
