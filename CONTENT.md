@@ -12,12 +12,7 @@ grep -n "Pending" index.html
 
 ### Still `Pending` — needs the couple
 
-| Field | Where |
-|---|---|
-| Guest arrival time | programme |
-| Photographs / Send-off times | programme |
-| GCash and bank details | "On Gifts" note |
-| First met / first date | Notes from the Archive |
+Nothing outstanding — every field the plan left blank now has a value on the page.
 
 **One correction to the plan.** The `ENTOURAGE` sheet has principal sponsor row 7 as
 *Mary Jone G. Yap* under **Mr.** and *Asterio B. Yap* under **Ms.**, the reverse of every other pair.
@@ -100,8 +95,8 @@ between phone and desktop.
 | Wedding date | ✅ Friday, October 30, 2026 | `WEDDING_DATE`, mast top bar, front-page fact box, headline byline, intro dateline, venue cards, closing block, archive table |
 | Ceremony | ✅ 2:30 PM | front-page fact box, programme, venue card, FAQ, reminders |
 | Reception | ✅ 5:00 PM | front-page fact box, programme, venue card |
-| Guest arrival | ⏳ Pending in programme; FAQ says arrive before 2:30 PM | programme |
-| Photographs / Send-off | ⏳ Pending | programme |
+| Guest arrival | ✅ Before 2:30 PM (FAQ) | FAQ |
+| Programme | ✅ 2:30 PM–10:00 PM, five slots from the timeline card | programme |
 | RSVP deadline | ✅ October 3, 2026 | front-page fact box, RSVP box, intro notice |
 | City | ✅ Cebu City | mast bar, front-page caption, bylines, venue cards, closing block, intro dateline |
 | Ceremony venue | ✅ Archdiocesan Shrine of St. Thérèse, Lahug, Cebu City | front-page fact box, programme, venue card, intro lede |

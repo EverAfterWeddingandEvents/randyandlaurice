@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
   <title>Randy &amp; Laurice — The Moment We Say “I Do”</title>
   <meta name="description"
-    content="Randy &amp; Laurice are getting married. Read all about it — the story, the programme, the entourage, and how to RSVP.">
+    content="Randy &amp; Laurice are getting married. Read all about it — the story, the timeline, the entourage, and how to RSVP.">
   <link rel="canonical" href="https://randyandlaurice.everafterweddingsandevent.com/">
 
   <!-- Sharing. og:image MUST be an absolute URL — a relative one is silently
@@ -1229,27 +1229,69 @@
     }
 
     /* ── ITINERARY ── */
+    /* ── TIMELINE ──
+       Rebuilt from the couple's timeline card: the icon sits left, a hairline
+       spine with a heart at each stop runs down the middle, and the time sits
+       above its event. The spine is drawn per row and bridges the row gaps, so
+       it reads as one continuous rule without needing a fixed offset. */
     .it-row {
       display: grid;
-      grid-template-columns: 70px 1fr;
+      grid-template-columns: 58px 16px 1fr;
       gap: .5rem;
-      align-items: baseline;
-      padding: .55rem 0;
-      border-bottom: 1px solid var(--rule-thin);
+      align-items: start;
+      padding: .6rem 0;
     }
 
-    .it-row:last-child {
-      border-bottom: none;
+    .it-icon img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .it-spine {
+      position: relative;
+      align-self: stretch;
+    }
+
+    .it-spine::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: -.6rem;
+      bottom: -.6rem;
+      width: 1px;
+      background: var(--emerald);
+    }
+
+    /* the rule begins and ends on a heart, never in mid-air */
+    .it-row:first-child .it-spine::before {
+      top: .42rem;
+    }
+
+    .it-row:last-child .it-spine::before {
+      bottom: calc(100% - .42rem);
+    }
+
+    .it-spine::after {
+      content: '\2665';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+      font-size: .6rem;
+      line-height: 1;
+      color: var(--emerald);
+      background: var(--paper);
+      padding: .1rem 0;
     }
 
     .it-time {
-      font-size: .62rem;
-      letter-spacing: .08em;
-      color: var(--ink-faint);
-      text-align: right;
-      padding-right: .7rem;
-      border-right: 1px solid var(--ink);
+      display: block;
       font-family: 'Libre Baskerville', serif;
+      font-size: .62rem;
+      letter-spacing: .04em;
+      color: var(--ink-faint);
     }
 
     .it-event {
@@ -1343,7 +1385,9 @@
         letter-spacing: .02em;
       }
 
-      .db-chip { margin-bottom: .22rem; }
+      .db-chip {
+        margin-bottom: .22rem;
+      }
     }
 
 
@@ -1663,6 +1707,61 @@
       margin-top: .5rem;
     }
 
+    /* ── GIFT QR CODES ──
+       The notes column is narrow, so the codes sit small and each one links to
+       its own full-size file — a guest scanning from a second phone taps
+       through rather than squinting at a 100px tile. */
+    .gift-qr {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .5rem;
+      margin-top: .55rem;
+    }
+
+    .gq-item {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .gq-item img {
+      display: block;
+      width: 100%;
+      height: auto;
+      background: #fff;
+      padding: 3px;
+      border: 1px solid var(--rule-thin);
+    }
+
+    .gq-item:hover img,
+    .gq-item:focus-visible img {
+      border-color: var(--emerald);
+    }
+
+    .gq-bank {
+      display: block;
+      font-family: 'Jost', sans-serif;
+      font-size: .55rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--emerald);
+      margin-top: .32rem;
+    }
+
+    .gq-acct {
+      display: block;
+      font-size: .6rem;
+      color: var(--ink-light);
+      line-height: 1.4;
+    }
+
+    .gq-hint {
+      font-style: italic;
+      font-size: .62rem;
+      color: var(--ink-faint);
+    }
+
     /* ── VENUE CARD ── */
     .venue-card {
       margin-bottom: 1rem;
@@ -1759,6 +1858,62 @@
     }
 
     /* ── FOOTER ── */
+    /* ── SEND-OFF ──
+       Sits between the last column and the footer. The figures are the couple's
+       own artwork, cut out so they stand on the paper rather than in cream boxes. */
+    .send-off {
+      padding: 1.4rem 1.6rem .4rem;
+    }
+
+    .send-off-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      align-items: end;
+      margin-top: .9rem;
+    }
+
+    .sw-item {
+      text-align: center;
+      margin: 0;
+    }
+
+    .sw-item img {
+      display: block;
+      width: auto;
+      max-width: 100%;
+      height: 140px;
+      margin: 0 auto .55rem;
+    }
+
+    .sw-item figcaption {
+      font-family: 'Jost', sans-serif;
+      font-size: .58rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      line-height: 1.4;
+    }
+
+    @media (max-width: 720px) {
+      .send-off {
+        padding: 1.1rem 1rem .2rem;
+      }
+
+      .send-off-grid {
+        gap: .5rem;
+      }
+
+      .sw-item img {
+        height: 96px;
+      }
+
+      .sw-item figcaption {
+        font-size: .5rem;
+        letter-spacing: .12em;
+      }
+    }
+
     .newspaper-footer {
       padding: 1rem 2rem;
       border-top: 3px double var(--ink);
@@ -3067,10 +3222,9 @@
       color: var(--burgundy);
     }
 
-    /* — programme & countdown — */
+    /* — timeline & countdown — */
     .it-time {
       color: var(--burgundy);
-      border-right-color: var(--rust);
     }
 
     .cd-lbl {
@@ -4003,7 +4157,7 @@
                 <div class="np-contents-label">Inside This Issue</div>
                 <div class="np-contents-list">
                   <div><span>Our Story</span><span>p. 1</span></div>
-                  <div><span>The Programme</span><span>p. 1</span></div>
+                  <div><span>The Timeline</span><span>p. 1</span></div>
                   <div><span>The Entourage</span><span>p. 2</span></div>
                   <div><span>Reminders</span><span>p. 2</span></div>
                   <div><span>Picture Supplement</span><span>p. 2</span></div>
@@ -4037,7 +4191,7 @@
     <div class="nav-links" id="navLinks">
       <a href="#story" onclick="closeMenu()">Our Story</a>
       <a href="#entourage" onclick="closeMenu()">Entourage</a>
-      <a href="#schedule" onclick="closeMenu()">Programme</a>
+      <a href="#schedule" onclick="closeMenu()">Timeline</a>
       <a href="#venue" onclick="closeMenu()">Venue</a>
       <a href="#notes" onclick="closeMenu()">Notes</a>
       <a href="#gallery" onclick="closeMenu()">Gallery</a>
@@ -4238,29 +4392,43 @@
             <div class="cd-cell"><span class="cd-num" id="cd-m">--</span><span class="cd-lbl">Minutes</span></div>
             <div class="cd-cell"><span class="cd-num" id="cd-s">--</span><span class="cd-lbl">Seconds</span></div>
           </div>
-          <div class="rule-ornate"><span>Programme</span></div>
+          <div class="rule-ornate"><span>Timeline</span></div>
           <div class="itinerary" id="schedule">
             <div class="it-row">
-              <div class="it-time">Pending</div>
-              <div class="it-event"><strong>Guests Arrive</strong>Doors open and guests are seated.</div>
+              <div class="it-icon"><img src="assets/img/np-tl-1.png" alt="" width="180" height="157" loading="lazy">
+              </div>
+              <div class="it-spine" aria-hidden="true"></div>
+              <div class="it-event"><span class="it-time">2:30 PM &ndash; 4:00 PM</span><strong>The
+                  Ceremony</strong>Archdiocesan Shrine of St. Th&eacute;r&egrave;se, Lahug. Kindly silence your phones.
+              </div>
             </div>
             <div class="it-row">
-              <div class="it-time">2:30 PM</div>
-              <div class="it-event"><strong>The Ceremony</strong>Archdiocesan Shrine of St. Th&eacute;r&egrave;se,
-                Lahug. Kindly silence your phones.</div>
+              <div class="it-icon"><img src="assets/img/np-tl-2.png" alt="" width="170" height="180" loading="lazy">
+              </div>
+              <div class="it-spine" aria-hidden="true"></div>
+              <div class="it-event"><span class="it-time">4:00 PM &ndash; 6:00
+                  PM</span><strong>Photographs</strong>Family and friends with the newlyweds.</div>
             </div>
             <div class="it-row">
-              <div class="it-time">Pending</div>
-              <div class="it-event"><strong>Photographs</strong>Family and friends with the newlyweds.</div>
+              <div class="it-icon"><img src="assets/img/np-tl-3.png" alt="" width="155" height="180" loading="lazy">
+              </div>
+              <div class="it-spine" aria-hidden="true"></div>
+              <div class="it-event"><span class="it-time">6:00 PM &ndash; 7:00 PM</span><strong>Cheers for the
+                  Couple</strong>Golden Peak Hotel &amp; Suites. Toasts, cake and well-wishes.</div>
             </div>
             <div class="it-row">
-              <div class="it-time">5:00 PM</div>
-              <div class="it-event"><strong>Reception &amp; Dinner</strong>Golden Peak Hotel &amp; Suites. Eat, drink,
-                and dance.</div>
+              <div class="it-icon"><img src="assets/img/np-tl-4.png" alt="" width="180" height="141" loading="lazy">
+              </div>
+              <div class="it-spine" aria-hidden="true"></div>
+              <div class="it-event"><span class="it-time">7:00 PM &ndash; 8:00 PM</span><strong>Dinner</strong>Please
+                find your seat and eat well.</div>
             </div>
             <div class="it-row">
-              <div class="it-time">Pending</div>
-              <div class="it-event"><strong>Send-Off</strong>One last song, and goodnight.</div>
+              <div class="it-icon"><img src="assets/img/np-tl-5.png" alt="" width="159" height="180" loading="lazy">
+              </div>
+              <div class="it-spine" aria-hidden="true"></div>
+              <div class="it-event"><span class="it-time">8:00 PM &ndash; 10:00 PM</span><strong>Evening
+                  Party</strong>Music, dancing, and one last song.</div>
             </div>
           </div>
           <hr class="rule-thin" style="margin:.9rem 0;">
@@ -4349,11 +4517,11 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>Jacob A. Amenence</td>
+                  <td>Jansen M. Lapuag</td>
                   <td>Rose Carmelle A. DeJoya</td>
                 </tr>
                 <tr>
-                  <td>Jansen M. Lapuag</td>
+                  <td>Jacob A. Amenence</td>
                   <td>Mary Cerila Cueva</td>
                 </tr>
                 <tr>
@@ -4398,11 +4566,25 @@
                   beautiful journey together.</p>
                 <p>Your thoughtfulness and generosity mean so much to us, and your kindness will be
                   treasured as we begin building our life together.</p>
-                <p>GCash: Pending<br>Bank: Pending</p>
+                <div class="gift-qr">
+                  <a class="gq-item" href="assets/img/np-qr-gcash.png" target="_blank" rel="noopener">
+                    <img src="assets/img/np-qr-gcash.png" width="640" height="640" loading="lazy"
+                      alt="InstaPay QR code for our GCash account">
+                    <span class="gq-bank">GCash</span>
+                    <span class="gq-acct">+63 969 275 ••••</span>
+                  </a>
+                  <a class="gq-item" href="assets/img/np-qr-metrobank.png" target="_blank" rel="noopener">
+                    <img src="assets/img/np-qr-metrobank.png" width="640" height="640" loading="lazy"
+                      alt="InstaPay QR code for our Metrobank account">
+                    <span class="gq-bank">Metrobank</span>
+                    <span class="gq-acct">Michelle Lau De Joya<br>••• ••• ••• 2771</span>
+                  </a>
+                </div>
+                <p class="gq-hint">Tap a code to open it full size</p>
               </div>
             </div>
             <div class="note-item">
-              <div class="ni-head">An Unplugged Ceremony</div>
+              <div class="ni-head">An Unplugged Ceremony (During the Holy Mass)</div>
               <div class="ni-text">Please keep phones and cameras away during the ceremony. Our photographers
                 will capture every moment.</div>
             </div>
@@ -4460,7 +4642,7 @@
         <!-- COL 1: A MESSAGE FROM THE COUPLE -->
         <div class="col reveal" style="padding-bottom:1.4rem;">
           <span class="art-label">A message from the couple</span>
-          <h2 class="art-head">Every Moment Written By <em>God's Perfect Timing</em></h2>
+          <h2 class="art-head">Every Moment Written By <em>God's Perfect Time</em></h2>
           <div class="art-byline">With our whole hearts</div>
           <div class="art-body">
             <p>Today, we look back with grateful hearts. Grateful for the memories, the lessons, the
@@ -4809,6 +4991,26 @@
         </div>
       </div>
 
+      <!-- The couple's closing card: three small asks, set in the paper's own
+           type with their illustrations lifted out of the artwork. -->
+      <div class="send-off reveal">
+        <div class="rule-ornate"><span>Three Small Asks</span></div>
+        <div class="send-off-grid">
+          <figure class="sw-item">
+            <img src="assets/img/np-send-1.png" alt="" width="283" height="340" loading="lazy">
+            <figcaption>Be On Time</figcaption>
+          </figure>
+          <figure class="sw-item">
+            <img src="assets/img/np-send-2.png" alt="" width="336" height="340" loading="lazy">
+            <figcaption>Finish the Event</figcaption>
+          </figure>
+          <figure class="sw-item">
+            <img src="assets/img/np-send-3.png" alt="" width="250" height="340" loading="lazy">
+            <figcaption>Enjoy &amp; Have Fun</figcaption>
+          </figure>
+        </div>
+      </div>
+
       <div class="newspaper-footer">
         <span class="nf-copy">Issue No. 1 · Happily Ever After · Est. 2026</span>
         <span class="nf-mark"><img src="assets/img/np-logo.png" alt="Randy &amp; Laurice" width="292" height="292"
@@ -4882,11 +5084,11 @@
        the headline can still wrap on a phone. */
     function splitText(el, mode) {
       if (!el || el.dataset.split) return [];
-      var parts = el.textContent.split(/(\s+)/), units = [];
+      var parts = el.textContent.split(/([ \t\n\r\f\v]+)/), units = [];
       el.textContent = '';
       parts.forEach(function (chunk) {
         if (!chunk) return;
-        if (/^\s+$/.test(chunk)) { el.appendChild(document.createTextNode(chunk)); return; }
+        if (/^[ \t\n\r\f\v]+$/.test(chunk)) { el.appendChild(document.createTextNode(chunk)); return; }
         var word = document.createElement('span');
         word.style.display = 'inline-block';
         if (mode === 'chars') {
