@@ -97,7 +97,7 @@ between phone and desktop.
 | Reception | ✅ 5:00 PM | front-page fact box, programme, venue card |
 | Guest arrival | ✅ Before 2:30 PM (FAQ) | FAQ |
 | Programme | ✅ 2:30 PM–10:00 PM, five slots from the timeline card | programme |
-| RSVP deadline | ✅ October 3, 2026 | front-page fact box, RSVP box, intro notice |
+| RSVP deadline | ✅ October 10, 2026 | front-page fact box, RSVP box, intro notice |
 | City | ✅ Cebu City | mast bar, front-page caption, bylines, venue cards, closing block, intro dateline |
 | Ceremony venue | ✅ Archdiocesan Shrine of St. Thérèse, Lahug, Cebu City | front-page fact box, programme, venue card, intro lede |
 | Reception venue | ✅ Golden Peak Hotel & Suites, Gorordo Avenue corner North Escario Street, Cebu City | front-page fact box, programme, venue card, intro lede |
@@ -164,7 +164,7 @@ The palette, sampled from the card:
 ⚠️ **These are garment colours and have nothing to do with `:root`.** The paper's own ink still uses
 `--emerald #005548`, `--burgundy #801624` and the rest for labels, rules and frames; those must not be
 changed to match the dress code. The only places the garment colours appear are `np-palette.jpg`,
-`.db-text`, and the four `.attire-swatch-inline` chips.
+`.db-text`, and the five `.attire-swatch-inline` chips.
 
 ⚠️ **The groomsmen's colour was renamed.** It read "Emerald Green" with a teal chip, which matched
 neither the card nor the suits pictured below it; it now reads **Olive Green** against `#4A481F`. If
