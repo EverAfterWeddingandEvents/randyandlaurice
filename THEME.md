@@ -59,18 +59,25 @@ Body ink on stock sits at 17:1. If you change a token, re-check the pair.
 
 | Family | Job |
 |---|---|
-| Playfair Display | Mastheads, headlines, article heads, drop caps, countdown numerals |
+| Playfair Display | The page masthead, headlines, article heads, drop caps, countdown numerals |
+| IM Fell English SC | The front-page nameplate (`.np-masthead`) — small caps |
 | IM Fell English | Italic taglines — the antique-press voice |
 | Libre Baskerville | Body copy, tables, itinerary |
 | Cormorant Garamond | Body base |
 | Jost 200–500 | Small-caps labels, kickers, buttons |
 | Brush Script MT (system) | The `R & L` monogram marks |
 
-⚠️ **UnifrakturMaguntia was dropped from the mastheads.** The blackletter capital I is drawn
-almost identically to a J, so `.np-masthead` read as "The Moment We Say “J Do”" on a phone. It now
-uses Playfair Display 900, the same face `.mast-title` already carried for those exact words — the
-two mastheads agree, as §2 of CONTENT.md asks. The font is still requested in the Google Fonts
-link and still named by `.ne-masthead`, a rule nothing uses.
+⚠️ **UnifrakturMaguntia is gone.** The blackletter capital I is drawn almost identically to a J, so
+`.np-masthead` read as "The Moment We Say “J Do”" on a phone — guests could not read it. It now uses
+**IM Fell English SC**, the small-caps cut of the family whose italic already sets every tagline on
+the site, so the nameplate keeps the antique-press voice without the ambiguity. The font is no longer
+requested in the Google Fonts link, and `.ne-masthead` — the only other rule that named it, which no
+markup used — was removed with it.
+
+⚠️ **The two mastheads no longer share a face, on purpose.** `.np-masthead` is IM Fell English SC and
+`.mast-title` is Playfair Display 900. §2 of CONTENT.md asks them to agree on *content*, not on type:
+the front-page nameplate is a masthead, and the one on the page proper is a title. Setting both in
+Playfair also collided with `.np-headline` directly beneath it, which is Playfair 900 uppercase.
 
 **Two bugs fixed from the reference sample** — worth knowing if you diff against it:
 the font `<link>` carried **two `href` attributes**, so the second silently won and the real font set

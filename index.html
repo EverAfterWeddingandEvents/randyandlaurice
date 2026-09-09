@@ -38,7 +38,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600;1,700&family=UnifrakturMaguntia&family=IM+Fell+English:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@200;300;400;500&display=swap">
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600;1,700&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@200;300;400;500&display=swap">
   <style>
     :root {
       /* ── the moodboard palette, sampled from wedding_theme.jpg ── */
@@ -180,13 +180,14 @@
     /* clamped, not fixed: the sheet is 90% of the viewport up to 420px, so on a
      320px phone fixed type wraps the masthead and headline into extra lines and
      the page stops fitting inside its 85vh */
-    /* Playfair 900, not the blackletter this once used: in Fraktur the capital
-       I is all but identical to a J, so the title read as "J Do" on a phone.
-       Same face and weight as .mast-title, which carries these exact words
-       further down the page. */
+    /* Not the blackletter this once used: in Fraktur the capital I is all but
+       identical to a J, so the title read as "J Do" on a phone. IM Fell English
+       SC keeps the antique-press voice the page already speaks in — the italic
+       of the same family sets every tagline on the site — and its small caps
+       give the nameplate weight without the ambiguity. */
     .np-masthead {
-      font-family: 'Playfair Display', serif;
-      font-weight: 900;
+      font-family: 'IM Fell English SC', serif;
+      font-weight: 400;
       letter-spacing: .02em;
       font-size: clamp(1.1rem, 6vw, 1.7rem);
       color: #1F0206;
@@ -476,15 +477,6 @@
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
       pointer-events: none;
       opacity: 0.5;
-    }
-
-    .ne-masthead {
-      font-family: 'UnifrakturMaguntia', cursive;
-      font-size: 1.8rem;
-      color: var(--paper);
-      letter-spacing: .04em;
-      margin-bottom: .3rem;
-      text-shadow: 0 0 30px rgba(247, 239, 227, 0.15);
     }
 
     .ne-dateline {
