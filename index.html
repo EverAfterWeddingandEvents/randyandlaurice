@@ -180,8 +180,14 @@
     /* clamped, not fixed: the sheet is 90% of the viewport up to 420px, so on a
      320px phone fixed type wraps the masthead and headline into extra lines and
      the page stops fitting inside its 85vh */
+    /* Playfair 900, not the blackletter this once used: in Fraktur the capital
+       I is all but identical to a J, so the title read as "J Do" on a phone.
+       Same face and weight as .mast-title, which carries these exact words
+       further down the page. */
     .np-masthead {
-      font-family: 'UnifrakturMaguntia', cursive;
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      letter-spacing: .02em;
       font-size: clamp(1.1rem, 6vw, 1.7rem);
       color: #1F0206;
       margin: 0;

@@ -59,13 +59,18 @@ Body ink on stock sits at 17:1. If you change a token, re-check the pair.
 
 | Family | Job |
 |---|---|
-| UnifrakturMaguntia | Blackletter mastheads |
-| Playfair Display | Headlines, article heads, drop caps, countdown numerals |
+| Playfair Display | Mastheads, headlines, article heads, drop caps, countdown numerals |
 | IM Fell English | Italic taglines — the antique-press voice |
 | Libre Baskerville | Body copy, tables, itinerary |
 | Cormorant Garamond | Body base |
 | Jost 200–500 | Small-caps labels, kickers, buttons |
 | Brush Script MT (system) | The `R & L` monogram marks |
+
+⚠️ **UnifrakturMaguntia was dropped from the mastheads.** The blackletter capital I is drawn
+almost identically to a J, so `.np-masthead` read as "The Moment We Say “J Do”" on a phone. It now
+uses Playfair Display 900, the same face `.mast-title` already carried for those exact words — the
+two mastheads agree, as §2 of CONTENT.md asks. The font is still requested in the Google Fonts
+link and still named by `.ne-masthead`, a rule nothing uses.
 
 **Two bugs fixed from the reference sample** — worth knowing if you diff against it:
 the font `<link>` carried **two `href` attributes**, so the second silently won and the real font set
