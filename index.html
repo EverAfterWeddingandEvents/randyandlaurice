@@ -1723,6 +1723,14 @@
       color: inherit;
     }
 
+    /* An odd third code would sit alone in the left column and read as a
+       mistake; span the row and centre it at the width of the pair above. */
+    .gq-item.gq-wide {
+      grid-column: 1 / -1;
+      width: calc(50% - .25rem);
+      margin-inline: auto;
+    }
+
     .gq-item img {
       display: block;
       width: 100%;
@@ -4576,6 +4584,12 @@
                       alt="InstaPay QR code for our Metrobank account">
                     <span class="gq-bank">Metrobank</span>
                     <span class="gq-acct">Michelle Lau De Joya<br>••• ••• ••• 2771</span>
+                  </a>
+                  <a class="gq-item gq-wide" href="assets/img/np-qr-gotyme.png" target="_blank" rel="noopener">
+                    <img src="assets/img/np-qr-gotyme.png" width="640" height="640" loading="lazy"
+                      alt="InstaPay QR code for our GoTyme Bank account">
+                    <span class="gq-bank">GoTyme</span>
+                    <span class="gq-acct">Michelle Laurice De Joya<br>••• ••• ••• 0231</span>
                   </a>
                 </div>
                 <p class="gq-hint">Tap a code to open it full size</p>

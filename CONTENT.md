@@ -131,7 +131,7 @@ blocks so neither column runs away with it.
   venue. Also used verbatim as the headline sub.
 - **"Notes from the Archive"** — six rows now. First met and first date are `Pending`; the rest are
   real.
-- **Notes & Reminders** — gifts (GCash/bank are `Pending`), unplugged ceremony, punctuality
+- **Notes & Reminders** — gifts (three InstaPay QR codes), unplugged ceremony, punctuality
   (2:30 PM), adults-only reception. **The adults-only note is a real policy decision** — delete it if
   it doesn't apply.
 - **FAQ** — five questions. Arrival time and parking answer `Pending`; check the other three are
@@ -255,8 +255,21 @@ picks it up via `aria-labelledby`.
 
 ### Gifts
 
-Gift details in the "On Gifts" note read `GCash: Pending` and `Bank: Pending` — the plan does not
-carry them.
+The "On Gifts" note carries three InstaPay QR codes, in `.gift-qr`: **GCash**, **Metrobank** and
+**GoTyme**. Each is a 640×640 PNG in `assets/img/` and links to itself, so tapping opens it full
+size — which is how a guest actually scans one; at the ~82px the grid renders on a phone no code
+will scan. Account numbers are shown masked to their last four digits.
+
+The grid is two columns, so a third code would sit alone in the left one. `.gq-wide` spans the row
+and centres it at the width of the pair above. A fourth code would pair up on its own row and the
+class should come off the third.
+
+⚠️ **Never redraw one of these by hand or regenerate it from a decoded payload.** Replace a code
+only with the bank's own export, and decode the finished file to confirm the payload still matches
+before it ships — money follows these. GoTyme's in particular uses a high error-correction level to
+survive the InstaPay logo over its centre; regenerating it at a default level silently throws that
+away. If a supplied code is cropped tight, pad a quiet zone of at least four modules around it
+rather than publishing it flush to the edge: without that margin scanners cannot lock on at all.
 
 ---
 
