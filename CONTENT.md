@@ -66,7 +66,8 @@ closing message. All three draw `assets/img/np-logo.png`, masked to a circle.
 
 ## 3. Names
 
-All of these are now set from the `ENTOURAGE` sheet — 51 people.
+All of these started from the `ENTOURAGE` sheet — 51 people — and the couple has since added to the
+list directly.
 
 | Field | Value |
 |---|---|
@@ -75,7 +76,7 @@ All of these are now set from the `ENTOURAGE` sheet — 51 people.
 | Groom's parents | Mr. Efrino G. Odchigue & Mrs. Eva W. Odchigue |
 | Best Man / Maid of Honour | John Rey A. De Joya / Mellen Angelie W. Odchigue |
 | Groomsmen & Bridesmaids | 5 rows each — add or remove `<tr>`s freely |
-| Principal Sponsors | 11 rows |
+| Principal Sponsors | 12 rows |
 | Officiant | *removed* — the sponsors column reads "Chosen to guide us". To reinstate, put the name back in that `.art-byline`. |
 | Secondary sponsors | ring / coin / bible bearers, flower girls, little brides, candle / cord / veil sponsors, offertory |
 
