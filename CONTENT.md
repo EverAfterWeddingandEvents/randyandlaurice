@@ -255,14 +255,17 @@ picks it up via `aria-labelledby`.
 
 ### Gifts
 
-The "On Gifts" note carries three InstaPay QR codes, in `.gift-qr`: **GCash**, **Metrobank** and
-**GoTyme**. Each is a 640×640 PNG in `assets/img/` and links to itself, so tapping opens it full
-size — which is how a guest actually scans one; at the ~82px the grid renders on a phone no code
-will scan. Account numbers are shown masked to their last four digits.
+The "On Gifts" note carries two InstaPay QR codes, in `.gift-qr`: **GCash** and **GoTyme**. Each is
+a 640×640 PNG in `assets/img/` and links to itself, so tapping opens it full size — which is how a
+guest actually scans one; at the ~82px the grid renders on a phone no code will scan. Account
+numbers are shown masked to their last four digits.
 
-The grid is two columns, so a third code would sit alone in the left one. `.gq-wide` spans the row
-and centres it at the width of the pair above. A fourth code would pair up on its own row and the
-class should come off the third.
+The grid is two columns, so the pair fills a row exactly. An odd third code would sit alone in the
+left column and read as a mistake — give it `grid-column: 1 / -1`, `width: calc(50% - .25rem)` and
+`margin-inline: auto` to centre it at the width of the pair above.
+
+Metrobank was carried here until the couple withdrew it; its QR file was deleted with the markup,
+so the image is no longer served, though it remains in git history.
 
 ⚠️ **Never redraw one of these by hand or regenerate it from a decoded payload.** Replace a code
 only with the bank's own export, and decode the finished file to confirm the payload still matches
