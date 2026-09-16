@@ -408,11 +408,12 @@ both dulled the couple, and the palette already carries the theme through the in
 
 ## 8. Music — done
 
-**Track:** `assets/music/goodness-of-god.mp3` — *Goodness of God*, Bethel Music. 4.5 MB, 5:04.
+**Track:** `assets/music/you.mp3` — *You*, Jim Brickman (with Tara MacLean). 3.9 MB, 4:09.
 
-It arrived as `Goodness Of God (Lyrics)  Bethel Music.mp3`; **renamed** because spaces — and a *double*
-space — in a deployed URL are a needless thing to debug on somebody's phone. To swap the track, drop the
-new file in `assets/music/`, point the `<source src>` at it, and retype `#music-label`.
+It arrived as `YOU - (Jim Brickman and Tara MacLean  Lyrics).mp3`; **renamed** because spaces — and a
+*double* space — in a deployed URL are a needless thing to debug on somebody's phone. (The earlier track,
+*Goodness of God* by Bethel Music, was swapped out for this one.) To swap the track again, drop the new
+file in `assets/music/`, point the `<source src>` at it, and retype `#music-label`.
 
 `hasTrack()` still guards everything: blank the `src` and the player removes itself rather than showing
 a dead button.
