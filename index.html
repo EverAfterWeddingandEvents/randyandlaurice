@@ -3,7 +3,13 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+  <!-- No viewport-fit=cover: nothing here is built edge-to-edge, and opting in
+       only extends the scroll area up behind the status bar, where the fixed
+       nav cannot follow it — iOS lays fixed elements out inside the safe area
+       and clips them to it, so no amount of negative offset covers the strip.
+       Left at the default, the whole viewport stays inside the safe area and
+       the strip is filled with the canvas colour instead. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <title>Randy &amp; Laurice — The Moment We Say “I Do”</title>
   <meta name="description"
     content="Randy &amp; Laurice are getting married. Read all about it — the story, the timeline, the entourage, and how to RSVP.">
@@ -72,17 +78,6 @@
       --rule: #1F0206;
       --rule-thin: rgba(31, 2, 6, 0.22);
       --mat: #00382F;
-
-      /* ── overscan for the fixed chrome ──
-         The page ships `viewport-fit=cover`, so scrolling content paints all
-         the way up behind the status bar, but a `position: fixed; top: 0`
-         bar is laid out below it — leaving a strip the bar cannot cover and
-         the paper shows through. Rather than trust env(safe-area-inset-top),
-         which reads 0 in exactly the browsers that do this, each fixed bar
-         starts this far above its own top edge and pads its contents back
-         down by the same amount: the box is unmoved, the background is not.
-         80px clears the tallest status bar / Dynamic Island going. */
-      --bleed-top: 80px;
     }
 
     *,
@@ -99,11 +94,10 @@
 
     #newspaper-intro-wrapper {
       position: fixed;
-      top: calc(-1 * var(--bleed-top));
+      top: 0;
       left: 0;
       width: 100%;
-      height: calc(100vh + var(--bleed-top));
-      padding-top: var(--bleed-top);
+      height: 100vh;
       z-index: 10000;
       /* opaque: at .95 the front page underneath read straight through the
          cover, and the unroll is meant to be the first sight of it */
@@ -2174,6 +2168,7 @@
     /* ── NAV ── */
     nav {
       position: fixed;
+      top: 0;
       left: 50%;
       transform: translateX(-50%);
       z-index: 200;
@@ -2182,9 +2177,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: var(--bleed-top) 2rem 0;
-      top: calc(-1 * var(--bleed-top));
-      height: calc(48px + var(--bleed-top));
+      padding: 0 2rem;
+      height: 48px;
       background: rgba(247, 239, 227, 0.97);
       border-bottom: 2px solid var(--ink);
       backdrop-filter: blur(12px);
@@ -2306,7 +2300,7 @@
     /* ===== MOBILE LAYOUT ===== */
     @media (max-width: 720px) {
       nav {
-        padding: var(--bleed-top) 1rem 0;
+        padding: 0 1rem;
       }
 
       .hamburger {
