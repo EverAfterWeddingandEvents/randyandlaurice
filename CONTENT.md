@@ -98,7 +98,7 @@ between phone and desktop.
 | Reception | ✅ 5:00 PM | front-page fact box, programme, venue card |
 | Guest arrival | ✅ Before 2:30 PM (FAQ) | FAQ |
 | Programme | ✅ 2:30 PM–10:00 PM, five slots from the timeline card | programme |
-| RSVP deadline | ✅ October 10, 2026 | front-page fact box, RSVP box, intro notice |
+| RSVP deadline | ✅ October 15, 2026 | front-page fact box, RSVP box, intro notice |
 | City | ✅ Cebu City | mast bar, front-page caption, bylines, venue cards, closing block, intro dateline |
 | Ceremony venue | ✅ Archdiocesan Shrine of St. Thérèse, Lahug, Cebu City | front-page fact box, programme, venue card, intro lede |
 | Reception venue | ✅ Golden Peak Hotel & Suites, Gorordo Avenue corner North Escario Street, Cebu City | front-page fact box, programme, venue card, intro lede |
