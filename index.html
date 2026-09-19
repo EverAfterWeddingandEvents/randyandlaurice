@@ -72,6 +72,16 @@
       --rule: #1F0206;
       --rule-thin: rgba(31, 2, 6, 0.22);
       --mat: #00382F;
+
+      /* ── nav metrics ──
+         The page ships `viewport-fit=cover`, so on a notched phone the layout
+         viewport starts *behind* the status bar. --safe-top is that overlap;
+         the nav grows by it and pads its row down past it, so the bar still
+         covers every pixel the status bar sits on and the paper never shows
+         through beside the clock. Falls back to 0px everywhere else. */
+      --safe-top: env(safe-area-inset-top, 0px);
+      --nav-h: 48px;
+      --nav-total: calc(var(--nav-h) + var(--safe-top));
     }
 
     *,
@@ -2169,8 +2179,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 2rem;
-      height: 48px;
+      padding: var(--safe-top) 2rem 0;
+      height: var(--nav-total);
       background: rgba(247, 239, 227, 0.97);
       border-bottom: 2px solid var(--ink);
       backdrop-filter: blur(12px);
@@ -2292,7 +2302,7 @@
     /* ===== MOBILE LAYOUT ===== */
     @media (max-width: 720px) {
       nav {
-        padding: 0 1rem;
+        padding: var(--safe-top) 1rem 0;
       }
 
       .hamburger {
@@ -2308,7 +2318,7 @@
         display: flex;
         flex-direction: column;
         position: fixed;
-        top: 48px;
+        top: var(--nav-total);
         left: 0;
         right: 0;
         background: rgba(247, 239, 227, 0.98);
@@ -4202,7 +4212,7 @@
   </nav>
 
   <!-- ══ THE PAPER ══ -->
-  <div style="padding-top:48px;">
+  <div style="padding-top:var(--nav-total);">
     <div class="newspaper">
 
       <!-- MASTHEAD -->
